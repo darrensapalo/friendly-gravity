@@ -12,7 +12,6 @@ function Game(canvasname, resourceList) {
 	this.aboutScreen = new AboutScreen(this);
 	this.developScreen = new DevelopScreen(this);
 	
-	
 	this.currentScore = 0;
 	this.pressX;
 	this.pressY;

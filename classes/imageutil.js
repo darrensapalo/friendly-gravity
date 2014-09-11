@@ -25,7 +25,7 @@ function ImageLoader(list) {
 		for(var i=0;i<this.list.length;i++) {
 			pair = this.list[i];
 			this.images[pair.name] = new Image();
-			this.images[pair.name].src = pair.url;
+			this.images[pair.name].src = 'assets/art/' + pair.url;
 		}
 		setTimeout(function () { currObj.CheckComplete() },100);
 	}
