@@ -29,8 +29,6 @@
 	<script>
 	var myGame = new Game("blackhole", resourceList);
 	
-	var DISABLE_MUSIC = false;
-
 	var KEY_LEFT=37, KEY_RIGHT=39, KEY_UP=38, KEY_DOWN=40, KEY_SPACE=32, KEY_M = 77, KEY_ENTER = 13;
 	var isUp = false, isDown = false, isLeft = false, isRight=false, isSpace=false, isMusic = false, isToggleMusic = true, isEnter = false;
 
@@ -59,9 +57,9 @@
 
 		myGame.displayCometTrail = true;
 
-			// myGame.ResetData();
+		// myGame.ResetData();
 
-			if (!DISABLE_MUSIC && (isMusic = myGame.hasSounds)) myGame.AudioManager.sound.bgm.play();
+		
 
 		}
 

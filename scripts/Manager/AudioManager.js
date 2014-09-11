@@ -1,8 +1,10 @@
 function AudioManager()
 {
-	var is_ready = false;
-	var is_playing;
-	var is_toggled;
+	var isReady = false;
+	var isPlaying = false;
+	var isToggled;
+	var bgm = {};
+	var sfx = {};
 
 	// buffers automatically when created
 	this.load = function(filename)
@@ -10,49 +12,62 @@ function AudioManager()
 		return new Audio("assets/audio/" + filename);
 	}
 
-	var background_music = this.load("new bgm.mp3");
-	background_music.addEventListener('loaded', function () {
-		is_ready = true;
-	});
+	bgm = this.load("friendly_gravity.mp3");
 
-	// Background audio
-	this.sound = 
-	{
-		bgm: background_music,
-		volume: 0,
-		loop: true,
-	}
+	bgm.addEventListener('loadeddata', function () {
+		isReady = true;
+		bgm.volume = Config.bgmVolume;
+
+		beginPlayingMusic();
+
+		if (Config.bgmRepeat)
+		{
+			bgm.addEventListener('ended', function(){
+				bgm.currentTime = 0;
+				bgm.play();
+			});
+		}
+	});
 	
 	// Sound effects
-	this.sfx = {
+	sfx = {
 		vortex: this.load("sfxvortex.mp3"),
 		shockwave: this.load("shockwave.mp3"),
 		volume: 0.13
-	}
+	};
 
 	this.Play = function(sound)
 	{
+		if (Config.musicEnabled == false) return false;
+		if (isReady == false) return false;
+
 		switch(sound)
 		{
-			case "bgm": this.background_music.play();
-			case "vortex": this.sfx.vortex.play();
-			case "shockwave": this.sfx.shockwave.play();
+			case "bgm": bgm.play(); break;
+			case "vortex": sfx.vortex.play(); break;
+			case "shockwave": sfx.shockwave.play(); break;
 		}
+		return true;
 	}
 
 	this.Manage = function()
 	{
-		if (Config.music == false) return;
-		if (is_ready == false) return;
+		if (Config.musicEnabled == false) return false;
+		if (this.bgm === undefined) return false;
 
-		if (is_playing && is_toggled == false){
-			is_playing = !is_playing;
-			is_toggled = true;
+		if (isPlaying && isToggled == false){
+			isPlaying = !isPlaying;
+			isToggled = true;
 		}
-
-		if (is_playing)
-			this.sound.bgm.play();
+		if (isPlaying)
+			this.bgm.play();
 		else
-			this.sound.bgm.pause();
+			this.bgm.pause();
 	}
+}
+
+function beginPlayingMusic()
+{
+	myGame.AudioManager.Play("bgm");
+	isPlaying = true;
 }
