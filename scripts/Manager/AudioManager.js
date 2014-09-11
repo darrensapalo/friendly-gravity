@@ -30,6 +30,16 @@ function AudioManager()
 		volume: 0.13
 	}
 
+	this.Play = function(sound)
+	{
+		switch(sound)
+		{
+			case "bgm": this.background_music.play();
+			case "vortex": this.sfx.vortex.play();
+			case "shockwave": this.sfx.shockwave.play();
+		}
+	}
+
 	this.Manage = function()
 	{
 		if (Config.music == false) return;

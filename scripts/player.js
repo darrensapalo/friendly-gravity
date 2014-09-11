@@ -178,7 +178,7 @@ function Player (){
 
 		if (isSpace && this.hasPulseNova){
 			if (myGame.hasSounds)
-				shockwaveSFX.play();
+				myGame.AudioManager.Play("shockwave");
 			this.hasPulseNova = false;
 			this.injectionTimeout = this.getShockwaveCooldown();
 			for (var i = 0; i < comets.length; i++)
