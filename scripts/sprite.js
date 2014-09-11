@@ -104,7 +104,7 @@ function TextSprite(text, x, y, width, height, bgColor, textColor) {
 			context.strokeStyle = this.bgColor;
 			context.lineWidth = 4;
 			context.fillStyle = this.textColor;
-			context.font = fontsize + " " + font + ", regular"
+			context.font = Config.fontsize + " " + Config.font + ", regular"
 			
 			context.textBaseline = "top";
 			context.textAlign = "center";

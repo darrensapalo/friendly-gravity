@@ -16,6 +16,9 @@ function Game(canvasname, resourceList) {
 	this.pressX;
 	this.pressY;
 	
+	this.AudioManager = new AudioManager();
+	this.ManageMusic = this.AudioManager.Manage;
+
 	this.cash;
 	this.highScore;
 	this.baseShockwaveCooldown;

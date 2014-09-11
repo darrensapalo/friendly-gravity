@@ -1,114 +1,69 @@
 <html>
-<head>
-
-<style>
-@font-face {
-    font-family: 'digital_techregular';
-    src: url('font/space_age_2.eot');
-    src: url('font/space_age_2.eot?#iefix') format('embedded-opentype'),
-         url('font/space_age_2.woff') format('woff'),
-         url('font/space_age_2.ttf') format('truetype'),
-         url('font/space_age_2.svg#cyberspaceregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-body { background-color: #000000; }
-</style>
+<head>	
+	<script src="scripts/lib/tweenjs.js" type="text/javascript"></script>
 	
-	<script src="classes/imageutil.js" type="text/javascript"></script>
-	<script src="classes/sprite.js" type="text/javascript"></script>
-	<script src="classes/resources.js" type="text/javascript"></script>
-	<script src="classes/game.js" type="text/javascript"></script>
+	<script src="scripts/imageutil.js" type="text/javascript"></script>
+	<script src="scripts/sprite.js" type="text/javascript"></script>
+	<script src="scripts/resources.js" type="text/javascript"></script>
+	<script src="scripts/game.js" type="text/javascript"></script>
 
-	<script src="classes/GameScreen.js" type="text/javascript"></script>
-	<script src="classes/GameOverScreen.js" type="text/javascript"></script>
-	<script src="classes/MainMenuScreen.js" type="text/javascript"></script>
-	<script src="classes/ShopScreen.js" type="text/javascript"></script>
-	<script src="classes/TutorialScreen.js" type="text/javascript"></script>
-	<script src="classes/AboutScreen.js" type="text/javascript"></script>
-	<script src="classes/DevelopScreen.js" type="text/javascript"></script>
+	<script src="scripts/Manager/AudioManager.js" type="text/javascript"></script>
+	<script src="scripts/Color.js" type="text/javascript"></script>
+	<script src="scripts/Config.js" type="text/javascript"></script>
+
+	<script src="scripts/Screen/GameScreen.js" type="text/javascript"></script>
+	<script src="scripts/Screen/GameOverScreen.js" type="text/javascript"></script>
+	<script src="scripts/Screen/MainMenuScreen.js" type="text/javascript"></script>
+	<script src="scripts/Screen/ShopScreen.js" type="text/javascript"></script>
+	<script src="scripts/Screen/TutorialScreen.js" type="text/javascript"></script>
+	<script src="scripts/Screen/AboutScreen.js" type="text/javascript"></script>
+	<script src="scripts/Screen/DevelopScreen.js" type="text/javascript"></script>
 
 	
-	<script src="classes/comet.js" type="text/javascript"></script>
-	<script src="classes/player.js" type="text/javascript"></script>
-	<script src="classes/Trail.js" type="text/javascript"></script>
-	<script src="classes/Planet.js" type="text/javascript"></script>
+	<script src="scripts/comet.js" type="text/javascript"></script>
+	<script src="scripts/player.js" type="text/javascript"></script>
+	<script src="scripts/Trail.js" type="text/javascript"></script>
+	<script src="scripts/Planet.js" type="text/javascript"></script>
 	
 	<script>
-	var font = "digital_techregular";
-	var fontsize = "20px";
+	var myGame = new Game("blackhole", resourceList);
+	
+	var DISABLE_MUSIC = false;
 
-	/*
-		Bar (timer)
-		earth spawning
-		Effects:
-			More points
-			Slower stars
-			Increase star spawning (2 levels)
-			Shorter cooldowns for shockwave
-			Longer gameplay
+	var KEY_LEFT=37, KEY_RIGHT=39, KEY_UP=38, KEY_DOWN=40, KEY_SPACE=32, KEY_M = 77, KEY_ENTER = 13;
+	var isUp = false, isDown = false, isLeft = false, isRight=false, isSpace=false, isMusic = false, isToggleMusic = true, isEnter = false;
+
+	var DECREASE_SCORE = 50;
+
+	var changeScreenOpacity = 0;
+
+	myGame.InitGame = function () {
+		window.onkeydown = handleKeydown;
+		window.onkeyup = handleKeyup;
+		window.onmousemove = handleMouseMove;
+
+		myGame.Load();
+
+		myGame.gameScreen.Initialize();
+		myGame.mainMenuScreen.Initialize();
+		myGame.shopScreen.Initialize();
+		myGame.tutorialScreen.Initialize();
+		myGame.aboutScreen.Initialize();
+		myGame.developScreen.Initialize();
+
+		myGame.currentScreen = myGame.mainMenuScreen;
 
 
+		myGame.mousex = myGame.mousey = 0;
 
-		Darren todo list:
-			- Sound effect of shockwave : almost done 
-			- 
-			- 
-
-
-
-
-	*/
-		var myGame = new Game("blackhole", resourceList);
-		
-		var backgroundMusic = new Audio("assets/audio/new bgm.mp3"); // buffers automatically when created
-		var vortexSFX = new Audio("assets/audio/sfxvortex.mp3"); // buffers automatically when created
-		var shockwaveSFX = new Audio("assets/audio/shockwave.mp3"); // buffers automatically when created
-		var redColor = "#CC0000";
-		
-
-		backgroundMusic.volume = 1;
-		vortexSFX.volume = 0.13;
-		backgroundMusic.loop = true;
-
-		var DISABLE_MUSIC = false;
-		
-		var KEY_LEFT=37, KEY_RIGHT=39, KEY_UP=38, KEY_DOWN=40, KEY_SPACE=32, KEY_M = 77, KEY_ENTER = 13;
-		var isUp = false, isDown = false, isLeft = false, isRight=false, isSpace=false, isMusic = false, isToggleMusic = true, isEnter = false;
-
-		var DECREASE_SCORE = 50;
-
-		
-		var changeScreenOpacity = 0;
-
-		myGame.InitGame = function () {
-			window.onkeydown = handleKeydown;
-			window.onkeyup = handleKeyup;
-			window.onmousemove = handleMouseMove;
-			
-				myGame.Load();
-
-			myGame.gameScreen.Initialize();
-			myGame.mainMenuScreen.Initialize();
-			myGame.shopScreen.Initialize();
-			myGame.tutorialScreen.Initialize();
-			myGame.aboutScreen.Initialize();
-			myGame.developScreen.Initialize();
-
-			myGame.currentScreen = myGame.mainMenuScreen;
-
-			
-			myGame.mousex = myGame.mousey = 0;
-			
-			myGame.displayCometTrail = true;
+		myGame.displayCometTrail = true;
 
 			// myGame.ResetData();
 
-			if (!DISABLE_MUSIC && (isMusic = myGame.hasSounds)) backgroundMusic.play();
+			if (!DISABLE_MUSIC && (isMusic = myGame.hasSounds)) myGame.AudioManager.sound.bgm.play();
 
-			}
-			
+		}
+
 		
 		myGame.Quit = function () {
 			if ("localStorage" in window && window["localStorage"] != null) {
@@ -206,24 +161,9 @@ body { background-color: #000000; }
 		myGame.Update = function () {
 			myGame.currentScreen.Update();
 			myGame.UpdateScreenChangeHandler();
-			myGame.checkMusic();
+			myGame.ManageMusic();
 		}
 
-		myGame.checkMusic = function() {
-			// isMusic = myGame.hasSounds;
-
-			if (DISABLE_MUSIC) return;
-
-			if (isMusic && isToggleMusic == false){
-				myGame.hasSounds = !myGame.hasSounds;
-				isToggleMusic = true;
-			}
-
-			if (myGame.hasSounds)
-				backgroundMusic.play();
-			else
-				backgroundMusic.pause();
-		}
 		
 		function handleMouseMove(evt)
 		{
@@ -255,14 +195,14 @@ body { background-color: #000000; }
 			}
 		}
 		
-	</script>
-</head>
-<body>
-<div id="page">
-	<canvas id="blackhole" width="800" height="480" style="border: 1px solid black"></canvas>
-</div>
+		</script>
+	</head>
+	<body>
+		<div id="page">
+			<canvas id="blackhole" width="800" height="480" style="border: 1px solid black"></canvas>
+		</div>
 
-<script> myGame.Start(); </script>
-</body>
+		<script> myGame.Start(); </script>
+	</body>
 
-</html>
+	</html>
