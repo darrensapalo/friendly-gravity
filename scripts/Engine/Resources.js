@@ -26,6 +26,7 @@ var resourceList = [
 	{name:"comet2",url:"comets/comet2.png", type:"ui"},
 	{name:"comet3",url:"comets/comet3.png", type:"ui"},
 	{name:"comet4",url:"comets/comet4.png", type:"ui"},
+	{name:"comethead",url:"comets/comethead.png", type:"ui"},
 
 
 	// ================================================================================

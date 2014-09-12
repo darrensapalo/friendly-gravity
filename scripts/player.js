@@ -50,7 +50,7 @@ function Player (){
 	{
 		if (this.currentScale > this.maxScale)this.currentScale = this.maxScale;
 		this.SetScale(this.currentScale += 0.01);
-		
+		console.log(myGame);
 		myGame.AudioManager.play("vortex");
 	}
 	
@@ -176,8 +176,8 @@ function Player (){
 			this.hasPulseNova = true;
 
 		if (isSpace && this.hasPulseNova){
-			if (myGame.hasSounds)
-				myGame.AudioManager.Play("shockwave");
+			if (Config.musicEnabled)
+				myGame.AudioManager.play("shockwave");
 			this.hasPulseNova = false;
 			this.injectionTimeout = this.getShockwaveCooldown();
 			for (var i = 0; i < comets.length; i++)

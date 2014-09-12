@@ -17,7 +17,7 @@ function Game(canvasname, resourceList) {
 	this.pressY;
 	
 	this.AudioManager = new AudioManager();
-	this.ManageMusic = this.AudioManager.Manage;
+	this.manageMusic = this.AudioManager.manage;
 
 	this.cash;
 	this.highScore;
@@ -42,7 +42,7 @@ function Game(canvasname, resourceList) {
 		}
 	}
 
-	this.UpdateScreenChangeHandler = function()
+	this.updateScreenChangeHandler = function()
 	{
 	var rate = 0.04;
 		if (this.leaveScreen)

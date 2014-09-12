@@ -36,7 +36,7 @@ function AudioManager()
 		volume: 0.13
 	};
 
-	this.Play = function(sound)
+	this.play = function(sound)
 	{
 		if (Config.musicEnabled == false) return false;
 		if (isReady == false) return false;
@@ -50,7 +50,7 @@ function AudioManager()
 		return true;
 	}
 
-	this.Manage = function()
+	this.manage = function()
 	{
 		if (Config.musicEnabled == false) return false;
 		if (this.bgm === undefined) return false;
@@ -68,6 +68,6 @@ function AudioManager()
 
 function beginPlayingMusic()
 {
-	myGame.AudioManager.Play("bgm");
+	myGame.AudioManager.play("bgm");
 	isPlaying = true;
 }
