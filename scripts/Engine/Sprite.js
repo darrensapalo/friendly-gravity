@@ -29,6 +29,8 @@ function Sprite(img, x, y, width, height, opacity, scalex, scaley) {
 			context.scale(this.scalex, this.scaley);
 			context.rotate(this.rotation);
 			context.globalAlpha = this.opacity;
+			if (this.img == undefined) console.log("shiet, its undefined");
+			if (this.img == null) console.log("shiet, its null");
 			context.drawImage(this.img, this.originx, this.originy, this.width, this.height);
 			context.restore();
 		}
@@ -104,7 +106,7 @@ function TextSprite(text, x, y, width, height, bgColor, textColor) {
 			context.strokeStyle = this.bgColor;
 			context.lineWidth = 4;
 			context.fillStyle = this.textColor;
-			context.font = Config.fontsize + " " + Config.font + ", regular"
+			context.font = Config.fontSize + " " + Config.font + ", regular"
 			
 			context.textBaseline = "top";
 			context.textAlign = "center";

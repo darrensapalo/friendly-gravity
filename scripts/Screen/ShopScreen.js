@@ -21,19 +21,19 @@ function ShopScreen(game){
 
 		x = 50;
 		y = 380;
-		this.newGame = new TextSprite("Reset", x + 20, y + 20, 255, 40, blackColor, lightColor);
+		this.newGame = new TextSprite("Reset", x + 20, y + 20, 255, 40, Color.black, Color.light_gray);
 		this.newGame2 = new Sprite(button, x, y, 255, 80, 1);
 		this.newGame2.SetBasicOrigin();
 		
 
 		x += 250;
 		y = 380;
-		this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, blackColor, lightColor);
+		this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
 		this.returnMainMenu2 = new Sprite(button, x, y, 255, 80, 1);
 		this.returnMainMenu2.SetBasicOrigin();
 		
 		x += 250;
-		this.shopButtonCaption = new TextSprite("Shopping", x + 47, y + 20, 200, 40, blackColor, lightColor);
+		this.shopButtonCaption = new TextSprite("Shopping", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
 		this.shop = new Sprite(myGame.GetImage("shopButton"), x, y, 255, 80, 1);
 		this.shop.SetBasicOrigin();
 		

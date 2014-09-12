@@ -1,10 +1,3 @@
-var whiteColor = "#FFFFFF";
-var lightColor = "#EEEEEE";
-var blackColor = "#000000";
-
-var foregroundColor = whiteColor;
-var backgroundColor = blackColor;
-
 function GameScreen(game){
 	this.game = game;
 	this.player;
@@ -58,7 +51,7 @@ function GameScreen(game){
 		this.countdownTimeout = this.injectionTimeout = this.spawnTimeout = 4000;
 		this.showMessage = 4000;
 		
-		this.tutorialText = new TextSprite("Avoid the asteroids and comets", 300, 270, 200, 40, blackColor, lightColor);
+		this.tutorialText = new TextSprite("Avoid the asteroids and comets", 300, 270, 200, 40, Color.black, Color.light_gray);
 		this.finishShowTutorial = false;
 		// this.tutorialText.SetBasicOrigin();
 
@@ -239,7 +232,7 @@ function GameScreen(game){
 		context.strokeStyle = 'black';
 		context.lineWidth = 3;
 		context.fillStyle = "#fff";
-		context.font = fontsize + " " + font + ", regular"
+		context.font = Config.fontSize + " " + Config.font + ", regular"
 		context.textBaseline = "top";
 		context.textAlign = "center";
 		var x, y;

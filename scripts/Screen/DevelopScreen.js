@@ -19,14 +19,14 @@ function DevelopScreen(game){
 		
 		x = 150;
 		y = 380;
-		this.newGame = new TextSprite("Play again", x + 20, y + 20, 255, 40, blackColor, lightColor);
+		this.newGame = new TextSprite("Play again", x + 20, y + 20, 255, 40, Color.black, Color.light_gray);
 		this.newGame2 = new Sprite(button, x, y, 255, 80, 1);
 		this.newGame2.SetBasicOrigin();
 		
 
 		x = 400;
 		y = 380;
-		this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, blackColor, lightColor);
+		this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
 		this.returnMainMenu2 = new Sprite(button, x, y, 255, 80, 1);
 		this.returnMainMenu2.SetBasicOrigin();
 		
@@ -38,24 +38,24 @@ function DevelopScreen(game){
 		this.panel = new Sprite(panelTexture, x, y, 489, 306, 0.8);
 		/*
 		y += 20;
-		this.panelText = new TextSprite("Game over", x + 150, y, 200, 40, blackColor, lightColor);
+		this.panelText = new TextSprite("Game over", x + 150, y, 200, 40, Color.black, Color.light_gray);
 		*/
 		y += 20;
-		this.panelText7 = new TextSprite("Points: " + myGame.cash, x + 150, y, 200, 40, blackColor, lightColor);
+		this.panelText7 = new TextSprite("Points: " + myGame.cash, x + 150, y, 200, 40, Color.black, Color.light_gray);
 		y += 40;
-		this.panelText3 = new TextSprite("More points " + getPointsLevel() + " / 50 (500)", x + 150, y, 200, 40, blackColor, lightColor);
+		this.panelText3 = new TextSprite("More points " + getPointsLevel() + " / 50 (500)", x + 150, y, 200, 40, Color.black, Color.light_gray);
 		this.morePoints = new Sprite(myGame.GetImage("morePoints"), x+ 50, y + 20, 40, 40, 1);
 		y += 40;
-		this.panelText5 = new TextSprite("Slower stars " + getSlowLevel()  + " / 50 (500)", x + 150, y, 200, 40, blackColor, lightColor);
+		this.panelText5 = new TextSprite("Slower stars " + getSlowLevel()  + " / 50 (500)", x + 150, y, 200, 40, Color.black, Color.light_gray);
 		this.slowerStars = new Sprite(myGame.GetImage("slowerStars"), x+ 50, y + 20, 50, 40, 1);
 		y += 40;
-		this.panelText2 = new TextSprite("More time (10000)", x + 150, y, 200, 40, blackColor, lightColor);
+		this.panelText2 = new TextSprite("More time (10000)", x + 150, y, 200, 40, Color.black, Color.light_gray);
 		this.moreTime = new Sprite(myGame.GetImage("moreTime"), x + 50, y + 20, 40, 40, 1);
 		y += 40;
-		this.panelText4 = new TextSprite("More stars (50000)", x + 150, y, 200, 40, blackColor, lightColor);
+		this.panelText4 = new TextSprite("More stars (50000)", x + 150, y, 200, 40, Color.black, Color.light_gray);
 		this.moreStars = new Sprite(myGame.GetImage("moreStars"), x+ 50, y + 20, 40, 40, 1);
 		y += 50;
-		this.panelText6 = new TextSprite("click an icon to buy", x + 150, y, 200, 40, blackColor, lightColor);
+		this.panelText6 = new TextSprite("click an icon to buy", x + 150, y, 200, 40, Color.black, Color.light_gray);
 		
 
 		this.UpdateOpacity();

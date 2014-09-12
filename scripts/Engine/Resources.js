@@ -16,12 +16,16 @@ var resourceList = [
 	{name:"asteroidsmall",url:"asteroids/asteroidsmall.png", type:"ui"},
 	{name:"asteroidglow",url:"asteroids/asteroidglow.png", type:"ui"},
 	
-
-	{name:"bar",url:"planets/bar.png", type:"ui"},
-	{name:"barHolder",url:"planets/barholder.png", type:"ui"},
-
-	{name:"soundButton",url:"toggle_music/sound.png", type:"ui"},
-	{name:"soundButton2",url:"toggle_music/soundGlow.png", type:"ui"},
+	{name:"tail1",url:"tails/tail1.png", type:"ui"},
+	{name:"tail2",url:"tails/tail2.png", type:"ui"},
+	{name:"tail3",url:"tails/tail3.png", type:"ui"},
+	{name:"tail4",url:"tails/tail4.png", type:"ui"},
+	
+	
+	{name:"comet1",url:"comets/comet1.png", type:"ui"},
+	{name:"comet2",url:"comets/comet2.png", type:"ui"},
+	{name:"comet3",url:"comets/comet3.png", type:"ui"},
+	{name:"comet4",url:"comets/comet4.png", type:"ui"},
 
 
 	// ================================================================================
@@ -64,6 +68,13 @@ var resourceList = [
 	{name:"arrowRightPressed",url:"ui/arrows/arrow-rightpress.png", type:"ui"},
 
 	{name:"spacebar",url:"ui/spacebar/spacebar.png", type:"ui"},
+
+	{name:"bar",url:"planets/bar.png", type:"ui"},
+	{name:"barHolder",url:"planets/barholder.png", type:"ui"},
+
+	{name:"soundButton",url:"toggle_music/sound.png", type:"ui"},
+	{name:"soundButton2",url:"toggle_music/soundGlow.png", type:"ui"},
+
 	
 
 	// ================================================================================

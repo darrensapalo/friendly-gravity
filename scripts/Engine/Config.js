@@ -1,9 +1,9 @@
 var Config = {
 	font: "digital_techregular",
-	fontsize: "12px",
+	fontSize: "12px",
 
 	// Sound and music
-	musicEnabled: true,
+	musicEnabled: false,
 
 	bgmVolume: 1,
 	bgmRepeat: true

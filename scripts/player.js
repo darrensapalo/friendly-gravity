@@ -50,9 +50,8 @@ function Player (){
 	{
 		if (this.currentScale > this.maxScale)this.currentScale = this.maxScale;
 		this.SetScale(this.currentScale += 0.01);
-		if (myGame.hasSounds && !DISABLE_MUSIC)
-			vortexSFX.play();
 		
+		myGame.AudioManager.play("vortex");
 	}
 	
 	this.Initialize = function() {

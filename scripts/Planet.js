@@ -103,7 +103,7 @@ function Planet (){
 		this.xAcceleration = this.yAcceleration = 0;
 		this.force = this.maxForce;
 
-		this.decreasedScoreText = new TextSprite("-" + DECREASE_SCORE * 5, this.sprite.x, this.sprite.y, 100, 40, blackColor, "#CC0000");
+		this.decreasedScoreText = new TextSprite("-" + DECREASE_SCORE * 5, this.sprite.x, this.sprite.y, 100, 40, Color.black, "#CC0000");
 	}
 
 	function checkIfNearBlackHole(x, y, player)

@@ -26,25 +26,25 @@ function GameOverScreen(game){
 	
 		
 	var button = myGame.GetImage("Button");
-	this.newGame = new TextSprite("Play again", 263, 200, 255, 40, blackColor, lightColor);
+	this.newGame = new TextSprite("Play again", 263, 200, 255, 40, Color.black, Color.light_gray);
 	
 	var x, y;
 	
 	x = 50;
 	y = 380;
-	this.newGame = new TextSprite("Play again", x + 20, y + 20, 255, 40, blackColor, lightColor);
+	this.newGame = new TextSprite("Play again", x + 20, y + 20, 255, 40, Color.black, Color.light_gray);
 	this.newGame2 = new Sprite(button, x, y, 255, 80, 1);
 	this.newGame2.SetBasicOrigin();
 	
 
 	x += 250;
 	y = 380;
-	this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, blackColor, lightColor);
+	this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
 	this.returnMainMenu2 = new Sprite(button, x, y, 255, 80, 1);
 	this.returnMainMenu2.SetBasicOrigin();
 	
 	x += 250;
-	this.shopButtonCaption = new TextSprite("Shopping", x + 47, y + 20, 200, 40, blackColor, lightColor);
+	this.shopButtonCaption = new TextSprite("Shopping", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
 	this.shop = new Sprite(myGame.GetImage("shopButton"), x, y, 255, 80, 1);
 	this.shop.SetBasicOrigin();
 
@@ -55,15 +55,15 @@ function GameOverScreen(game){
 	this.panel = new Sprite(panelTexture, x, y, 489, 306, 0.8);
 	
 	y += 40;
-	this.panelText2 = new TextSprite("", x + 150, y, 200, 40, blackColor, lightColor);
+	this.panelText2 = new TextSprite("", x + 150, y, 200, 40, Color.black, Color.light_gray);
 	y += 40;
-	this.panelText3 = new TextSprite("Your current high score is ", x + 150, y, 200, 40, blackColor, lightColor);
+	this.panelText3 = new TextSprite("Your current high score is ", x + 150, y, 200, 40, Color.black, Color.light_gray);
 	y += 40;
-	this.panelText4 = new TextSprite("You are classified as ", x + 150, y, 200, 40, blackColor, lightColor);
+	this.panelText4 = new TextSprite("You are classified as ", x + 150, y, 200, 40, Color.black, Color.light_gray);
 	y += 40;
-	this.panelText5 = new TextSprite("Chat...", x + 150, y, 200, 40, blackColor, lightColor);
+	this.panelText5 = new TextSprite("Chat...", x + 150, y, 200, 40, Color.black, Color.light_gray);
 	y += 40;
-	this.panelText = new TextSprite("Rank: ", 130, y + 10, 200, 40, blackColor, lightColor);
+	this.panelText = new TextSprite("Rank: ", 130, y + 10, 200, 40, Color.black, Color.light_gray);
 	
 
 	this.panel.SetBasicOrigin();

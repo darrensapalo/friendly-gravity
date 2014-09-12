@@ -112,7 +112,7 @@ function Comet (){
 		this.force = this.maxForce;
 
 
-		this.decreasedScoreText = new TextSprite("-" + DECREASE_SCORE, this.sprite.x, this.sprite.y, 100, 40, blackColor, "#CC0000");
+		this.decreasedScoreText = new TextSprite("-" + DECREASE_SCORE, this.sprite.x, this.sprite.y, 100, 40, Color.black, "#CC0000");
 	}
 	
 	this.isAsteroid = function()
