@@ -22,7 +22,7 @@ function Sprite(img, x, y, width, height, opacity, scalex, scaley) {
 		this.originy = 0;
 	}
 	
-	this.Draw = function (context) {
+	this.draw = function (context) {
 		if (this.visible) {
 			context.save();
 			context.translate(this.x , this.y );
@@ -34,7 +34,7 @@ function Sprite(img, x, y, width, height, opacity, scalex, scaley) {
 		}
 	}
 	
-	this.IsInside = function(aX,aY) {
+	this.contains = function(aX,aY) {
 		var withinX = false, withinY = false;
 		if (aX >= this.x && aX <= this.x + this.width) {
 			withinX = true;
@@ -91,7 +91,7 @@ function TextSprite(text, x, y, width, height, bgColor, textColor) {
 	
 	
 	
-	this.Draw = function (context) {
+	this.draw = function (context) {
 		if (this.visible) {
 			if (this.drawBackground){
 				context.fillStyle = this.bgColor;
@@ -115,7 +115,7 @@ function TextSprite(text, x, y, width, height, bgColor, textColor) {
 		}
 	}
 	
-	this.IsInside = function(aX,aY) {
+	this.contains = function(aX,aY) {
 		var withinX = false, withinY = false;
 		if (aX >= this.x && aX <= this.x + this.width) {
 			withinX = true;
@@ -129,7 +129,7 @@ function TextSprite(text, x, y, width, height, bgColor, textColor) {
 	}
 	
 	this.IsKeyHit = function (aX,aY) {
-		if (this.IsInside(aX,aY)) {
+		if (this.contains(aX,aY)) {
 			return this.KeyValue;
 		} else
 			return null;
@@ -190,11 +190,11 @@ function KeyboardSprite(offsetX, offsetY, keyboardColor) {
 	this.AlphaKeys.push(guess);
 	this.AlphaKeys.push(cancel);
 	
-	this.Draw = function(context) {
+	this.draw = function(context) {
 		context.fillStyle = keyboardColor;
 		context.fillRect(this.offsetX,this.offsetY,this.width,this.height);
 		for(var i=0;i<this.AlphaKeys.length;i++)
-			this.AlphaKeys[i].Draw(context);
+			this.AlphaKeys[i].draw(context);
 	}
 	
 	this.CheckKeyHit = function (aX, aY) {
@@ -219,7 +219,7 @@ function TextBox(value, x, y, width, height) {
 	this.width = width;
 	this.height = height;
 	
-	this.Draw = function(context) {
+	this.draw = function(context) {
 		context.fillStyle = blackColor;
 		context.strokeRect(this.x,this.y,this.width,this.height);
 		context.fillStyle = "#FFFFFF";
@@ -287,9 +287,9 @@ function TableLayout(column, rowHeight, columnWidth, spacingWidth, spacingHeight
 		this.spriteCollection.length = 0;
 	}
 	
-	this.Draw = function (context) {
+	this.draw = function (context) {
 		for(var i=0;i<this.spriteCollection.length;i++)
 			for(var j=0;j<this.spriteCollection[i].length;j++)
-				this.spriteCollection[i][j].Draw(context);
+				this.spriteCollection[i][j].draw(context);
 	}
 }

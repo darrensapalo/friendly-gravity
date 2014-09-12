@@ -1,8 +1,10 @@
 function Game(canvasname, resourceList) {
-	this.resourceList = resourceList;
-	this.il = new ImageLoader(resourceList);
 	this.context = new Object();
 	this.canvas = new Object();
+
+	this.ImageLoader = new ImageLoader(resourceList);
+	this.InputHandler = new InputHandler();
+	this.AudioManager = new AudioManager();
 
 	this.gameScreen = new GameScreen(this);
 	this.gameOverScreen = new GameOverScreen(this);
@@ -16,8 +18,9 @@ function Game(canvasname, resourceList) {
 	this.pressX;
 	this.pressY;
 	
-	this.AudioManager = new AudioManager();
-	this.manageMusic = this.AudioManager.manage;
+
+
+	this.AudioManager.manage;
 
 	this.cash;
 	this.highScore;
@@ -29,7 +32,7 @@ function Game(canvasname, resourceList) {
 	this.transferringScreens = false;
 
 	
-	this.ForceChangeScreen = function(s){
+	this.forceChangeScreen = function(s){
 		switch(s)
 		{
 			case 0: this.currentScreen = this.mainMenuScreen; break;
@@ -53,7 +56,7 @@ function Game(canvasname, resourceList) {
 				changeScreenOpacity = 1;
 				this.leaveScreen = false;
 				this.arriveScreen = true;
-				this.ForceChangeScreen(this.targetScreen);
+				this.forceChangeScreen(this.targetScreen);
 			}
 		}
 		
@@ -70,51 +73,48 @@ function Game(canvasname, resourceList) {
 		}
 	}
 	
-	this.ChangeScreen = function(s){
+	this.changeScreen = function(s){
 	if (this.transferringScreens) return;
 		this.targetScreen = s;
 		this.leaveScreen = true;
 		this.transferringScreens = true;
 	}
 	
-	this.Start = function() {
+	this.start = function() {
+		
 		var thisObj = this;
 		this.canvas = document.getElementById(canvasname);
 		this.context = document.getElementById(canvasname).getContext("2d");
 		
 		this.canvas.addEventListener("click", function(evt) { thisObj.onClick(evt); } );
 		
-		this.il.OnComplete = function() { 
-			thisObj.InitGame();
-			setTimeout( function() { thisObj.Loop(thisObj.context) }, 1000 / 60);
+		this.ImageLoader.onComplete = function() { 
+			thisObj.initGame();
+			setTimeout( function() { thisObj.loop(thisObj.context) }, 1000 / 60);
 		};
-		this.il.Load();
+		this.ImageLoader.load();
 	}
 	
-	this.ClearScreen = function (color) {
+	this.clearScreen = function (color) {
 		this.context.fillStyle = color;
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 	}
-	
-	this.GetImage = function (name) {
-		return this.il.GetImage(name);
+
+	this.initGame = function () {
 	}
 
-	this.InitGame = function () {
-	}
-
-	this.Loop = function(context) {
-		this.Draw(context);
-		this.Update();
+	this.loop = function(context) {
+		this.draw(context);
+		this.update();
 		var thisObj = this;
-		setTimeout( function() { thisObj.Loop(thisObj.context) }, 1000 / 60);
+		setTimeout( function() { thisObj.loop(thisObj.context) }, 1000 / 60);
 	}
 
-	this.Draw = function(context) {
+	this.draw = function(context) {
 	}
 
-	this.Update = function() {
-		this.UpdateScreenChangeHandler();
+	this.update = function() {
+		this.updateScreenChangeHandler();
 	}
 	
 	this.onClick = function(evt){

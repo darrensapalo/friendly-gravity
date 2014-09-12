@@ -4,9 +4,9 @@ function Screen(game){
 	this.prototype.Initialize = function () {
 	}
 
-	this.prototype.Draw = function(context) {
+	this.prototype.draw = function(context) {
 	}
 
-	this.prototype.Update = function() {
+	this.prototype.update = function() {
 	}
 }

@@ -1,10 +1,19 @@
 var Config = {
-	font: "Space Age",
-	fontSize: "14pt",
+	ui: {
+		font: "Space Age",
+		fontSize: "14pt",
+	},
+	
+	sound: {
+		musicEnabled: false,
 
-	// Sound and music
-	musicEnabled: false,
+		bgmVolume: 1,
+		bgmRepeat: true,	
+	},
 
-	bgmVolume: 1,
-	bgmRepeat: true
+	game: {
+		baseShockwaveCooldown: 5,
+	}
+
+	
 }

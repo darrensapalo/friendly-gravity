@@ -8,8 +8,8 @@ var resourceList = [
 	{name:"player",url:"player/player.png", type:"ui"},
 	
 	// Backgrounds
-	{name:"bg1",url:"backgrounds/bg1.png", type:"ui"},
-	{name:"bg2",url:"backgrounds/bg2.png", type:"ui"},
+	{name:"default_background",url:"backgrounds/default_background.png", type:"ui"},
+	{name:"unlocked_background",url:"backgrounds/unlocked_background.png", type:"ui"},
 
 	// Asteroids
 	{name:"asteroid",url:"asteroids/asteroid.png", type:"ui"},

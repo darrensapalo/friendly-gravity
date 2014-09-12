@@ -33,17 +33,17 @@ function GameScreen(game){
 	this.mapx = this.originalmapx = -120;
 	this.mapy = this.originalmapy = -72;
 
-	this.Initialize = function () {
+	this.initialize = function () {
 		// Initialize player
 		
 		this.mapx = this.originalmapx;
 		this.mapy = this.originalmapy;
 		
-		this.player = new Player();
-		this.player.Initialize();
+		this.player = new Player(this.game);
+		this.player.initialize();
 		
 		// Initialize game countdown
-		this.countdownLeft = parseInt(myGame.gameDuration) * 1000 + 4000;
+		this.countdownLeft = parseInt(game.gameDuration) * 1000 + 4000;
 		this.comets = new Array();
 		this.planets = new Array();
 
@@ -53,9 +53,8 @@ function GameScreen(game){
 		
 		this.tutorialText = new TextSprite("Avoid the asteroids and comets", 300, 270, 200, 40, Color.black, Color.light_gray);
 		this.finishShowTutorial = false;
-		// this.tutorialText.SetBasicOrigin();
 
-		myGame.timerWidth = 500;
+		game.timerWidth = 500;
 		
 	}
 
@@ -68,9 +67,9 @@ function GameScreen(game){
 		*/
 
 		/* Timer
-		var x = this.countdownLeft / myGame.gameDuration / 1000 * 500;
+		var x = this.countdownLeft / game.gameDuration / 1000 * 500;
 
-		myGame.timerWidth = x;
+		game.timerWidth = x;
 		return x;
 
 		*/
@@ -85,68 +84,64 @@ function GameScreen(game){
 
 		return x;
 	}
-	
 
 	this.getBackground = function() {
-		switch (this.game.difficulty){
-			case 0: return this.game.GetImage("bg1");
-			case 1: return this.game.GetImage("bg2");
-			case 2: return this.game.GetImage("bg3");
-		}
-		return this.game.GetImage("bg1");
+		if (this.game.difficulty == 1)
+			return this.game.ImageLoader.images["unlocked_background"];
+
+		return this.game.ImageLoader.images["default_background"];
 	}
 
-	this.Draw = function(context) {
-			
+	this.draw = function(context) {
 			// Background image
 			context.drawImage(this.getBackground(), this.mapx, this.mapy, this.resizeWidth, this.resizeHeight);
 			
 			// Player
-			this.player.Draw(context);
+			this.player.draw(context);
 			
 			// Stars
 			for(var i=0;i<this.comets.length;i++)
-				this.comets[i].Draw(context);
+				this.comets[i].draw(context);
 
 			// Planets
 			for(var i=0;i<this.planets.length;i++)
-				this.planets[i].Draw(context);
+				this.planets[i].draw(context);
 			
 			// HUD
-			this.DrawHUD(context);
+			this.drawHUD(context);
 			
-			this.DrawTimer(context);
+			this.drawTimer(context);
 
 			if (!this.finishShowTutorial)
-				this.tutorialText.Draw(context);
+				this.tutorialText.draw(context);
 	}
 	
 	this.CheckGameOver = function(){
 		
 		if (this.countdownLeft <= 0)
 		{
-			this.game.ChangeScreen(2);
+			this.game.changeScreen(2);
 			if (this.gameOver)return;
 			this.gameOver = true;
 			this.game.currentScore = Math.floor(this.player.score);
-			myGame.gameOverScreen.Initialize();
+			game.gameOverScreen.initialize();
 		}
 	}
 
-	this.Update = function() {
+	this.update = function() {
 		this.CheckGameOver();
-		this.UpdateTimer();
+		this.updateTimer();
 		
 		this.CheckSpawn();
 		this.CheckSpawnPlanet();
 
-		this.UpdatePlayer();
-		this.UpdateComet();
+		this.updatePlayer();
+		this.updateComet();
 		
 		this.CountdownUpdater();
-		this.UpdateTutorial();
+		this.updateTutorial();
 
-		myGame.timerWidth = this.ComputeTimerWidth();
+		game.timerWidth = this.ComputeTimerWidth();
 		
 		
 		if (this.mapx < this.originalmapx)
@@ -167,7 +162,7 @@ function GameScreen(game){
 	}
 	
 			
-	this.UpdateTimer = function(){
+	this.updateTimer = function(){
 		if (this.updateTimers){
 			this.elapsedGameMilliseconds += 33;
 			this.updateTimers = false;
@@ -176,7 +171,7 @@ function GameScreen(game){
 
 	}
 	
-	this.UpdateTutorial = function(){
+	this.updateTutorial = function(){
 		this.showMessage -= this.elapsedMs;
 		if (this.showMessage < 0){
 			// decrease opacity of text message
@@ -208,7 +203,7 @@ function GameScreen(game){
 		}
 	}
 	
-	this.UpdateComet = function(){
+	this.updateComet = function(){
 		for (var i = 0; i < this.comets.length; i++)
 			this.comets[i].Update(this.player);
 
@@ -216,19 +211,19 @@ function GameScreen(game){
 			this.planets[i].Update(this.player);
 	}
 	
-	this.UpdatePlayer = function(){
-		this.player.Update();
+	this.updatePlayer = function(){
+		this.player.update();
 	}
 
-	this.DrawTimer = function(context) {
+	this.drawTimer = function(context) {
 		var x, y;
 		y = 10;
 		x = 150;
-		context.drawImage(this.game.GetImage("bar"), x, y, myGame.timerWidth, 25);
-		context.drawImage(this.game.GetImage("barHolder"), x, y, 500, 25);
+		context.drawImage(this.game.ImageLoader.images["bar"], x, y, game.timerWidth, 25);
+		context.drawImage(this.game.ImageLoader.images["barHolder"], x, y, 500, 25);
 	}
 	
-	this.DrawHUD = function(context){
+	this.drawHUD = function(context){
 		context.strokeStyle = 'black';
 		context.lineWidth = 3;
 		context.fillStyle = "#fff";
@@ -268,7 +263,7 @@ function GameScreen(game){
 					var p = new Planet();
 					
 					// Initialize 
-					p.Initialize();
+					p.initialize();
 					this.planets.push(p);
 					willSpawn = false;
 					this.planetSpawnTimeout = Math.random() * this.starSpawnRandom + this.starSpawnTimer * 5;
@@ -288,13 +283,13 @@ function GameScreen(game){
 				var v = new Comet();
 				
 				// Initialize 
-				v.Initialize(-1);
+				v.initialize(-1);
 				if (v.isAsteroid())
 					this.spawnTimeout = 100;
 				
 				this.comets.push(v);
 				willSpawn = false;
-				if (myGame.difficulty == 1)
+				if (game.difficulty == 1)
 					this.spawnTimeout = Math.random() * this.starSpawnRandom / 1.5 + this.starSpawnTimer;
 				else 
 					this.spawnTimeout = Math.random() * this.starSpawnRandom + this.starSpawnTimer;

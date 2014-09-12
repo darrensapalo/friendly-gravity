@@ -10,83 +10,75 @@ function ShopScreen(game){
 	
 
 	
-	this.Initialize = function () {
+	this.initialize = function () {
+		this.background = new Background();
+		
 		var x, y;
 		x = 250;
 		y = 0;
 	
-		var button = myGame.GetImage("Button");
-		
-
-
 		x = 50;
 		y = 380;
 		this.newGame = new TextSprite("Reset", x + 20, y + 20, 255, 40, Color.black, Color.light_gray);
-		this.newGame2 = new Sprite(button, x, y, 255, 80, 1);
-		this.newGame2.SetBasicOrigin();
+		this.newGame2 = new Sprite("Button", x, y, 255, 80, 1);
 		
 
 		x += 250;
 		y = 380;
 		this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
-		this.returnMainMenu2 = new Sprite(button, x, y, 255, 80, 1);
-		this.returnMainMenu2.SetBasicOrigin();
+		this.returnMainMenu2 = new Sprite("Button", x, y, 255, 80, 1);
 		
 		x += 250;
 		this.shopButtonCaption = new TextSprite("Shopping", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
-		this.shop = new Sprite(myGame.GetImage("shopButton"), x, y, 255, 80, 1);
-		this.shop.SetBasicOrigin();
+		this.shop = new Sprite("shopButton", x, y, 255, 80, 1);
 		
 		
 		x = 150;
 		y = 70;
-		var panelTexture = myGame.GetImage("panel");
-		this.panel = new Sprite(panelTexture, x, y, 489, 306, 0.8);
+		this.panel = new Sprite("panel", x, y, 489, 306, 0.8);
 		
 		y += 20;
-		this.panelText = new TextSprite("Current progress:", x + 150, y, 200, 40, backgroundColor, foregroundColor);
+		this.panelText = new TextSprite("Current progress:", x + 150, y, 200, 40);
 		y += 40;
-		this.panelText2 = new TextSprite("Accumulated points: ", x + 150, y, 200, 40, backgroundColor, foregroundColor);
+		this.panelText2 = new TextSprite("Accumulated points: ", x + 150, y, 200, 40);
 		y += 40;
-		this.panelText3 = new TextSprite("High score: ", x + 150, y, 200, 40, backgroundColor, foregroundColor);
-		
-		this.panel.SetBasicOrigin();
+		this.panelText3 = new TextSprite("High score: ", x + 150, y, 200, 40);
 		
 	}
 
-	this.Draw = function(context) {
+	this.draw = function(context) {
 			// Background image
-			context.drawImage(myGame.GetImage("bg1"), 0, 0, 800, 480);
+			this.background.draw(context);
 			
 			// Player
-			// this.player.sprite.Draw(context);
+			// this.player.sprite.draw(context);
 			
 			// Stars
 			// for(var i=0;i<comets.length;i++)
-			//	comets[i].sprite.Draw(context);
+			//	comets[i].sprite.draw(context);
 
 
-//			this.welcomeMessage.Draw(context);
+//			this.welcomeMessage.draw(context);
 			
-			this.panel.Draw(context);
-			this.panelText.Draw(context);
-			this.panelText2.Draw(context);
-			this.panelText3.Draw(context);
+			this.panel.draw(context);
+			this.panelText.draw(context);
+			this.panelText2.draw(context);
+			this.panelText3.draw(context);
 			
-			this.newGame2.Draw(context);
-			this.newGame.Draw(context);
+			this.newGame2.draw(context);
+			this.newGame.draw(context);
 			
-			this.returnMainMenu2.Draw(context);
-			this.returnMainMenu.Draw(context);
+			this.returnMainMenu2.draw(context);
+			this.returnMainMenu.draw(context);
 
-			this.shop.Draw(context);
-			this.shopButtonCaption.Draw(context);
+			this.shop.draw(context);
+			this.shopButtonCaption.draw(context);
 			
 			
 	}
 	
-	this.Update = function() {
-		this.UpdateTimer();
+	this.update = function() {
+		this.updateTimer();
 		var x = this.game.pressX;
 		var y = this.game.pressY;
 		this.CheckIfReturnMainMenu(x, y);
@@ -99,17 +91,17 @@ function ShopScreen(game){
 	
 	this.CheckIfReturnMainMenu = function(x, y){
 		if (!isEnter && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-		if (this.returnMainMenu2.IsInside(x, y) || isEnter){
-			this.game.ChangeScreen(0);
-			this.game.gameScreen.Initialize();
+		if (this.returnMainMenu2.contains(x, y) || isEnter){
+			this.game.changeScreen(0);
+			this.game.gameScreen.initialize();
 			this.game.pressX = this.game.pressY = typeof 'undefined';
 		}
 	}
 	
 		this.Reset = function(x, y){
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.newGame.IsInside(x, y)){
-			this.game.ChangeScreen(0);
+		if (this.newGame.contains(x, y)){
+			this.game.changeScreen(0);
 			this.game.ResetData();
 			this.game.pressX = this.game.pressY = typeof 'undefined';
 		}
@@ -117,10 +109,10 @@ function ShopScreen(game){
 
 	this.CheckIfShop = function(x, y){
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.shop.IsInside(x, y)){
-			this.game.ChangeScreen(6);
+		if (this.shop.contains(x, y)){
+			this.game.changeScreen(6);
 			this.game.pressX = this.game.pressY = 0;
-			this.game.developScreen.Initialize();
+			this.game.developScreen.initialize();
 		}
 	}
 	
@@ -129,7 +121,7 @@ function ShopScreen(game){
 	}
 	
 			
-	this.UpdateTimer = function(){
+	this.updateTimer = function(){
 		if (this.updateTimers){
 			this.elapsedGameMilliseconds += 33;
 			this.updateTimers = false;

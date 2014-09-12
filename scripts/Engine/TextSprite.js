@@ -1,86 +1,53 @@
-function Sprite(raw_img, x, y, width, height, opacity, scalex, scaley) {
-	if(window.game === undefined) throw new Error("UndefinedGameException: Cannot find the main game.");
-	this.img = window.game.ImageLoader.images[raw_img];
-	this.x = x;
-	this.y = y;
-	this.width = width;
-	this.height = height;
-	this.originx = 0;
-	this.originy = 0;
-	this.visible = true;
-	this.rotation = 0;
-	this.opacity = opacity || 1;
-	this.scalex = scalex || 1;
-	this.scaley = scaley || 1;
+function TextSprite(text, x, y, width, height, bgColor, textColor) {
+	bgColor = bgColor || Color.black;
+	textColor = textColor || Color.white;
+	
+	this.text = text;
+	this.bgColor = bgColor;
+	this.textColor = textColor;
+	this.KeyValue = null;
+	this.drawBackground = false;
+
+	Sprite.call(this, undefined, x, y, width, height);
 }
 
-Sprite.prototype.setOrigin = function(x, y)
-{
-	this.originx = (x === undefined) ?  0 : x;
-	this.originy = (y === undefined) ?  0 : y;
-}
 
-Sprite.prototype.draw = function (context)
-{
+TextSprite.prototype = Object.create(Sprite.prototype); 
+TextSprite.prototype.constructor = Sprite;
+
+TextSprite.prototype.changeOrigin = CenteredSprite.prototype.changeOrigin;
+
+TextSprite.prototype.draw = function (context) {
 	if (this.visible) {
-		context.save();
-		context.translate(this.x , this.y );
-		context.scale(this.scalex, this.scaley);
-		context.rotate(this.rotation);
+		if (this.drawBackground){
+			context.fillStyle = this.bgColor;
+			context.fillRect(this.x,this.y,this.width,this.height);
+		}
 		context.globalAlpha = this.opacity;
-		if (this.img == undefined) throw new Error("DrawException: Undefined image to be drawn.");
-		context.drawImage(this.img, this.originx, this.originy, this.width, this.height);
-		context.restore();
+		context.strokeStyle = this.bgColor;
+		context.lineWidth = 4;
+		context.fillStyle = this.textColor;
+		context.font = Config.fontSize + " " + Config.font;
+
+		context.textBaseline = "top";
+		context.textAlign = "center";
+
+		context.strokeText(this.text, this.x + this.width / 2,this.y + this.height / 4);
+		context.fillText(this.text, this.x + this.width / 2,this.y + this.height / 4);
+		context.globalAlpha = 1;
+
 	}
 }
 
-Sprite.prototype.contains = function(aX,aY)
-{
-	var withinX = false, withinY = false;
-	if (aX >= this.x && aX <= this.x + this.width) {
-		withinX = true;
-	}
 
-	if (aY >= this.y && aY <= this.y + this.height) {
-		withinY = true;
-	}
-
-	return withinX && withinY;
+TextSprite.prototype.IsKeyHit = function (aX,aY) {
+	if (this.contains(aX,aY)) {
+		return this.KeyValue;
+	} else
+	return null;
 }
 
-Sprite.prototype.collidesWith = function (r2)
-{
-	var isHorizontalCollision = false; 
-	var r1 = this;
-	// Check left edge of r2
-	if (r1.x < r2.x && r2.x < r1.x + r1.width) isHorizontalCollision = true;
-	if (r1.x < r2.x + r2.width && r2.x + r2.width < r1.x + r1.width) isHorizontalCollision = true;
-	
-	var isVerticalCollision = false;
-	// Check top edge of r2
-	if (r1.y < r2.y && r2.y < r1.y + r1.height)	isVerticalCollision = true;
-	// Check bottom edge of r2
-	if (r1.y < r2.y + r2.height && r2.y + r2.height < r1.y + r1.height) isVerticalCollision = true;
-	
-	var isContainsCollision = false;
 
-	if (!isHorizontalCollision && !isVerticalCollision)
-	{
-		if (r2.x < r1.x && r1.x < r2.x + r2.width) {
-			if (r2.y < r1.y && r1.y < r2.y + r2.height){
-				isContainsCollision = true;
-			}
-		}
-
-		if (r1.x < r2.x && r2.x < r1.x + r1.width) {
-			if (r1.y < r2.y && r2.y < r1.y + r1.height){
-				isContainsCollision = true;
-			}
-		}
-	}
-
-	return (isHorizontalCollision && isVerticalCollision) || isContainsCollision;
-}
 
 function KeyboardSprite(offsetX, offsetY, keyboardColor) {
 	var lines = new Array();
@@ -88,7 +55,7 @@ function KeyboardSprite(offsetX, offsetY, keyboardColor) {
 	lines.push("QWERTYUIOP");
 	lines.push("ASDFGHJKL");
 	lines.push("ZXCVBNM");
-
+	
 	this.offsetX = offsetX;
 	this.offsetY = offsetY;
 	this.keyWidth = 50;
@@ -99,7 +66,7 @@ function KeyboardSprite(offsetX, offsetY, keyboardColor) {
 	this.paddingY = 5;
 	this.width = 15 * 60;
 	this.height = lines.length * 60;
-
+	
 	// Create Alpha-Numeric Keys
 	this.AlphaKeys = new Array();
 	for(var line=0;line<lines.length;line++)
@@ -135,24 +102,24 @@ function KeyboardSprite(offsetX, offsetY, keyboardColor) {
 	this.AlphaKeys.push(backspace);
 	this.AlphaKeys.push(guess);
 	this.AlphaKeys.push(cancel);
-	
-	this.draw = function(context) {
-		context.fillStyle = keyboardColor;
-		context.fillRect(this.offsetX,this.offsetY,this.width,this.height);
-		for(var i=0;i<this.AlphaKeys.length;i++)
-			this.AlphaKeys[i].draw(context);
-	}
-	
-	this.CheckKeyHit = function (aX, aY) {
-		for(var i=0;i<this.AlphaKeys.length;i++) {
-			var key = this.AlphaKeys[i].IsKeyHit(aX,aY);
-			if (key != null)
-				this.KeyHitHandler(key);
-		}
-	}
-	
-	this.KeyHitHandler = function (keyCode) { }
 }
+KeyboardSprite.prototype.draw = function(context) {
+	context.fillStyle = keyboardColor;
+	context.fillRect(this.offsetX,this.offsetY,this.width,this.height);
+	for(var i=0;i<this.AlphaKeys.length;i++)
+		this.AlphaKeys[i].draw(context);
+}
+
+KeyboardSprite.prototype.CheckKeyHit = function (aX, aY) {
+	for(var i=0;i<this.AlphaKeys.length;i++) {
+		var key = this.AlphaKeys[i].IsKeyHit(aX,aY);
+		if (key != null)
+			this.KeyHitHandler(key);
+	}
+}
+
+KeyboardSprite.prototype.KeyHitHandler = function (keyCode) { }
+
 
 function TextBox(value, x, y, width, height) {
 	this.value = value;
@@ -200,7 +167,7 @@ function TextBox(value, x, y, width, height) {
 	}
 	
 	var thisObj = this;
-	setInterval(function() { thisObj.cursorVisible = !thisObj.cursorVisible; } , 500);
+	setInterval(function () { thisObj.cursorVisible = !thisObj.cursorVisible; } , 500);
 }
 
 function TableLayout(column, rowHeight, columnWidth, spacingWidth, spacingHeight) {
@@ -229,7 +196,7 @@ function TableLayout(column, rowHeight, columnWidth, spacingWidth, spacingHeight
 		aSprite.height = rowHeight;
 	}
 	
-	this.Clear = function() {
+	this.Clear = function () {
 		this.spriteCollection.length = 0;
 	}
 	

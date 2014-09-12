@@ -4,46 +4,35 @@ function MainMenuScreen(game){
 	this.countdownTimeout = 0;
 	this.timerTimeout;
 	this.updateTimers;
-		
+
 	this.elapsedGameMilliseconds = 0;
 	this.elapsedMs = 33;
 	
-	this.welcomeMessage = new TextSprite("A black hole finds morality and purpose", 290, 100, 200, 40, backgroundColor, foregroundColor);
-	this.welcomeMessage.drawBackground = false;
-	
-
-	
 	this.mousey = this.mousex = 0;
 	
-	this.Initialize = function () {
+	this.initialize = function () {
+		this.welcomeMessage = new TextSprite("A black hole finds morality and purpose", 290, 100, 200, 40);
+		this.welcomeMessage.drawBackground = false;
+
+
+		this.background = new Background();
+		
 		var x = 375;
-		this.beginPlaying = new TextSprite("Play", x, 165, 100, 20, backgroundColor, foregroundColor);
-		this.beginShopping = new TextSprite("Progress", x, 245, 100, 20, backgroundColor, foregroundColor);
-		this.howToPlay = new TextSprite("Tutorial", x, 325, 100, 20, backgroundColor, foregroundColor);
-		this.about = new TextSprite("About", x, 405, 100, 20, backgroundColor, foregroundColor);
-	
-		var button = myGame.GetImage("Button");
-		this.beginPlayingButton = new Sprite(button, 273, 140, 255, 80, 1);
-		this.beginShoppingButton = new Sprite(button, 273, 220, 255, 80, 1);
-		this.howToPlayButton = new Sprite(button, 273, 300, 255, 80, 1);
-		this.aboutButton = new Sprite(button, 273, 380, 255, 80, 1);
-		
-		var button2 = myGame.GetImage("Button2");
-		this.beginPlayingButton2 = new Sprite(button2, 273, 140, 255, 80, 1);
-		this.beginShoppingButton2 = new Sprite(button2, 273, 220, 255, 80, 1);
-		this.howToPlayButton2 = new Sprite(button2, 273, 300, 255, 80, 1);
-		this.aboutButton2 = new Sprite(button2, 273, 380, 255, 80, 1);
-		
-		this.beginPlayingButton.SetBasicOrigin();
-		this.beginShoppingButton.SetBasicOrigin();
-		this.howToPlayButton.SetBasicOrigin();
-		this.aboutButton.SetBasicOrigin();
+		this.beginPlaying = new TextSprite("Play", x, 165, 100, 20);
+		this.beginShopping = new TextSprite("Progress", x, 245, 100, 20);
+		this.howToPlay = new TextSprite("Tutorial", x, 325, 100, 20);
+		this.about = new TextSprite("About", x, 405, 100, 20);
 
-		this.beginPlayingButton2.SetBasicOrigin();
-		this.beginShoppingButton2.SetBasicOrigin();
-		this.howToPlayButton2.SetBasicOrigin();
-		this.aboutButton2.SetBasicOrigin();
-
+		this.beginPlayingButton = new Sprite("Button", 273, 140, 255, 80, 1);
+		this.beginShoppingButton = new Sprite("Button", 273, 220, 255, 80, 1);
+		this.howToPlayButton = new Sprite("Button", 273, 300, 255, 80, 1);
+		this.aboutButton = new Sprite("Button", 273, 380, 255, 80, 1);
+		
+		this.beginPlayingButton2 = new Sprite("Button2", 273, 140, 255, 80, 1);
+		this.beginShoppingButton2 = new Sprite("Button2", 273, 220, 255, 80, 1);
+		this.howToPlayButton2 = new Sprite("Button2", 273, 300, 255, 80, 1);
+		this.aboutButton2 = new Sprite("Button2", 273, 380, 255, 80, 1);
+		
 		this.beginPlayingButton2.opacity = 0;
 		this.beginShoppingButton2.opacity = 0;
 		this.howToPlayButton2.opacity = 0;
@@ -51,96 +40,92 @@ function MainMenuScreen(game){
 
 
 		
-		this.logo = new Sprite(myGame.GetImage("Logo"), 400, 80, 964 / 3, 439 / 3, 1);
+		this.logo = new CenteredSprite("Logo", 400, 80, 964 / 3, 439 / 3, 1);
 		this.beginPlayingButtonHover = this.beginShoppingButtonHover = this.howToPlayButtonHover = this.aboutButtonHover = false;
 
-		this.soundButton = new Sprite(myGame.GetImage("soundButton"), 50, 420, 106, 106, 1);
-		this.soundButton2 = new Sprite(myGame.GetImage("soundButton2"), 50, 420, 106, 106, 1);
+		this.soundButton = new CenteredSprite("soundButton", 50, 420, 106, 106, 1);
+		this.soundButton2 = new CenteredSprite("soundButton2", 50, 420, 106, 106, 1);
 
 
 	}
 
-	this.Draw = function(context) {
-		// Background image
-		context.drawImage(myGame.GetImage("bg1"), 0, 0, 800, 480);
+	this.draw = function(context) {
+		this.background.draw(context);
 		
 		// Player
-		// this.player.sprite.Draw(context);
+		// this.player.sprite.draw(context);
 		
 		// Stars
 		// for(var i=0;i<comets.length;i++)
-		//	comets[i].sprite.Draw(context);
+		//	comets[i].sprite.draw(context);
 
-		this.beginPlayingButton2.Draw(context);
-		this.beginPlayingButton.Draw(context);
+		this.beginPlayingButton2.draw(context);
+		this.beginPlayingButton.draw(context);
 		
-		this.beginShoppingButton2.Draw(context);
-		this.beginShoppingButton.Draw(context);
+		this.beginShoppingButton2.draw(context);
+		this.beginShoppingButton.draw(context);
 		
-		this.howToPlayButton2.Draw(context);
-		this.howToPlayButton.Draw(context);
+		this.howToPlayButton2.draw(context);
+		this.howToPlayButton.draw(context);
 		
-		this.aboutButton2.Draw(context);
-		this.aboutButton.Draw(context);
+		this.aboutButton2.draw(context);
+		this.aboutButton.draw(context);
 		
 		
-		this.beginPlaying.Draw(context);
-		this.beginShopping.Draw(context);
-		this.howToPlay.Draw(context);
-		this.about.Draw(context);
+		this.beginPlaying.draw(context);
+		this.beginShopping.draw(context);
+		this.howToPlay.draw(context);
+		this.about.draw(context);
 		
-		this.logo.Draw(context);
-		this.welcomeMessage.Draw(context);
+		this.logo.draw(context);
+		this.welcomeMessage.draw(context);
 
 		this.drawSoundButton(context);
 	}
 
 	this.drawSoundButton = function(context){ 
-		if (myGame.hasSounds)
-			this.soundButton2.Draw(context);
+		if (game.hasSounds)
+			this.soundButton2.draw(context);
 		else
-			this.soundButton.Draw(context);
+			this.soundButton.draw(context);
 	}
 	
-	this.Update = function() {
+	this.update = function() {
 		var x = this.game.pressX;
 		var y = this.game.pressY;
 		
-		this.UpdateTimer();
-		this.CheckIfPlayAgain(x, y);
-		this.CheckIfShopping (x, y);
-		this.CheckIfTutorial(x, y);
-		this.CheckIfAbout(x, y);
+		this.updateTimer();
+		this.checkIfPlayAgain(x, y);
+		this.checkIfShopping (x, y);
+		this.checkIfTutorial(x, y);
+		this.checkIfAbout(x, y);
 
-		this.CheckSoundButton(x, y);
-		this.UpdateHover();
+		this.checkSoundButton(x, y);
+		this.updateHover();
 		
-		this.UpdateMousePos();
+		this.updateMousePos();
 	}
 
 
-	this.CheckSoundButton = function(x, y){
+	this.checkSoundButton = function(x, y){
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
 		var a, b;
 		a = this.mousex;
 		b = this.mousey;
 
-		if (this.soundButton2.IsInside(x, y)){
+		if (this.soundButton2.contains(x, y)){
 			this.toggleSounds();
 			this.game.pressY = this.game.pressX = 0;
-			if (myGame.hasSounds)
-				backgroundMusic.play();
-			else
-				backgroundMusic.pause();
+			this.game.AudioManager.manage();
 		}
 
 	}
 
 	this.toggleSounds = function(){
-		myGame.hasSounds = !myGame.hasSounds;
+		game.hasSounds = !game.hasSounds;
 	}
 
-	this.UpdateHover = function(){
+	this.updateHover = function(){
 
 		
 		if (this.beginPlayingButtonHover){
@@ -207,53 +192,53 @@ function MainMenuScreen(game){
 
 	}
 	
-	this.UpdateMousePos = function(x, y) {
-		this.mousex = myGame.mousex;
-		this.mousey = myGame.mousey;
+	this.updateMousePos = function(x, y) {
+		this.mousex = game.mousex;
+		this.mousey = game.mousey;
 	}
 	
-	this.CheckIfPlayAgain = function(x, y){
+	this.checkIfPlayAgain = function(x, y){
 
-		if (this.beginPlayingButton.IsInside(myGame.mousex, myGame.mousey)){
+		if (this.beginPlayingButton.contains(game.mousex, game.mousey)){
 			this.beginPlayingButtonHover = true;
 		}else{
 			this.beginPlayingButtonHover = false;
 		}
 
-		if (!isEnter && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-		if (this.beginPlayingButton.IsInside(x, y) || isEnter){
-			this.game.ChangeScreen(1);
-			this.game.gameScreen.Initialize();
+		if (this.game.InputHandler.isPressed(InputKey.ENTER) == false && (typeof x == 'undefined' || typeof y == 'undefined')) return;
+		if (this.beginPlayingButton.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
+			this.game.changeScreen(1);
+			this.game.gameScreen.initialize();
 			this.game.pressX = this.game.pressY = 0;
 		}
 		
 		
 	}
 	
-	this.CheckIfShopping = function(x, y){
-		if (this.beginShoppingButton.IsInside(myGame.mousex, myGame.mousey)){
+	this.checkIfShopping = function(x, y){
+		if (this.beginShoppingButton.contains(game.mousex, game.mousey)){
 			this.beginShoppingButtonHover = true;
 		}else{
 			this.beginShoppingButtonHover = false;
 		}
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.beginShoppingButton.IsInside(x, y)){
-			this.game.ChangeScreen(3);
+		if (this.beginShoppingButton.contains(x, y)){
+			this.game.changeScreen(3);
 			this.game.pressX = this.game.pressY = 0;
 		}
 		
 	}
 	
-	this.CheckIfTutorial = function(x, y){
-		if (this.howToPlayButton.IsInside(myGame.mousex, myGame.mousey)){
+	this.checkIfTutorial = function(x, y){
+		if (this.howToPlayButton.contains(game.mousex, game.mousey)){
 			this.howToPlayButtonHover = true;
 		}else{
 			this.howToPlayButtonHover = false;
 		}
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.howToPlayButton.IsInside(x, y)){
-			this.game.ChangeScreen(4);
-			this.game.tutorialScreen.Initialize();
+		if (this.howToPlayButton.contains(x, y)){
+			this.game.changeScreen(4);
+			this.game.tutorialScreen.initialize();
 			this.game.pressX = this.game.pressY = 0;
 			this.howToPlayButtonHover = true;
 		}
@@ -261,15 +246,15 @@ function MainMenuScreen(game){
 		
 	}
 	
-	this.CheckIfAbout = function(x, y){
-		if (this.aboutButton.IsInside(myGame.mousex, myGame.mousey)){
+	this.checkIfAbout = function(x, y){
+		if (this.aboutButton.contains(game.mousex, game.mousey)){
 			this.aboutButtonHover = true;
 		}else{
 			this.aboutButtonHover = false;
 		}
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.aboutButton.IsInside(x, y)){
-			this.game.ChangeScreen(5);
+		if (this.aboutButton.contains(x, y)){
+			this.game.changeScreen(5);
 			this.game.pressX = this.game.pressY = 0;
 			this.aboutButtonHover = true;
 		}
@@ -281,8 +266,8 @@ function MainMenuScreen(game){
 		this.updateTimers = true;
 	}
 	
-			
-	this.UpdateTimer = function(){
+
+	this.updateTimer = function(){
 		if (this.updateTimers){
 			this.elapsedGameMilliseconds += 33;
 			this.updateTimers = false;

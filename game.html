@@ -3,21 +3,28 @@
 	<title>Friendly Gravity</title>
 	<style type="text/css">
 	@font-face {
-	    font-family: 'Space Age';
-	    src: url('font/spaceage.ttf');
+		font-family: 'Space Age';
+		src: url('font/spaceage.ttf');
 	}
 	</style>
 	<script src="scripts/lib/tweenjs.js" type="text/javascript"></script>
 	
-	<script src="scripts/Engine/ImageUtil.js" type="text/javascript"></script>
+	<script src="scripts/Engine/ImageLoader.js" type="text/javascript"></script>
 	<script src="scripts/Engine/Sprite.js" type="text/javascript"></script>
+	<script src="scripts/Engine/CenteredSprite.js" type="text/javascript"></script>
+	<script src="scripts/Engine/TextSprite.js" type="text/javascript"></script>
+	<script src="scripts/Engine/Background.js" type="text/javascript"></script>
 	<script src="scripts/Engine/Resources.js" type="text/javascript"></script>
+
 	<script src="scripts/Engine/Game.js" type="text/javascript"></script>
-	<script src="scripts/Engine/Color.js" type="text/javascript"></script>
 	<script src="scripts/Engine/Config.js" type="text/javascript"></script>
 
-	<script src="scripts/Manager/AudioManager.js" type="text/javascript"></script>
+	<script src="scripts/Engine/Color.js" type="text/javascript"></script>
 	
+	<script src="scripts/Manager/AudioManager.js" type="text/javascript"></script>
+	<script src="scripts/Engine/InputHandler.js" type="text/javascript"></script>
+	<script src="scripts/Engine/InputState.js" type="text/javascript"></script>
+	<script src="scripts/Engine/InputKey.js" type="text/javascript"></script>
 
 	<script src="scripts/Screen/GameScreen.js" type="text/javascript"></script>
 	<script src="scripts/Screen/GameOverScreen.js" type="text/javascript"></script>
@@ -34,127 +41,117 @@
 	<script src="scripts/Planet.js" type="text/javascript"></script>
 	
 	<script>
-	var myGame = new Game("blackhole", resourceList);
-	
-	var KEY_LEFT=37, KEY_RIGHT=39, KEY_UP=38, KEY_DOWN=40, KEY_SPACE=32, KEY_M = 77, KEY_ENTER = 13;
-	var isUp = false, isDown = false, isLeft = false, isRight=false, isSpace=false, isMusic = false, isToggleMusic = true, isEnter = false;
 
+	var game = new Game("blackhole", resourceList);
 	var DECREASE_SCORE = 50;
 
 	var changeScreenOpacity = 0;
 
-	myGame.InitGame = function () {
-		window.onkeydown = handleKeydown;
-		window.onkeyup = handleKeyup;
-		window.onmousemove = handleMouseMove;
-
-		myGame.Load();
-
-		myGame.gameScreen.Initialize();
-		myGame.mainMenuScreen.Initialize();
-		myGame.shopScreen.Initialize();
-		myGame.tutorialScreen.Initialize();
-		myGame.aboutScreen.Initialize();
-		myGame.developScreen.Initialize();
-
-		myGame.currentScreen = myGame.mainMenuScreen;
-
-
-		myGame.mousex = myGame.mousey = 0;
-
-		myGame.displayCometTrail = true;
-
-		// myGame.ResetData();
-
+	game.initGame = function () {
 		
+		game.load();
 
+		game.gameScreen.initialize();
+		game.mainMenuScreen.initialize();
+		game.shopScreen.initialize();
+		game.tutorialScreen.initialize();
+		game.aboutScreen.initialize();
+		game.developScreen.initialize();
+
+		game.currentScreen = game.mainMenuScreen;
+
+
+		game.mousex = game.mousey = 0;
+
+		game.displayCometTrail = true;
+	}
+
+
+	game.quit = function () {
+		if ("localStorage" in window && window["localStorage"] != null) {
+			localStorage["goodblackhole.highscore"] = parseInt(game.highScore);
+			localStorage["goodblackhole.cash"] = parseInt(game.cash);
+
+			localStorage["goodblackhole.shockwavecd"] = parseInt(game.shockwavecd);
+			localStorage["goodblackhole.difficulty"] = parseInt(game.difficulty);
+			localStorage["goodblackhole.pointsRange"] = parseFloat(game.pointsRange);
+			localStorage["goodblackhole.gameDuration"] = parseInt(game.gameDuration);
+			localStorage["goodblackhole.starMovementSpeed"] = parseFloat(game.starMovementSpeed);
+
+			localStorage["goodblackhole.hasSounds"] = game.hasSounds;
 		}
+	}
 
-		
-		myGame.Quit = function () {
-			if ("localStorage" in window && window["localStorage"] != null) {
-				localStorage["goodblackhole.highscore"] = parseInt(myGame.highScore);
-				localStorage["goodblackhole.cash"] = parseInt(myGame.cash);
-
-				localStorage["goodblackhole.shockwavecd"] = parseInt(myGame.shockwavecd);
-				localStorage["goodblackhole.difficulty"] = parseInt(myGame.difficulty);
-				localStorage["goodblackhole.pointsRange"] = parseFloat(myGame.pointsRange);
-				localStorage["goodblackhole.gameDuration"] = parseInt(myGame.gameDuration);
-				localStorage["goodblackhole.starMovementSpeed"] = parseFloat(myGame.starMovementSpeed);
-
-				localStorage["goodblackhole.hasSounds"] = myGame.hasSounds;
-			}
-		}
-		
-		myGame.Load = function () {
-			if ("localStorage" in window && window["localStorage"] != null) {
-				if (typeof(localStorage["goodblackhole.highscore"]) != "NaN" && localStorage["goodblackhole.highscore"] != "NaN")
-					myGame.highScore = parseInt(localStorage["goodblackhole.highscore"]);
-				else
-					myGame.highScore = 0;
-				if (typeof(localStorage["goodblackhole.cash"]) != "undefined" && localStorage["goodblackhole.cash"] != "NaN")
-					myGame.cash = parseInt(localStorage["goodblackhole.cash"]);
-				else
-					myGame.cash = 0;
+	game.load = function () {
+		if ("localStorage" in window && window["localStorage"] != null) {
+			if (typeof(localStorage["goodblackhole.highscore"]) != "NaN" && localStorage["goodblackhole.highscore"] != "NaN")
+				game.highScore = parseInt(localStorage["goodblackhole.highscore"]);
+			else
+				game.highScore = 0;
+			if (typeof(localStorage["goodblackhole.cash"]) != "undefined" && localStorage["goodblackhole.cash"] != "NaN")
+				game.cash = parseInt(localStorage["goodblackhole.cash"]);
+			else
+				game.cash = 0;
 
 
 				// Shockwave cooldown 
 				if (typeof(localStorage["goodblackhole.shockwavecd"]) != "undefined" && localStorage["goodblackhole.shockwavecd"] != "NaN")
-					myGame.baseShockwaveCooldown = parseInt(localStorage["goodblackhole.shockwavecd"]);
+					game.baseShockwaveCooldown = parseInt(localStorage["goodblackhole.shockwavecd"]);
 				else
-					myGame.baseShockwaveCooldown = 10000;
+					game.baseShockwaveCooldown = 10000;
 
 				// Difficulty level
 				if (typeof(localStorage["goodblackhole.difficulty"]) != "undefined" && localStorage["goodblackhole.difficulty"] != "NaN")
-					myGame.difficulty = parseInt(localStorage["goodblackhole.difficulty"]);
+					game.difficulty = parseInt(localStorage["goodblackhole.difficulty"]);
 				else
-					myGame.difficulty = 0;
+					game.difficulty = 0;
 
 				// Range of points increased
 				if (typeof(localStorage["goodblackhole.pointsRange"]) != "undefined" && localStorage["goodblackhole.pointsRange"] != "NaN")
-					myGame.pointsRange = parseFloat(localStorage["goodblackhole.pointsRange"]);
+					game.pointsRange = parseFloat(localStorage["goodblackhole.pointsRange"]);
 				else
-					myGame.pointsRange = 0.25;
+					game.pointsRange = 0.25;
 
 				// Duration of gameplay increased
 				if (typeof(localStorage["goodblackhole.gameDuration"]) != "undefined" && localStorage["goodblackhole.gameDuration"] != "NaN")
-					myGame.gameDuration = parseInt(localStorage["goodblackhole.gameDuration"]);
+					game.gameDuration = parseInt(localStorage["goodblackhole.gameDuration"]);
 				else
-					myGame.gameDuration = 30;
+					game.gameDuration = 30;
 
 
 				// Movement speed of stars is decreased
 				if (typeof(localStorage["goodblackhole.starMovementSpeed"]) != "undefined" && localStorage["goodblackhole.starMovementSpeed"] != "NaN")
-					myGame.starMovementSpeed = parseFloat(localStorage["goodblackhole.starMovementSpeed"]);
+					game.starMovementSpeed = parseFloat(localStorage["goodblackhole.starMovementSpeed"]);
 				else
-					myGame.starMovementSpeed = 0.01;
+					game.starMovementSpeed = 0.01;
 
 				// Movement speed of stars is decreased
 				if (typeof( localStorage["goodblackhole.hasSounds"]) != "undefined" && localStorage["goodblackhole.hasSounds"] != "NaN")
-					myGame.hasSounds = (localStorage["goodblackhole.hasSounds"] == "true") ? true : false;
+					game.hasSounds = (localStorage["goodblackhole.hasSounds"] == "true") ? true : false;
 				else
-					myGame.hasSounds = true;
+					game.hasSounds = true;
 			}
 		}
 		
-		myGame.ResetData = function () {
-			myGame.cash = 0;
-			myGame.highScore = 0;
+		game.ResetData = function () {
+			game.cash = 0;
+			game.highScore = 0;
 
-			myGame.baseShockwaveCooldown = 10000;
-			myGame.difficulty = 0;
-			myGame.pointsRange = 0.25;
-			myGame.gameDuration = 30;
-			myGame.starMovementSpeed = 0.01;
-			myGame.hasSounds = true;
-			myGame.Quit();
+			game.baseShockwaveCooldown = 10000;
+			game.difficulty = 0;
+			game.pointsRange = 0.25;
+			game.gameDuration = 30;
+			game.starMovementSpeed = 0.01;
+			game.hasSounds = true;
+			game.Quit();
 		}
 		
 
-		myGame.Draw = function (context) {
-			myGame.ClearScreen("#FFFFFF");
-			myGame.currentScreen.Draw(context);
-			if (myGame.transferringScreens){
+		game.draw = function (context) {
+			game.clearScreen("#FFFFFF");
+			game.currentScreen.draw(context);
+
+			if (game.transferringScreens){
 				context.globalAlpha = changeScreenOpacity;
 				context.fillStyle = Color.black;
 				context.fillRect(0,0,800,480);
@@ -164,43 +161,11 @@
 			
 			
 		}
-		myGame.Update = function () {
-			myGame.currentScreen.Update();
-			myGame.updateScreenChangeHandler();
-			myGame.manageMusic();
+		game.update = function () {
+			game.currentScreen.update();
+			game.updateScreenChangeHandler();
+			game.AudioManager.manage();
 		}
-
-		
-		function handleMouseMove(evt)
-		{
-			myGame.mousex = evt.x;
-			myGame.mousey = evt.y;
-		}
-		
-		function handleKeydown(evt) {
-			switch(evt.keyCode) {
-				case KEY_LEFT: isLeft =true;break;
-				case KEY_RIGHT: isRight =true;break;
-				case KEY_UP: isUp =true;break;
-				case KEY_DOWN: isDown =true;break;
-				case KEY_SPACE: isSpace = true; break;
-				case KEY_M: isMusic = true; isToggleMusic = false; break;
-				case KEY_ENTER: isEnter = true; break;
-			}
-		}
-		
-		function handleKeyup(evt) {
-			switch(evt.keyCode) {
-				case KEY_LEFT: isLeft =false;break;
-				case KEY_RIGHT: isRight =false;break;
-				case KEY_UP: isUp =false;break;
-				case KEY_DOWN: isDown =false;break;
-				case KEY_SPACE: isSpace = false; break;
-				case KEY_M: isMusic = isToggleMusic = false; break;
-				case KEY_ENTER: isEnter = false; break;
-			}
-		}
-		
 		</script>
 	</head>
 	<body>
@@ -208,6 +173,6 @@
 			<canvas id="blackhole" width="800" height="480" style="border: 1px solid black"></canvas>
 		</div>
 
-		<script> myGame.Start(); </script>
+		<script> game.start(); </script>
 	</body>
 	</html>

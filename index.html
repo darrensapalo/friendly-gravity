@@ -28,60 +28,59 @@ body {
 
 	<script>
 		
-		var myGame = new Game("splash", resourceList);
+		var game = new Game("splash", resourceList);
 		var changeScreenOpacity = 0;
 
-		myGame.InitGame = function () {
+		game.InitGame = function () {
 			var x = 0;
 			var y = 0;
 			var width = 256;
 			var height = 256;
-			myGame.sprite = new Sprite(myGame.GetImage("dgdl"), x, y, width, height, 0);
-			myGame.sprite.SetBasicOrigin();
-			myGame.beginShow = true;
-			myGame.beginHide = false;
-			myGame.opacity = 0;
+			game.sprite = new Sprite(game.getImage("dgdl"), x, y, width, height, 0);
+			game.beginShow = true;
+			game.beginHide = false;
+			game.opacity = 0;
 		}
 			
 		
-		myGame.Quit = function () {
+		game.Quit = function () {
 		
 		}
 		
-		myGame.Draw = function (context) {
-			myGame.ClearScreen("#000000");
-			myGame.sprite.Draw(context);
+		game.Draw = function (context) {
+			game.ClearScreen("#000000");
+			game.sprite.draw(context);
 		}
 		
-		myGame.Update = function () {
-			if (myGame.beginShow){
-				myGame.opacity += 0.015;
-				if (myGame.opacity >= 1){
-					myGame.opacity = 1;
-					myGame.beginShow = false;
-					myGame.pause = true;
-					myGame.counter = 100;
+		game.Update = function () {
+			if (game.beginShow){
+				game.opacity += 0.015;
+				if (game.opacity >= 1){
+					game.opacity = 1;
+					game.beginShow = false;
+					game.pause = true;
+					game.counter = 100;
 					
 				}
 			}
-			if (myGame.pause){
-				myGame.counter -= 1;
+			if (game.pause){
+				game.counter -= 1;
 				
-				if (myGame.counter <= 0)
-					myGame.beginHide = true;
+				if (game.counter <= 0)
+					game.beginHide = true;
 			}
 			
 			
-			if (myGame.beginHide){
-				myGame.opacity -= 0.015;
-				if (myGame.opacity <= 0){
-					myGame.beginHide = false;
-					myGame.opacity = 0;
+			if (game.beginHide){
+				game.opacity -= 0.015;
+				if (game.opacity <= 0){
+					game.beginHide = false;
+					game.opacity = 0;
 					window.location = 'game.html';
 				}
 			}
 			
-			myGame.sprite.opacity = myGame.opacity;
+			game.sprite.opacity = game.opacity;
 		}
 
 		
@@ -95,7 +94,7 @@ body {
 		</div>
 	</div>
 	</center>
-	<script> myGame.Start(); </script>
+	<script> game.Start(); </script>
 </body>
 
 </html>

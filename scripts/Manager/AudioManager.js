@@ -16,9 +16,13 @@ function AudioManager()
 
 	bgm.addEventListener('loadeddata', function () {
 		isReady = true;
-		bgm.volume = Config.bgmVolume;
+		bgm.volume = Config.sound.bgmVolume;
 
-		beginPlayingMusic();
+		if (Config.musicEnabled)
+		{
+			this.play("bgm");
+			isPlaying = true;
+		}
 
 		if (Config.bgmRepeat)
 		{
@@ -64,10 +68,4 @@ function AudioManager()
 		else
 			this.bgm.pause();
 	}
-}
-
-function beginPlayingMusic()
-{
-	myGame.AudioManager.play("bgm");
-	isPlaying = true;
 }

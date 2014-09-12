@@ -39,17 +39,17 @@ function Game(canvasname, resourceList) {
 	}
 
 	this.Loop = function(context) {
-		this.Draw(context);
-		this.Update();
+		this.draw(context);
+		this.update();
 		var thisObj = this;
 		setTimeout( function() { thisObj.Loop(thisObj.context) }, 1000 / 60);
 	}
 
-	this.Draw = function(context) {
+	this.draw = function(context) {
 	}
 
-	this.Update = function() {
-		this.UpdateScreenChangeHandler();
+	this.update = function() {
+		this.updateScreenChangeHandler();
 	}
 	
 	this.onClick = function(evt){

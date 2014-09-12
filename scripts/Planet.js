@@ -8,7 +8,7 @@ function Planet (){
 	this.type = 0;
 	this.maxForce = 0.003;
 	this.force = this.maxForce;
-	this.planetPoints = myGame.pointsRange * 2;
+	this.planetPoints = game.pointsRange * 2;
 	
 	this.startOpacityReduction = false;
 	this.opacityCounter = 10;
@@ -61,16 +61,16 @@ function Planet (){
 		do{			
 			var x = this.getRandomX();
 			var y = this.getRandomY();
-		}while(checkIfNearBlackHole(x, y, myGame.gameScreen.player));
+		}while(checkIfNearBlackHole(x, y, game.gameScreen.player));
 		
 		// Determine size
 		var width = 75;
 		var height = 75;
 		
 		// Grabs the required texture
-		var texture = myGame.GetImage(planetTexture[type]);
-		var gas1texture = myGame.GetImage(gas1texture[type]);
-		var gas2texture = myGame.GetImage(gas2texture[type]);
+		var texture = game.getImage(planetTexture[type]);
+		var gas1texture = game.getImage(gas1texture[type]);
+		var gas2texture = game.getImage(gas2texture[type]);
 
 		// Sets the sprites
 		this.sprite = new Sprite(texture,x,y,width,height, 1, 1, 1);
@@ -82,7 +82,7 @@ function Planet (){
 
 	}
 		
-	this.Initialize = function() {
+	this.initialize = function() {
 	
 		// Prepares position and texture
 		this.PreparePlanet();
@@ -112,22 +112,22 @@ function Planet (){
 	}
 
 	this.getRandomX = function(){
-		return Math.random() * myGame.canvas.width - 50;
+		return Math.random() * game.canvas.width - 50;
 	}
 	
 	this.getRandomY = function(){
-		return Math.random() * myGame.canvas.height - 50;
+		return Math.random() * game.canvas.height - 50;
 	}
 	
 	
-	this.Draw = function (context) {
+	this.draw = function (context) {
 
 				
 		
-		this.gas1sprite.Draw(context);
-		this.gas2sprite.Draw(context);
-		this.gas3sprite.Draw(context);
-		this.sprite.Draw(context);
+		this.gas1sprite.draw(context);
+		this.gas2sprite.draw(context);
+		this.gas3sprite.draw(context);
+		this.sprite.draw(context);
 		
 
 		this.drawDecreaseScore(context);
@@ -135,14 +135,14 @@ function Planet (){
 	}
 	
 	this.IncreasePlayerScore = function() { 
-		if (!myGame.gameScreen.gameOver)
-		myGame.gameScreen.player.score += Math.random() * myGame.pointsRange; 
+		if (!game.gameScreen.gameOver)
+		game.gameScreen.player.score += Math.random() * game.pointsRange; 
 	}
 	
 	this.ApplyPhysics = function(){
 	
 		var sprite = this.sprite;
-		var playerSprite = myGame.gameScreen.player.sprite;
+		var playerSprite = game.gameScreen.player.sprite;
 		
 		
 
@@ -169,9 +169,9 @@ function Planet (){
 		var magnitude = Math.sqrt(Math.pow(this.xAcceleration, 2) + Math.pow(this.yAcceleration, 2));
 		
 		if (this.isSuckedIn)
-			this.force = 1 / myGame.gameScreen.player.currentScale;
+			this.force = 1 / game.gameScreen.player.currentScale;
 		else if (this.force < this.maxForce)
-			this.force += myGame.starMovementSpeed;
+			this.force += game.starMovementSpeed;
 		else if (this.force >= this.maxForce)
 			this.force = this.maxForce;
 			
@@ -190,7 +190,7 @@ function Planet (){
 
 	}
 	
-	this.Update = function (player){
+	this.update = function (player){
 		this.IncreasePlayerScore();
 		this.ApplyPhysics();
 
@@ -199,7 +199,7 @@ function Planet (){
 		this.CheckIfCaught();
 		this.ReduceOpacity();
 
-		this.UpdateStages();
+		this.updateStages();
 
 
 		this.gas1sprite.x = this.gas2sprite.x = this.gas3sprite.x = this.sprite.x;
@@ -209,7 +209,7 @@ function Planet (){
 			this.updateDecreasedScore();
 	}
 
-	this.UpdateStages = function() {
+	this.updateStages = function() {
 		if (this.isSuckedIn) return;
 
 		if (this.stageCount >= 0){
@@ -286,7 +286,7 @@ function Planet (){
 		{
 			if (this.sprite.opacity <= 0){
 				this.sprite.opacity = 0;
-				myGame.gameScreen.removePlanet(this);
+				game.gameScreen.removePlanet(this);
 			}else
 				this.sprite.opacity -= 0.05;
 
@@ -303,13 +303,13 @@ function Planet (){
 	}
 	
 	
-	this.UpdatePosition = function(x, y){
+	this.updatePosition = function(x, y){
 		this.sprite.x = x;
 		this.sprite.y = y;
 	}
 	
 	this.CometAcceleration = function(){
-		var cometMoveSpeed = myGame.gameScreen.player.cometMovementSpeed;
+		var cometMoveSpeed = game.gameScreen.player.cometMovementSpeed;
 		
 		// Comet acceleration settings
 		if (this.sprite.x < playerSprite.x)
@@ -324,7 +324,7 @@ function Planet (){
 	}
 	
 	this.CometVelocityLimits = function(){
-		var maxCometSpeed = myGame.gameScreen.player.MAX_ACCELERATION;
+		var maxCometSpeed = game.gameScreen.player.MAX_ACCELERATION;
 		
 		// Acceleration limits
 
@@ -342,7 +342,7 @@ function Planet (){
 	}
 	
 	this.CheckIfCaught = function(){
-	var player = myGame.gameScreen.player;
+	var player = game.gameScreen.player;
 	if (this.sprite.CollidesWith(player.sprite) && !this.isSuckedIn) {
 			player.getHit();
 			this.isSuckedIn = true;
@@ -364,7 +364,7 @@ function Planet (){
 
 	this.drawDecreaseScore = function(context) {
 		if (this.isSuckedIn)
-			this.decreasedScoreText.Draw(context);
+			this.decreasedScoreText.draw(context);
 
 	}
 }

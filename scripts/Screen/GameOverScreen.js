@@ -13,19 +13,19 @@ function GameOverScreen(game){
 	
 	
 	
-	this.Initialize = function () {
+	this.initialize = function () {
 	this.ranking = 0;
 
-	if (myGame.highScore < myGame.currentScore)
+	if (game.highScore < game.currentScore)
 	{
-		myGame.highScore = myGame.currentScore;
+		game.highScore = game.currentScore;
 	}
 	
-	myGame.gameScreen.player.cash = myGame.cash = parseInt(myGame.cash) + parseInt(myGame.currentScore);
-	myGame.Quit();
+	game.gameScreen.player.cash = game.cash = parseInt(game.cash) + parseInt(game.currentScore);
+	game.Quit();
 	
 		
-	var button = myGame.GetImage("Button");
+	var button = game.getImage("Button");
 	this.newGame = new TextSprite("Play again", 263, 200, 255, 40, Color.black, Color.light_gray);
 	
 	var x, y;
@@ -34,24 +34,21 @@ function GameOverScreen(game){
 	y = 380;
 	this.newGame = new TextSprite("Play again", x + 20, y + 20, 255, 40, Color.black, Color.light_gray);
 	this.newGame2 = new Sprite(button, x, y, 255, 80, 1);
-	this.newGame2.SetBasicOrigin();
 	
 
 	x += 250;
 	y = 380;
 	this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
 	this.returnMainMenu2 = new Sprite(button, x, y, 255, 80, 1);
-	this.returnMainMenu2.SetBasicOrigin();
 	
 	x += 250;
 	this.shopButtonCaption = new TextSprite("Shopping", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
-	this.shop = new Sprite(myGame.GetImage("shopButton"), x, y, 255, 80, 1);
-	this.shop.SetBasicOrigin();
+	this.shop = new Sprite(game.getImage("shopButton"), x, y, 255, 80, 1);
 
 			
 	x = 150;
 	y = 70;
-	var panelTexture = myGame.GetImage("panel");
+	var panelTexture = game.getImage("panel");
 	this.panel = new Sprite(panelTexture, x, y, 489, 306, 0.8);
 	
 	y += 40;
@@ -65,12 +62,7 @@ function GameOverScreen(game){
 	y += 40;
 	this.panelText = new TextSprite("Rank: ", 130, y + 10, 200, 40, Color.black, Color.light_gray);
 	
-
-	this.panel.SetBasicOrigin();
-
-
-
-	var starImage = myGame.GetImage("yellowStar");
+	var starImage = game.getImage("yellowStar");
 	x = 300;
 	y = 300;
 	this.star1 = new Sprite(starImage, x, y, 50, 50, 1); x += 60;
@@ -87,54 +79,54 @@ function GameOverScreen(game){
 		
 	}
 
-	this.Draw = function(context) {
+	this.draw = function(context) {
 			// Background image
-			context.drawImage(myGame.GetImage("bg1"), 0, 0, 800, 480);
+			context.drawImage(game.getImage("bg1"), 0, 0, 800, 480);
 			
 			// Player
-			// this.player.sprite.Draw(context);
+			// this.player.sprite.draw(context);
 			
 			// Stars
 			// for(var i=0;i<comets.length;i++)
-			//	comets[i].sprite.Draw(context);
+			//	comets[i].sprite.draw(context);
 			
 			
-			this.panel.Draw(context);
-			this.panelText.Draw(context);
-			this.panelText2.Draw(context);
-			this.panelText3.Draw(context);
-			this.panelText4.Draw(context);
-			this.panelText5.Draw(context);
+			this.panel.draw(context);
+			this.panelText.draw(context);
+			this.panelText2.draw(context);
+			this.panelText3.draw(context);
+			this.panelText4.draw(context);
+			this.panelText5.draw(context);
 			
 
 			this.drawStars(context);
 
-			this.newGame2.Draw(context);
-			this.newGame.Draw(context);
+			this.newGame2.draw(context);
+			this.newGame.draw(context);
 			
 			
-			this.returnMainMenu2.Draw(context);
-			this.returnMainMenu.Draw(context);
+			this.returnMainMenu2.draw(context);
+			this.returnMainMenu.draw(context);
 
-			this.shop.Draw(context);
-			this.shopButtonCaption.Draw(context);
+			this.shop.draw(context);
+			this.shopButtonCaption.draw(context);
 	}
 
 	this.drawStars = function (context){
 		if (this.ranking >= 1)
-			this.star1.Draw(context);
+			this.star1.draw(context);
 		if (this.ranking >= 2)
-			this.star2.Draw(context);
+			this.star2.draw(context);
 		if (this.ranking >= 3)
-			this.star3.Draw(context);
+			this.star3.draw(context);
 		if (this.ranking >= 4)
-			this.star4.Draw(context);
+			this.star4.draw(context);
 		if (this.ranking >= 5)
-			this.star5.Draw(context);
+			this.star5.draw(context);
 	}
 	
-	this.Update = function() {
-		this.UpdateTimer();
+	this.update = function() {
+		this.updateTimer();
 		this.panelText2.text = "Score: " + this.game.currentScore + "";
 		this.panelText3.text = "High Score: " + this.game.highScore + "";
 		
@@ -171,27 +163,27 @@ function GameOverScreen(game){
 	this.CheckIfPlayAgain = function(x, y){
 
 		if (!isEnter && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-		if (this.newGame.IsInside(x, y) || isEnter){
-			this.game.ChangeScreen(1);
-			this.game.gameScreen.Initialize();
+		if (this.newGame.contains(x, y) || isEnter){
+			this.game.changeScreen(1);
+			this.game.gameScreen.initialize();
 			this.game.pressX = this.game.pressY = 0;
 		}
 	}
 	
 	this.CheckIfReturnMainMenu = function(x, y){
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.returnMainMenu.IsInside(x, y)){
-			this.game.ChangeScreen(0);
+		if (this.returnMainMenu.contains(x, y)){
+			this.game.changeScreen(0);
 			this.game.pressX = this.game.pressY = 0;
 		}
 	}
 
 	this.CheckIfShop = function(x, y){
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.shop.IsInside(x, y)){
-			this.game.ChangeScreen(6);
+		if (this.shop.contains(x, y)){
+			this.game.changeScreen(6);
 			this.game.pressX = this.game.pressY = 0;
-			this.game.developScreen.Initialize();
+			this.game.developScreen.initialize();
 		}
 	}
 	
@@ -202,7 +194,7 @@ function GameOverScreen(game){
 	}
 	
 			
-	this.UpdateTimer = function(){
+	this.updateTimer = function(){
 		if (this.updateTimers){
 			this.elapsedGameMilliseconds += 33;
 			this.updateTimers = false;

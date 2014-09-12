@@ -49,13 +49,13 @@ function Comet (){
 		}
 		
 		// Grabs the required texture
-		var texture = myGame.GetImage(textureList[index]);
+		var texture = game.getImage(textureList[index]);
 		
 		// Select random spawn point
 		do{			
 			var x = this.getRandomX();
 			var y = this.getRandomY();
-		}while(checkIfNearBlackHole(x, y, myGame.gameScreen.player));
+		}while(checkIfNearBlackHole(x, y, game.gameScreen.player));
 		
 		// Determine size
 		var width = 72;
@@ -88,7 +88,7 @@ function Comet (){
 		for (var i = 0; i < Math.floor(Math.random() * (this.trailListAmount - this.trailListMinimum)) + this.trailListMinimum; i++)
 		{
 			var trail = new Trail();
-			trail.Initialize(type, x, y, 1, 1);
+			trail.initialize(type, x, y, 1, 1);
 			
 			trail.UpdatePosition(this.sprite.x, this.sprite.y);
 			trail.sprite.scalex = scale;
@@ -101,7 +101,7 @@ function Comet (){
 		
 	}
 	
-	this.Initialize = function(type) {
+	this.initialize = function(type) {
 	
 		// Prepares position and texture
 		this.PrepareComet(type);
@@ -126,11 +126,11 @@ function Comet (){
 	}
 		
 	this.getRandomX = function(){
-		return Math.random() * myGame.canvas.width - 50;
+		return Math.random() * game.canvas.width - 50;
 	}
 	
 	this.getRandomY = function(){
-		return Math.random() * myGame.canvas.height - 50;
+		return Math.random() * game.canvas.height - 50;
 	}
 	
 	this.hasTrail = function(){
@@ -146,19 +146,19 @@ function Comet (){
 		this.sprite.rotation += Math.PI / 2;
 	}
 	
-	this.Draw = function (context) {
-	if (myGame.displayCometTrail && this.hasTrail())	
+	this.draw = function (context) {
+	if (game.displayCometTrail && this.hasTrail())	
 		for (var i = this.trailList.length - 1; i >= 0; i--)
-			this.trailList[i].Draw(context);
+			this.trailList[i].draw(context);
 			
 			
-		this.sprite.Draw(context);
+		this.sprite.draw(context);
 		this.drawDecreaseScore(context);
 	}
 	
 	this.IncreasePlayerScore = function() { 
-		if (!myGame.gameScreen.gameOver)
-		myGame.gameScreen.player.score += Math.random() * myGame.pointsRange; 
+		if (!game.gameScreen.gameOver)
+		game.gameScreen.player.score += Math.random() * game.pointsRange; 
 	}
 	
 	this.ApplyPhysics = function(player){
@@ -191,9 +191,9 @@ function Comet (){
 		var magnitude = Math.sqrt(Math.pow(this.xAcceleration, 2) + Math.pow(this.yAcceleration, 2));
 		
 		if (this.isSuckedIn)
-			this.force = 1 / myGame.gameScreen.player.currentScale;
+			this.force = 1 / game.gameScreen.player.currentScale;
 		else if (this.force < this.maxForce)
-			this.force += myGame.starMovementSpeed;
+			this.force += game.starMovementSpeed;
 		else if (this.force >= this.maxForce)
 			this.force = this.maxForce;
 			
@@ -222,11 +222,11 @@ function Comet (){
 
 	}
 	
-	this.Update = function (player){
+	this.update = function (player){
 		this.IncreasePlayerScore();
 		this.ApplyPhysics(player);
-		if (myGame.displayCometTrail  && this.hasTrail())
-			this.UpdateTrail();
+		if (game.displayCometTrail  && this.hasTrail())
+			this.updateTrail();
 		this.CometVelocityLimits();
 		this.Rotate();
 		if (!player.isTutorial)
@@ -245,7 +245,7 @@ function Comet (){
 		{
 			if (this.sprite.opacity <= 0){
 				this.sprite.opacity = 0;
-				myGame.gameScreen.removeComet(this);
+				game.gameScreen.removeComet(this);
 			}else
 				this.sprite.opacity -= 0.05;
 				
@@ -262,7 +262,7 @@ function Comet (){
 		this.sprite.rotation += (this.yAcceleration < 0 ) ? 0.01 : -0.01;
 	}
 	
-	this.UpdateTrail = function(){
+	this.updateTrail = function(){
 		if (this.trailList.length == 0) return;
 		for (var i = this.trailList.length - 1; i > 0; i--)
 		{
@@ -273,7 +273,7 @@ function Comet (){
 		}
 	}
 	
-	this.UpdatePosition = function(x, y){
+	this.updatePosition = function(x, y){
 		this.sprite.x = x;
 		this.sprite.y = y;
 
@@ -281,7 +281,7 @@ function Comet (){
 	}
 	
 	this.CometAcceleration = function(){
-		var cometMoveSpeed = myGame.gameScreen.player.cometMovementSpeed;
+		var cometMoveSpeed = game.gameScreen.player.cometMovementSpeed;
 		
 		// Comet acceleration settings
 		if (this.sprite.x < playerSprite.x)
@@ -296,7 +296,7 @@ function Comet (){
 	}
 	
 	this.CometVelocityLimits = function(){
-		var maxCometSpeed = myGame.gameScreen.player.MAX_ACCELERATION;
+		var maxCometSpeed = game.gameScreen.player.MAX_ACCELERATION;
 		
 		// Acceleration limits
 
@@ -334,7 +334,7 @@ function Comet (){
 
 	this.drawDecreaseScore = function(context) {
 		if (this.isSuckedIn)
-			this.decreasedScoreText.Draw(context);
+			this.decreasedScoreText.draw(context);
 
 	}
 	

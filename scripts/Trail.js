@@ -2,7 +2,7 @@ function Trail (){
 	this.visible = true;
 	this.sprite;
 	
-	this.Initialize = function(type, x, y, opacity, scale) {
+	this.initialize = function(type, x, y, opacity, scale) {
 	
 		// Prepares position and texture
 		this.PrepareTrail(type, x, y, opacity, scale) ;
@@ -30,11 +30,11 @@ function Trail (){
 		height = 36;
 		
 		if (type == 2){
-			var texture = myGame.GetImage(textureList[2]);
+			var texture = game.getImage(textureList[2]);
 			
 			height = width = 50;
 		}else{
-			var texture = myGame.GetImage(textureList[type]);
+			var texture = game.getImage(textureList[type]);
 		}
 		
 		this.sprite = new Sprite(texture, x, y, width, height, opacity, scale, scale);
@@ -49,17 +49,17 @@ function Trail (){
 			this.sprite.opacity = 0;
 	}
 	
-	this.UpdatePosition = function (x, y){
+	this.updatePosition = function (x, y){
 		this.sprite.x = x;
 		this.sprite.y = y;
 	}
 	
-	this.Update = function (){
+	this.update = function (){
 		
 	}
 	
-	this.Draw = function (context) {
-		this.sprite.Draw(context);
+	this.draw = function (context) {
+		this.sprite.draw(context);
 	}
 	
 	

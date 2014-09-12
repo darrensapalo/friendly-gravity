@@ -1,66 +1,55 @@
-
-
 function DevelopScreen(game){
 	this.game = game;
-		
+
 	this.elapsedGameMilliseconds = 0;
 	this.elapsedMs = 33;
-	
-	
-	
-	
-	this.Initialize = function () {
-		var myGame = this.game;
-		this.player = myGame.gameScreen.player;
-			
-		var button = myGame.GetImage("Button");
-		var x, y;
+}	
 
-		
-		x = 150;
-		y = 380;
-		this.newGame = new TextSprite("Play again", x + 20, y + 20, 255, 40, Color.black, Color.light_gray);
-		this.newGame2 = new Sprite(button, x, y, 255, 80, 1);
-		this.newGame2.SetBasicOrigin();
-		
+DevelopScreen.prototype.initialize = function () {
+	this.background = new Background();
+	var game = this.game;
+	this.player = game.gameScreen.player;
 
-		x = 400;
-		y = 380;
-		this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
-		this.returnMainMenu2 = new Sprite(button, x, y, 255, 80, 1);
-		this.returnMainMenu2.SetBasicOrigin();
-		
-		
-				
-		x = 150;
-		y = 70;
-		var panelTexture = myGame.GetImage("panel");
-		this.panel = new Sprite(panelTexture, x, y, 489, 306, 0.8);
+	var x, y;
+	x = 150;
+	y = 380;
+	this.newGame = new TextSprite("Play again", x + 20, y + 20, 255, 40, Color.black, Color.light_gray);
+	this.newGame2 = new Sprite("Button", x, y, 255, 80, 1);
+
+
+	x = 400;
+	y = 380;
+	this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
+	this.returnMainMenu2 = new Sprite("Button", x, y, 255, 80, 1);
+
+
+
+	x = 150;
+	y = 70;
+	this.panel = new Sprite("panel", x, y, 489, 306, 0.8);
 		/*
 		y += 20;
 		this.panelText = new TextSprite("Game over", x + 150, y, 200, 40, Color.black, Color.light_gray);
 		*/
 		y += 20;
-		this.panelText7 = new TextSprite("Points: " + myGame.cash, x + 150, y, 200, 40, Color.black, Color.light_gray);
+		this.panelText7 = new TextSprite("Points: " + game.cash, x + 150, y, 200, 40, Color.black, Color.light_gray);
 		y += 40;
-		this.panelText3 = new TextSprite("More points " + getPointsLevel() + " / 50 (500)", x + 150, y, 200, 40, Color.black, Color.light_gray);
-		this.morePoints = new Sprite(myGame.GetImage("morePoints"), x+ 50, y + 20, 40, 40, 1);
+		this.panelText3 = new TextSprite("More points " + this.getPointsLevel() + " / 50 (500)", x + 150, y, 200, 40, Color.black, Color.light_gray);
+		this.morePoints = new Sprite("morePoints", x + 50, y + 20, 40, 40, 1);
 		y += 40;
-		this.panelText5 = new TextSprite("Slower stars " + getSlowLevel()  + " / 50 (500)", x + 150, y, 200, 40, Color.black, Color.light_gray);
-		this.slowerStars = new Sprite(myGame.GetImage("slowerStars"), x+ 50, y + 20, 50, 40, 1);
+		this.panelText5 = new TextSprite("Slower stars " + this.getSlowLevel()  + " / 50 (500)", x + 150, y, 200, 40, Color.black, Color.light_gray);
+		this.slowerStars = new Sprite("slowerStars", x + 50, y + 20, 50, 40, 1);
 		y += 40;
 		this.panelText2 = new TextSprite("More time (10000)", x + 150, y, 200, 40, Color.black, Color.light_gray);
-		this.moreTime = new Sprite(myGame.GetImage("moreTime"), x + 50, y + 20, 40, 40, 1);
+		this.moreTime = new Sprite("moreTime", x + 50, y + 20, 40, 40, 1);
 		y += 40;
 		this.panelText4 = new TextSprite("More stars (50000)", x + 150, y, 200, 40, Color.black, Color.light_gray);
-		this.moreStars = new Sprite(myGame.GetImage("moreStars"), x+ 50, y + 20, 40, 40, 1);
+		this.moreStars = new Sprite("moreStars", x + 50, y + 20, 40, 40, 1);
 		y += 50;
 		this.panelText6 = new TextSprite("click an icon to buy", x + 150, y, 200, 40, Color.black, Color.light_gray);
 		
 
-		this.UpdateOpacity();
-		
-		this.panel.SetBasicOrigin();
+		this.updateOpacity();
 		
 		this.textTimeout = 3000;
 		// Thick white outside
@@ -68,90 +57,81 @@ function DevelopScreen(game){
 		
 	}
 
-	function getPointsLevel() {
-		var removeBase = myGame.pointsRange - 0.25;
+	DevelopScreen.prototype.getPointsLevel = function() {
+		var removeBase = game.pointsRange - 0.25;
 		removeBase = removeBase / 0.005;
 		return Math.ceil(removeBase);
 	}
 
-	function getMaxPoints(){
+	DevelopScreen.prototype.getMaxPoints = function(){
 		return 0.25 + 0.005 * 50;
 	}
 
-	function getSlowLevel() {
-		var removeBase = myGame.starMovementSpeed - 0.01;
+	DevelopScreen.prototype.getSlowLevel = function() {
+		var removeBase = game.starMovementSpeed - 0.01;
 		removeBase = removeBase / 0.0005;
 		return -Math.ceil(removeBase);
 	}
 
 
-	function getMaxSlow(){
+	DevelopScreen.prototype.getMaxSlow = function(){
 		return 0.01 - 0.0005 * 50;
 	}
 
-	this.UpdateOpacity = function(){
-		if (myGame.pointsRange >= getMaxPoints()){
+	DevelopScreen.prototype.updateOpacity = function(){
+		if (game.pointsRange >= this.getMaxPoints()){
 			this.panelText3.opacity = 0.5;
 			this.morePoints.opacity = 0.5;
 			// this.cantImprovePoints = true;
 		}
 
-		if (myGame.starMovementSpeed <= getMaxSlow()){
+		if (game.starMovementSpeed <= this.getMaxSlow()){
 			this.panelText5.opacity = 0.5;
 			this.slowerStars.opacity = 0.5;
 			// this.cantSlowStars = true;
 		}
 
-		if (myGame.gameDuration >= 45){
+		if (game.gameDuration >= 45){
 			this.panelText2.opacity = 0.5;
 			this.moreTime.opacity = 0.5;
 			this.cantImproveTime = true;
 		}
 
-		if (myGame.difficulty >= 1){
+		if (game.difficulty >= 1){
 			this.panelText4.opacity = 0.5;
 			this.moreStars.opacity = 0.5;
 			this.cantSpawnMoreStars = true;
 		}
 	}
 
-	this.Draw = function(context) {
-			// Background image
-			context.drawImage(myGame.GetImage("bg1"), 0, 0, 800, 480);
+	DevelopScreen.prototype.draw = function(context) {
+			this.background.draw(context);
 			
-			// Player
-			// this.player.sprite.Draw(context);
-			
-			// Stars
-			// for(var i=0;i<comets.length;i++)
-			//	comets[i].sprite.Draw(context);
-			
-			
-			this.panel.Draw(context);
-			// this.panelText.Draw(context);
-			this.panelText2.Draw(context);
-			this.panelText3.Draw(context);
-			this.panelText4.Draw(context);
-			this.panelText5.Draw(context);
-			this.panelText6.Draw(context);
-			this.panelText7.Draw(context);
+			this.panel.draw(context);
 
-			this.moreTime.Draw(context);
-			this.morePoints.Draw(context);
-			this.moreStars.Draw(context);
-			this.slowerStars.Draw(context);
+			this.panelText2.draw(context);
+			this.panelText3.draw(context);
+			this.panelText4.draw(context);
+			this.panelText5.draw(context);
+			this.panelText6.draw(context);
+			this.panelText7.draw(context);
+
+			this.moreTime.draw(context);
+			this.morePoints.draw(context);
+			this.moreStars.draw(context);
+			this.slowerStars.draw(context);
 			
 			
-			this.newGame2.Draw(context);
-			this.newGame.Draw(context);
+			this.newGame2.draw(context);
+			this.newGame.draw(context);
 			
 			
-			this.returnMainMenu2.Draw(context);
-			this.returnMainMenu.Draw(context);
-	}
-	
-	this.Update = function() {
-		this.UpdateTimer();
+			this.returnMainMenu2.draw(context);
+			this.returnMainMenu.draw(context);
+		}
+
+		DevelopScreen.prototype.update = function() {
+			this.updateTimer();
 		/*
 		this.panelText2.text = "Your final score is " + this.game.currentScore + "!";
 		this.panelText3.text = "Your current high score is " + this.game.highScore + "!";
@@ -183,7 +163,7 @@ function DevelopScreen(game){
 		
 	}
 
-	this.CheckText = function() {
+	DevelopScreen.prototype.CheckText = function() {
 		this.textTimeout -= 33;
 		if (this.textTimeout <= 0){
 			this.textTimeout = 3000;
@@ -193,19 +173,19 @@ function DevelopScreen(game){
 
 	};
 	
-	this.CheckIfPlayAgain = function(x, y){
+	DevelopScreen.prototype.CheckIfPlayAgain = function(x, y){
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.newGame.IsInside(x, y)){
-			this.game.ChangeScreen(1);
-			this.game.gameScreen.Initialize();
+		if (this.newGame.contains(x, y)){
+			this.game.changeScreen(1);
+			this.game.gameScreen.initialize();
 			this.game.pressX = this.game.pressY = 0;
 		}
 	}
 	
-	this.CheckIfReturnMainMenu = function(x, y){
+	DevelopScreen.prototype.CheckIfReturnMainMenu = function(x, y){
 		if (!isEnter && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-		if (this.returnMainMenu.IsInside(x, y) || isEnter){
-			this.game.ChangeScreen(0);
+		if (this.returnMainMenu.contains(x, y) || isEnter){
+			this.game.changeScreen(0);
 			this.game.pressX = this.game.pressY = 0;
 		}
 	}
@@ -213,20 +193,20 @@ function DevelopScreen(game){
 	
 
 
-	this.ResetPressedPos = function(){
+	DevelopScreen.prototype.ResetPressedPos = function(){
 		this.game.pressX = this.game.pressY = 0;
 	}
 
-	this.CheckIfMorePoints = function(x, y){
+	DevelopScreen.prototype.CheckIfMorePoints = function(x, y){
 		if (this.cantImprovePoints) return;
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.morePoints.IsInside(x, y)){
+		if (this.morePoints.contains(x, y)){
 			if (this.CheckIfHasCash(500) && getPointsLevel() - 1 < 50){
 				this.DeductFromCash(500);
-				myGame.pointsRange += 0.005;
+				game.pointsRange += 0.005;
 				this.panelText6.text = "Double points!";
-				myGame.Quit();
-				this.Initialize();
+				game.Quit();
+				this.initialize();
 			}else{
 				this.panelText3.textColor = redColor;
 				this.panelText6.text = "Not enough points.";
@@ -237,16 +217,16 @@ function DevelopScreen(game){
 	}
 
 
-	this.CheckIfSlowerStars = function(x, y){
+	DevelopScreen.prototype.CheckIfSlowerStars = function(x, y){
 		if (this.cantSlowStars)return;
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.slowerStars.IsInside(x, y)){
+		if (this.slowerStars.contains(x, y)){
 			if (this.CheckIfHasCash(500) && getSlowLevel() - 1 < 50){
 				this.DeductFromCash(500);
-				myGame.starMovementSpeed -= 0.0005;
+				game.starMovementSpeed -= 0.0005;
 				this.panelText6.text = "Slower stars!";
-				myGame.Quit();
-				this.Initialize();
+				game.Quit();
+				this.initialize();
 			}else{
 				this.panelText5.textColor = redColor;
 				this.panelText6.text = "Not enough points.";
@@ -258,16 +238,16 @@ function DevelopScreen(game){
 
 	
 
-	this.CheckIfMoreTime = function(x, y){
+	DevelopScreen.prototype.CheckIfMoreTime = function(x, y){
 		if (this.cantImproveTime) return;
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.moreTime.IsInside(x, y)){
+		if (this.moreTime.contains(x, y)){
 			if (this.CheckIfHasCash(10000)){
 				this.DeductFromCash(10000);
-				myGame.gameDuration = 45;
+				game.gameDuration = 45;
 				this.panelText6.text = "+15 seconds!";
-				myGame.Quit();
-				this.Initialize();
+				game.Quit();
+				this.initialize();
 			}else{
 				this.panelText2.textColor = redColor;
 				this.panelText6.text = "Not enough points.";
@@ -277,16 +257,16 @@ function DevelopScreen(game){
 		}
 	}
 
-	this.CheckIfMoreStars = function(x, y){
+	DevelopScreen.prototype.CheckIfMoreStars = function(x, y){
 		if (this.cantSpawnMoreStars)return;
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
-		if (this.moreStars.IsInside(x, y)){
+		if (this.moreStars.contains(x, y)){
 			if (this.CheckIfHasCash(50000)){
 				this.DeductFromCash(50000);
-				myGame.difficulty = 1;
+				game.difficulty = 1;
 				this.panelText6.text = "Increased stars!";
-				myGame.Quit();
-				this.Initialize();
+				game.Quit();
+				this.initialize();
 			}else{
 				this.panelText4.textColor = redColor;
 				this.panelText6.text = "Not enough points.";
@@ -297,14 +277,14 @@ function DevelopScreen(game){
 	}
 
 	
-	this.CheckIfHasCash = function(amount){
+	DevelopScreen.prototype.CheckIfHasCash = function(amount){
 		return true;
-		if (myGame.cash >= amount) return true;
+		if (game.cash >= amount) return true;
 	}
 
-	this.DeductFromCash = function(amount){
-		myGame.cash -= amount;
-		myGame.Quit();
+	DevelopScreen.prototype.DeductFromCash = function(amount){
+		game.cash -= amount;
+		game.Quit();
 	}
 
 	// TODO: Return to main menu
@@ -313,12 +293,11 @@ function DevelopScreen(game){
 		this.updateTimers = true;
 	}
 	
-			
-	this.UpdateTimer = function(){
+
+	DevelopScreen.prototype.updateTimer = function(){
 		if (this.updateTimers){
 			this.elapsedGameMilliseconds += 33;
 			this.updateTimers = false;
 			this.timerTimeout = setTimeout(this.updateTimerFunc, 33);
 		}
 	}
-}
