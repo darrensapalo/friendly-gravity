@@ -1,6 +1,6 @@
 var Config = {
-	font: "digital_techregular",
-	fontSize: "12px",
+	font: "Space Age",
+	fontSize: "14pt",
 
 	// Sound and music
 	musicEnabled: false,

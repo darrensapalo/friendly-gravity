@@ -136,7 +136,6 @@ function DevelopScreen(game){
 			this.panelText6.Draw(context);
 			this.panelText7.Draw(context);
 
-			console.log(this.moreTime);
 			this.moreTime.Draw(context);
 			this.morePoints.Draw(context);
 			this.moreStars.Draw(context);
