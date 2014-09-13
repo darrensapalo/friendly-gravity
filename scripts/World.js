@@ -15,6 +15,9 @@ function World(game)
 	this.mapx = this.originalmapx = -120;
 	this.mapy = this.originalmapy = -72;
 
+	this.resizeWidth = 800 * 1.3;
+	this.resizeHeight = 480 * 1.3;
+
 }
 
 World.prototype.draw = function(context) {
@@ -34,30 +37,30 @@ World.prototype.bound = function()
 		this.mapx += Math.abs(this.mapx - this.originalmapx) * 0.025;
 	else if (this.mapx > this.originalmapx)
 		this.mapx -= Math.abs(this.mapx - this.originalmapx) * 0.025;
-		
+	
 	if (this.mapy < this.originalmapy)
 		this.mapy += Math.abs(this.mapy - this.originalmapy) * 0.025;
 	else if (this.mapy > this.originalmapy)
 		this.mapy -= Math.abs(this.mapy - this.originalmapy) * 0.025;
-		
+	
 }
 
 World.prototype.entropy = function() {
 
 	this.removeComet = function(target) {
-	for (var i = 0; i < this.comets.length; i++){
-		if (this.comets[i] == target) {
-			this.comets.splice(i,1);
-			return;
+		for (var i = 0; i < this.comets.length; i++){
+			if (this.comets[i] == target) {
+				this.comets.splice(i,1);
+				return;
 			}
 		}
 	}
 
 	this.removePlanet = function(target) {
-	for (var i = 0; i < this.planets.length; i++){
-		if (this.planets[i] == target) {
-			this.planets.splice(i,1);
-			return;
+		for (var i = 0; i < this.planets.length; i++){
+			if (this.planets[i] == target) {
+				this.planets.splice(i,1);
+				return;
 			}
 		}
 	}
@@ -69,14 +72,14 @@ World.prototype.getBackground = function() {
 	return this.game.ImageLoader.images["default_background"];
 }
 
-this.CheckGameOver = function(){
-		
-		if (this.countdownLeft <= 0)
-		{
-			this.game.changeScreen(2);
-			if (this.gameOver)return;
-			this.gameOver = true;
-			this.game.currentScore = Math.floor(this.player.score);
-			game.gameOverScreen.initialize();
-		}
+World.prototype.CheckGameOver = function(){
+	
+	if (this.countdownLeft <= 0)
+	{
+		this.game.changeScreen(2);
+		if (this.gameOver)return;
+		this.gameOver = true;
+		this.game.currentScore = Math.floor(this.player.score);
+		game.gameOverScreen.initialize();
 	}
+}

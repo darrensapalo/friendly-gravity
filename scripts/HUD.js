@@ -1,7 +1,8 @@
-function HUD(game, player)
+function HUD(world)
 {
-	this.game = game;
-	this.player = player;
+	this.world = world;
+	this.player = world.player;
+
 	this.PulseNova = new PulseNova(player);
 }
 
@@ -39,7 +40,7 @@ HUD.prototype.draw = function(context) {
 	this.PulseNova.draw(context);
 }
 
-this.drawTimer = function(context) {
+HUD.prototype..drawTimer = function(context) {
 		var x, y;
 		y = 10;
 		x = 150;
@@ -47,7 +48,7 @@ this.drawTimer = function(context) {
 		context.drawImage(this.game.ImageLoader.images["barHolder"], x, y, 500, 25);
 	}
 
-this.updateTutorial = function(){
+HUD.prototype..updateTutorial = function(){
 	this.showMessage -= this.elapsedMs;
 	if (this.showMessage < 0){
 		// decrease opacity of text message

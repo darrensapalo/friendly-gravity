@@ -13,7 +13,6 @@ PulseNova.prototype.update = function()
 	if (this.counter > 0)
 		this.counter -= 1;
 
-
 	// logic for drawing
 }
 
@@ -27,31 +26,30 @@ PulseNova.prototype.draw = function(context)
 	// drawing
 }
 
+PulseNova.prototype.ComputeTimerWidth = function() {
+	var val;
+	x = (Config.game.baseShockwaveCD - this.player.injectionTimeout) /  Config.game.baseShockwaveCD * 500;
 
-	this.ComputeTimerWidth = function() {
-		var val;
-		x = (Config.game.baseShockwaveCD - this.player.injectionTimeout) /  Config.game.baseShockwaveCD * 500;
+
+	if (x >= 500)
+		x = 500;
+	if (x <= 0)
+		x = 0;
+
+	return x;
+}
 
 
-		if (x >= 500)
-			x = 500;
-		if (x <= 0)
-			x = 0;
+PulseNova.prototype.updateTimerFunc = function(){
+	this.updateTimers = true;
+}
 
-		return x;
+
+PulseNova.prototype.updateTimer = function(){
+	if (this.updateTimers){
+		this.elapsedGameMilliseconds += 33;
+		this.updateTimers = false;
+		timerTimeout = setTimeout(this.updateTimerFunc, 33);
 	}
 
-	
-	this.updateTimerFunc = function(){
-		this.updateTimers = true;
-	}
-	
-			
-	this.updateTimer = function(){
-		if (this.updateTimers){
-			this.elapsedGameMilliseconds += 33;
-			this.updateTimers = false;
-			timerTimeout = setTimeout(this.updateTimerFunc, 33);
-		}
-
-	}
+}
