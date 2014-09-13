@@ -12,8 +12,14 @@ var Config = {
 	},
 
 	game: {
-		baseShockwaveCooldown: 5,
-	}
+		baseShockwaveCD: 10000,
+		initialCash: 0,
+		points: 0.25,
+		duration: 30,
+		speed: 0.01,
+	},
 
-	
+	cheat: {
+		no_cost: true
+	}
 }

@@ -24,7 +24,7 @@ function Game(canvasname, resourceList) {
 
 	this.cash;
 	this.highScore;
-	this.baseShockwaveCooldown;
+	this.baseShockwaveCD;
 
 	this.targetScreen;
 	this.leaveScreen = false;

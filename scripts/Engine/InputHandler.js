@@ -8,7 +8,6 @@ function InputHandler()
 	for (var key in InputKey) {
 		this.inputs[InputKey[key]] = new InputState(InputKey[key]);
 	}
-	console.log(this.inputs);
 }
 
 InputHandler.prototype.handleMouseMove = function(evt)

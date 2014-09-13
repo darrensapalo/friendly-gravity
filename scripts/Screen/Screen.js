@@ -1,12 +1,12 @@
 function Screen(game){
 	this.game = game;
+}
 
-	this.prototype.Initialize = function () {
-	}
+Screen.prototype.Initialize = function () {
+}
 
-	this.prototype.draw = function(context) {
-	}
+Screen.prototype.draw = function(context) {
+}
 
-	this.prototype.update = function() {
-	}
+Screen.prototype.update = function() {
 }

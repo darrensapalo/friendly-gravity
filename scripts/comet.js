@@ -158,7 +158,7 @@ function Comet (){
 	
 	this.IncreasePlayerScore = function() { 
 		if (!game.gameScreen.gameOver)
-		game.gameScreen.player.score += Math.random() * game.pointsRange; 
+		game.gameScreen.player.score += Math.random() * game.points; 
 	}
 	
 	this.ApplyPhysics = function(player){
@@ -193,7 +193,7 @@ function Comet (){
 		if (this.isSuckedIn)
 			this.force = 1 / game.gameScreen.player.currentScale;
 		else if (this.force < this.maxForce)
-			this.force += game.starMovementSpeed;
+			this.force += game.speed;
 		else if (this.force >= this.maxForce)
 			this.force = this.maxForce;
 			

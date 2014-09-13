@@ -22,7 +22,7 @@ function GameOverScreen(game){
 	}
 	
 	game.gameScreen.player.cash = game.cash = parseInt(game.cash) + parseInt(game.currentScore);
-	game.Quit();
+	game.quit();
 	
 		
 	var button = game.getImage("Button");
@@ -162,8 +162,8 @@ function GameOverScreen(game){
 	
 	this.CheckIfPlayAgain = function(x, y){
 
-		if (!isEnter && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-		if (this.newGame.contains(x, y) || isEnter){
+		if (!this.game.InputHandler.isPressed(InputKey.ENTER) && (typeof x == 'undefined' || typeof y == 'undefined')) return;
+		if (this.newGame.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
 			this.game.changeScreen(1);
 			this.game.gameScreen.initialize();
 			this.game.pressX = this.game.pressY = 0;

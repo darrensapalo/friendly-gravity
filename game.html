@@ -49,8 +49,6 @@
 
 	game.initGame = function () {
 		
-		game.load();
-
 		game.gameScreen.initialize();
 		game.mainMenuScreen.initialize();
 		game.shopScreen.initialize();
@@ -66,88 +64,7 @@
 		game.displayCometTrail = true;
 	}
 
-
-	game.quit = function () {
-		if ("localStorage" in window && window["localStorage"] != null) {
-			localStorage["goodblackhole.highscore"] = parseInt(game.highScore);
-			localStorage["goodblackhole.cash"] = parseInt(game.cash);
-
-			localStorage["goodblackhole.shockwavecd"] = parseInt(game.shockwavecd);
-			localStorage["goodblackhole.difficulty"] = parseInt(game.difficulty);
-			localStorage["goodblackhole.pointsRange"] = parseFloat(game.pointsRange);
-			localStorage["goodblackhole.gameDuration"] = parseInt(game.gameDuration);
-			localStorage["goodblackhole.starMovementSpeed"] = parseFloat(game.starMovementSpeed);
-
-			localStorage["goodblackhole.hasSounds"] = game.hasSounds;
-		}
-	}
-
-	game.load = function () {
-		if ("localStorage" in window && window["localStorage"] != null) {
-			if (typeof(localStorage["goodblackhole.highscore"]) != "NaN" && localStorage["goodblackhole.highscore"] != "NaN")
-				game.highScore = parseInt(localStorage["goodblackhole.highscore"]);
-			else
-				game.highScore = 0;
-			if (typeof(localStorage["goodblackhole.cash"]) != "undefined" && localStorage["goodblackhole.cash"] != "NaN")
-				game.cash = parseInt(localStorage["goodblackhole.cash"]);
-			else
-				game.cash = 0;
-
-
-				// Shockwave cooldown 
-				if (typeof(localStorage["goodblackhole.shockwavecd"]) != "undefined" && localStorage["goodblackhole.shockwavecd"] != "NaN")
-					game.baseShockwaveCooldown = parseInt(localStorage["goodblackhole.shockwavecd"]);
-				else
-					game.baseShockwaveCooldown = 10000;
-
-				// Difficulty level
-				if (typeof(localStorage["goodblackhole.difficulty"]) != "undefined" && localStorage["goodblackhole.difficulty"] != "NaN")
-					game.difficulty = parseInt(localStorage["goodblackhole.difficulty"]);
-				else
-					game.difficulty = 0;
-
-				// Range of points increased
-				if (typeof(localStorage["goodblackhole.pointsRange"]) != "undefined" && localStorage["goodblackhole.pointsRange"] != "NaN")
-					game.pointsRange = parseFloat(localStorage["goodblackhole.pointsRange"]);
-				else
-					game.pointsRange = 0.25;
-
-				// Duration of gameplay increased
-				if (typeof(localStorage["goodblackhole.gameDuration"]) != "undefined" && localStorage["goodblackhole.gameDuration"] != "NaN")
-					game.gameDuration = parseInt(localStorage["goodblackhole.gameDuration"]);
-				else
-					game.gameDuration = 30;
-
-
-				// Movement speed of stars is decreased
-				if (typeof(localStorage["goodblackhole.starMovementSpeed"]) != "undefined" && localStorage["goodblackhole.starMovementSpeed"] != "NaN")
-					game.starMovementSpeed = parseFloat(localStorage["goodblackhole.starMovementSpeed"]);
-				else
-					game.starMovementSpeed = 0.01;
-
-				// Movement speed of stars is decreased
-				if (typeof( localStorage["goodblackhole.hasSounds"]) != "undefined" && localStorage["goodblackhole.hasSounds"] != "NaN")
-					game.hasSounds = (localStorage["goodblackhole.hasSounds"] == "true") ? true : false;
-				else
-					game.hasSounds = true;
-			}
-		}
-		
-		game.ResetData = function () {
-			game.cash = 0;
-			game.highScore = 0;
-
-			game.baseShockwaveCooldown = 10000;
-			game.difficulty = 0;
-			game.pointsRange = 0.25;
-			game.gameDuration = 30;
-			game.starMovementSpeed = 0.01;
-			game.hasSounds = true;
-			game.Quit();
-		}
-		
-
-		game.draw = function (context) {
+	game.draw = function (context) {
 			game.clearScreen("#FFFFFF");
 			game.currentScreen.draw(context);
 

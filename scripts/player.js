@@ -168,7 +168,7 @@ Player.prototype.jitter = function(s){
 }
 
 Player.prototype.getShockwaveCooldown = function (){
-	return Config.game.baseShockwaveCooldown + Math.random() * 2000;
+	return Config.game.baseShockwaveCD + Math.random() * 2000;
 }
 
 

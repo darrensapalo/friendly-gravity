@@ -8,7 +8,7 @@ function Planet (){
 	this.type = 0;
 	this.maxForce = 0.003;
 	this.force = this.maxForce;
-	this.planetPoints = game.pointsRange * 2;
+	this.planetPoints = game.points * 2;
 	
 	this.startOpacityReduction = false;
 	this.opacityCounter = 10;
@@ -136,7 +136,7 @@ function Planet (){
 	
 	this.IncreasePlayerScore = function() { 
 		if (!game.gameScreen.gameOver)
-		game.gameScreen.player.score += Math.random() * game.pointsRange; 
+		game.gameScreen.player.score += Math.random() * game.points; 
 	}
 	
 	this.ApplyPhysics = function(){
@@ -171,7 +171,7 @@ function Planet (){
 		if (this.isSuckedIn)
 			this.force = 1 / game.gameScreen.player.currentScale;
 		else if (this.force < this.maxForce)
-			this.force += game.starMovementSpeed;
+			this.force += game.speed;
 		else if (this.force >= this.maxForce)
 			this.force = this.maxForce;
 			

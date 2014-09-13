@@ -43,7 +43,7 @@ function GameScreen(game){
 		this.player.initialize();
 		
 		// Initialize game countdown
-		this.countdownLeft = parseInt(game.gameDuration) * 1000 + 4000;
+		this.countdownLeft = parseInt(game.duration) * 1000 + 4000;
 		this.comets = new Array();
 		this.planets = new Array();
 
@@ -67,14 +67,14 @@ function GameScreen(game){
 		*/
 
 		/* Timer
-		var x = this.countdownLeft / game.gameDuration / 1000 * 500;
+		var x = this.countdownLeft / game.duration / 1000 * 500;
 
 		game.timerWidth = x;
 		return x;
 
 		*/
 
-		x = (this.player.baseShockwaveCooldown - this.player.injectionTimeout) /  this.player.baseShockwaveCooldown * 500;
+		x = (this.player.baseShockwaveCD - this.player.injectionTimeout) /  this.player.baseShockwaveCD * 500;
 
 
 		if (x >= 500)

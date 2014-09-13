@@ -90,8 +90,8 @@ function ShopScreen(game){
 	}
 	
 	this.CheckIfReturnMainMenu = function(x, y){
-		if (!isEnter && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-		if (this.returnMainMenu2.contains(x, y) || isEnter){
+		if (this.game.InputHandler.isPressed(InputKey.ENTER) && (typeof x == 'undefined' || typeof y == 'undefined')) return;
+		if (this.returnMainMenu2.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
 			this.game.changeScreen(0);
 			this.game.gameScreen.initialize();
 			this.game.pressX = this.game.pressY = typeof 'undefined';

@@ -64,8 +64,8 @@ AboutScreen.prototype.draw = function(context) {
 		}
 
 		AboutScreen.prototype.checkIfReturnMainMenu = function(x, y){
-			if (!isEnter && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-			if (this.returnToMenu.contains(x, y) || isEnter){
+			if (!this.game.InputHandler.isPressed(InputKey.ENTER) && (typeof x == 'undefined' || typeof y == 'undefined')) return;
+			if (this.returnToMenu.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
 				this.game.changeScreen(0);
 				this.game.gameScreen.initialize();
 				this.game.pressX = this.game.pressY = typeof 'undefined';

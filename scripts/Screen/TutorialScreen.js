@@ -129,7 +129,7 @@ this.drawCurrent = function(type, context){
 }
 
 this.drawShockwaveTimer = function(context) {
-	var width = (this.player.baseShockwaveCooldown - this.player.injectionTimeout) /  this.player.baseShockwaveCooldown * 500;
+	var width = (this.player.baseShockwaveCD - this.player.injectionTimeout) /  this.player.baseShockwaveCD * 500;
 
 	if (width >= 500)
 		width = 500;
@@ -243,8 +243,8 @@ this.teachMovement = function(type)
 }
 
 this.CheckIfReturnMainMenu = function(x, y){
-	if (!isEnter && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-	if (this.returnToMenu.contains(x, y) || isEnter){
+	if (!this.game.InputHandler.isPressed(InputKey.ENTER) && (typeof x == 'undefined' || typeof y == 'undefined')) return;
+	if (this.returnToMenu.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
 		this.game.changeScreen(0);
 		this.game.gameScreen.initialize();
 		this.game.pressX = this.game.pressY = typeof 'undefined';

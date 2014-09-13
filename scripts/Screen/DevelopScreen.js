@@ -58,7 +58,7 @@ DevelopScreen.prototype.initialize = function () {
 	}
 
 	DevelopScreen.prototype.getPointsLevel = function() {
-		var removeBase = game.pointsRange - 0.25;
+		var removeBase = game.points - 0.25;
 		removeBase = removeBase / 0.005;
 		return Math.ceil(removeBase);
 	}
@@ -68,7 +68,7 @@ DevelopScreen.prototype.initialize = function () {
 	}
 
 	DevelopScreen.prototype.getSlowLevel = function() {
-		var removeBase = game.starMovementSpeed - 0.01;
+		var removeBase = game.speed - 0.01;
 		removeBase = removeBase / 0.0005;
 		return -Math.ceil(removeBase);
 	}
@@ -79,19 +79,19 @@ DevelopScreen.prototype.initialize = function () {
 	}
 
 	DevelopScreen.prototype.updateOpacity = function(){
-		if (game.pointsRange >= this.getMaxPoints()){
+		if (game.points >= this.getMaxPoints()){
 			this.panelText3.opacity = 0.5;
 			this.morePoints.opacity = 0.5;
 			// this.cantImprovePoints = true;
 		}
 
-		if (game.starMovementSpeed <= this.getMaxSlow()){
+		if (game.speed <= this.getMaxSlow()){
 			this.panelText5.opacity = 0.5;
 			this.slowerStars.opacity = 0.5;
 			// this.cantSlowStars = true;
 		}
 
-		if (game.gameDuration >= 45){
+		if (game.duration >= 45){
 			this.panelText2.opacity = 0.5;
 			this.moreTime.opacity = 0.5;
 			this.cantImproveTime = true;
@@ -132,25 +132,12 @@ DevelopScreen.prototype.initialize = function () {
 
 		DevelopScreen.prototype.update = function() {
 			this.updateTimer();
-		/*
-		this.panelText2.text = "Your final score is " + this.game.currentScore + "!";
-		this.panelText3.text = "Your current high score is " + this.game.highScore + "!";
 		
-		
-		if (this.game.currentScore < 190) { 
-			this.panelText5.text = "the World eater";
-		}else if (this.game.currentScore < 500) {
-			this.panelText5.text = "Neighborhood thug";
-		}else if (this.game.currentScore < 750){
-			this.panelText5.text = "average black hole";
-		}else if (this.game.currentScore < 900){
-			this.panelText5.text = "Friend of the galaxy";
-		}else{
-			this.panelText5.text = "Black hole of congeniality";
-		}
-		*/
+
 		var x = this.game.pressX;
 		var y = this.game.pressY;
+
+		
 		this.CheckIfPlayAgain(x, y);
 		this.CheckIfReturnMainMenu(x, y);
 
@@ -174,7 +161,6 @@ DevelopScreen.prototype.initialize = function () {
 	};
 	
 	DevelopScreen.prototype.CheckIfPlayAgain = function(x, y){
-		if (typeof x == 'undefined' || typeof y == 'undefined') return;
 		if (this.newGame.contains(x, y)){
 			this.game.changeScreen(1);
 			this.game.gameScreen.initialize();
@@ -183,8 +169,7 @@ DevelopScreen.prototype.initialize = function () {
 	}
 	
 	DevelopScreen.prototype.CheckIfReturnMainMenu = function(x, y){
-		if (!isEnter && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-		if (this.returnMainMenu.contains(x, y) || isEnter){
+		if (this.returnMainMenu.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
 			this.game.changeScreen(0);
 			this.game.pressX = this.game.pressY = 0;
 		}
@@ -199,16 +184,15 @@ DevelopScreen.prototype.initialize = function () {
 
 	DevelopScreen.prototype.CheckIfMorePoints = function(x, y){
 		if (this.cantImprovePoints) return;
-		if (typeof x == 'undefined' || typeof y == 'undefined') return;
 		if (this.morePoints.contains(x, y)){
-			if (this.CheckIfHasCash(500) && getPointsLevel() - 1 < 50){
+			if (this.CheckIfHasCash(500) && this.getPointsLevel() - 1 < 50){
 				this.DeductFromCash(500);
-				game.pointsRange += 0.005;
+				game.points += 0.005;
 				this.panelText6.text = "Double points!";
-				game.Quit();
+				game.quit();
 				this.initialize();
 			}else{
-				this.panelText3.textColor = redColor;
+				this.panelText3.textColor = Color.red;
 				this.panelText6.text = "Not enough points.";
 				this.textTimeout = 3000;
 			}
@@ -219,16 +203,15 @@ DevelopScreen.prototype.initialize = function () {
 
 	DevelopScreen.prototype.CheckIfSlowerStars = function(x, y){
 		if (this.cantSlowStars)return;
-		if (typeof x == 'undefined' || typeof y == 'undefined') return;
 		if (this.slowerStars.contains(x, y)){
-			if (this.CheckIfHasCash(500) && getSlowLevel() - 1 < 50){
+			if (this.CheckIfHasCash(500) && this.getSlowLevel() < 50){
 				this.DeductFromCash(500);
-				game.starMovementSpeed -= 0.0005;
+				game.speed -= 0.0005;
 				this.panelText6.text = "Slower stars!";
-				game.Quit();
+				game.quit();
 				this.initialize();
 			}else{
-				this.panelText5.textColor = redColor;
+				this.panelText5.textColor = Color.red;
 				this.panelText6.text = "Not enough points.";
 				this.textTimeout = 3000;
 			}
@@ -240,16 +223,15 @@ DevelopScreen.prototype.initialize = function () {
 
 	DevelopScreen.prototype.CheckIfMoreTime = function(x, y){
 		if (this.cantImproveTime) return;
-		if (typeof x == 'undefined' || typeof y == 'undefined') return;
 		if (this.moreTime.contains(x, y)){
 			if (this.CheckIfHasCash(10000)){
 				this.DeductFromCash(10000);
-				game.gameDuration = 45;
+				game.duration = 45;
 				this.panelText6.text = "+15 seconds!";
-				game.Quit();
+				game.quit();
 				this.initialize();
 			}else{
-				this.panelText2.textColor = redColor;
+				this.panelText2.textColor = Color.red;
 				this.panelText6.text = "Not enough points.";
 				this.textTimeout = 3000;
 			}
@@ -259,16 +241,15 @@ DevelopScreen.prototype.initialize = function () {
 
 	DevelopScreen.prototype.CheckIfMoreStars = function(x, y){
 		if (this.cantSpawnMoreStars)return;
-		if (typeof x == 'undefined' || typeof y == 'undefined') return;
 		if (this.moreStars.contains(x, y)){
 			if (this.CheckIfHasCash(50000)){
 				this.DeductFromCash(50000);
 				game.difficulty = 1;
 				this.panelText6.text = "Increased stars!";
-				game.Quit();
+				game.quit();
 				this.initialize();
 			}else{
-				this.panelText4.textColor = redColor;
+				this.panelText4.textColor = Color.red;
 				this.panelText6.text = "Not enough points.";
 				this.textTimeout = 3000;
 			}
@@ -278,13 +259,13 @@ DevelopScreen.prototype.initialize = function () {
 
 	
 	DevelopScreen.prototype.CheckIfHasCash = function(amount){
-		return true;
-		if (game.cash >= amount) return true;
+		if (Config.cheat.no_cost) return true;
+		if (this.game.cash >= amount) return true;
 	}
 
 	DevelopScreen.prototype.DeductFromCash = function(amount){
-		game.cash -= amount;
-		game.Quit();
+		this.game.cash -= amount;
+		this.game.quit();
 	}
 
 	// TODO: Return to main menu
