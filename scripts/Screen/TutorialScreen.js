@@ -148,7 +148,7 @@ this.update = function() {
 	if (this.isDone){
 		this.CheckIfReturnMainMenu(this.game.pressX, this.game.pressY);
 	}else{
-		this.player.Update();
+		this.player.update();
 		this.updateCurrent(this.type);
 
 	}
@@ -213,7 +213,7 @@ this.spawnComets = function(){
 }
 this.updateComets = function(){
 	for (var i = 0; i < 5; i++){
-		this.asteroids[i].Update(this.player);
+		this.asteroids[i].update(this.player);
 	}
 }
 

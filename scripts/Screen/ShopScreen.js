@@ -102,7 +102,7 @@ function ShopScreen(game){
 		if (typeof x == 'undefined' || typeof y == 'undefined') return;
 		if (this.newGame.contains(x, y)){
 			this.game.changeScreen(0);
-			this.game.ResetData();
+			session.reset();
 			this.game.pressX = this.game.pressY = typeof 'undefined';
 		}
 	}

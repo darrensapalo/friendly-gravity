@@ -12,7 +12,7 @@ var Config = {
 	},
 
 	game: {
-		baseShockwaveCD: 10000,
+		pulseNovaCooldown: 10000,
 		initialCash: 0,
 		points: 0.25,
 		duration: 30,

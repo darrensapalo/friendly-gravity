@@ -68,9 +68,9 @@ function Planet (){
 		var height = 75;
 		
 		// Grabs the required texture
-		var texture = game.getImage(planetTexture[type]);
-		var gas1texture = game.getImage(gas1texture[type]);
-		var gas2texture = game.getImage(gas2texture[type]);
+		var texture = planetTexture[type];
+		var gas1texture = gas1texture[type];
+		var gas2texture = gas2texture[type];
 
 		// Sets the sprites
 		this.sprite = new Sprite(texture,x,y,width,height, 1, 1, 1);
@@ -343,12 +343,12 @@ function Planet (){
 	
 	this.CheckIfCaught = function(){
 	var player = game.gameScreen.player;
-	if (this.sprite.CollidesWith(player.sprite) && !this.isSuckedIn) {
+	if (this.sprite.collidesWith(player.sprite) && !this.isSuckedIn) {
 			player.getHit();
 			this.isSuckedIn = true;
 			this.startOpacityReduction = true;
 
-			this.decreasedScoreText.ChangeOrigin();
+			this.decreasedScoreText.setOrigin("centered");
 			this.decreasedScoreText.x = this.sprite.x - 50;
 			this.decreasedScoreText.y = this.sprite.y - 25;
 			player.score -= DECREASE_SCORE * 5;

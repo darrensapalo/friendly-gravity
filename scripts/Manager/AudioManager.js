@@ -42,7 +42,7 @@ function AudioManager()
 
 	this.play = function(sound)
 	{
-		if (Config.musicEnabled == false) return false;
+		if (Config.sound.musicEnabled == false) return false;
 		if (isReady == false) return false;
 
 		switch(sound)

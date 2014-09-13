@@ -49,7 +49,7 @@ function Comet (){
 		}
 		
 		// Grabs the required texture
-		var texture = game.getImage(textureList[index]);
+		var texture = textureList[index];
 		
 		// Select random spawn point
 		do{			
@@ -90,7 +90,7 @@ function Comet (){
 			var trail = new Trail();
 			trail.initialize(type, x, y, 1, 1);
 			
-			trail.UpdatePosition(this.sprite.x, this.sprite.y);
+			trail.updatePosition(this.sprite.x, this.sprite.y);
 			trail.sprite.scalex = scale;
 			trail.sprite.scaley = scale;
 			trail.sprite.opacity = (this.trailListAmount - i) / this.trailListAmount;
@@ -269,7 +269,7 @@ function Comet (){
 			var x, y;
 			x = this.trailList[i-1].sprite.x;
 			y = this.trailList[i-1].sprite.y;
-			this.trailList[i].UpdatePosition(x, y);
+			this.trailList[i].updatePosition(x, y);
 		}
 	}
 	
@@ -314,11 +314,11 @@ function Comet (){
 	}
 	
 	this.CheckIfCaught = function(player){
-	if (this.sprite.CollidesWith(player.sprite) && this.isSuckedIn == false) {
+	if (this.sprite.collidesWith(player.sprite) && this.isSuckedIn == false) {
 			player.getHit();
 			this.isSuckedIn = true;
 			this.startOpacityReduction = true;
-			this.decreasedScoreText.ChangeOrigin();
+			this.decreasedScoreText.setOrigin("centered");
 			this.decreasedScoreText.x = this.sprite.x - 50;
 			this.decreasedScoreText.y = this.sprite.y - 25;
 			player.score -= DECREASE_SCORE;

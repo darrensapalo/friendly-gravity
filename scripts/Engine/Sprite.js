@@ -16,8 +16,16 @@ function Sprite(raw_img, x, y, width, height, opacity, scalex, scaley) {
 
 Sprite.prototype.setOrigin = function(x, y)
 {
-	this.originx = (x === undefined) ?  0 : x;
-	this.originy = (y === undefined) ?  0 : y;
+	if (typeof x === 'number')
+	{
+		this.originx = (x === undefined) ?  0 : x;
+		this.originy = (y === undefined) ?  0 : y;
+	}
+	else if (typeof x === 'string' && x == "centered")
+	{
+		this.setOrigin(-this.width / 2, -this.height / 2);
+	}
+	
 }
 
 Sprite.prototype.draw = function (context)

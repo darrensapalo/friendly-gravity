@@ -29,13 +29,10 @@ function Trail (){
 		width = 72;
 		height = 36;
 		
-		if (type == 2){
-			var texture = game.getImage(textureList[2]);
-			
+		if (type == 2)
 			height = width = 50;
-		}else{
-			var texture = game.getImage(textureList[type]);
-		}
+
+		var texture = textureList[type];
 		
 		this.sprite = new Sprite(texture, x, y, width, height, opacity, scale, scale);
 		

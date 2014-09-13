@@ -48,7 +48,7 @@ Player.prototype.setScale = function (scale)
 {
 	this.sprite.scalex = scale;
 	this.sprite.scaley = scale;
-	this.sprite.changeOrigin();
+	this.sprite.setOrigin("centered");
 	this.anotherSprite.scalex = scale * 0.8;
 	this.anotherSprite.scaley = scale * 0.8;
 }
@@ -56,8 +56,7 @@ Player.prototype.setScale = function (scale)
 Player.prototype.getHit = function ()
 {
 	if (this.currentScale > this.maxScale)this.currentScale = this.maxScale;
-	this.SetScale(this.currentScale += 0.01);
-	console.log(this.game);
+	this.setScale(this.currentScale += 0.01);
 	this.game.AudioManager.play("vortex");
 }
 
@@ -76,25 +75,25 @@ Player.prototype.movePlayer = function() {
 
 	var InputHandler = this.game.InputHandler;
 
-	InputHandler.inputs[InputKey.LEFT].addKeyDownListener(function () {
+	if (InputHandler.get(InputKey.LEFT).isPressed) {
 		nextX -= playerSpeed;
 		this.game.gameScreen.mapx += 0.575;
-	});
+	};
 
-	InputHandler.inputs[InputKey.RIGHT].addKeyDownListener(function () {
+	if (InputHandler.get(InputKey.RIGHT).isPressed) {
 		nextX += playerSpeed;
 		this.game.gameScreen.mapx -= 0.575;
-	});
+	};
 
-	InputHandler.inputs[InputKey.UP].addKeyDownListener(function () {
+	if (InputHandler.get(InputKey.UP).isPressed) {
 		nextY -= playerSpeed;
 		this.game.gameScreen.mapy += 0.575;
-	});
+	};
 
-	InputHandler.inputs[InputKey.DOWN].addKeyDownListener(function () {
+	if (InputHandler.get(InputKey.DOWN).isPressed) {
 		nextY += playerSpeed;
 		this.game.gameScreen.mapy -= 0.575;
-	});
+	};
 
 	if (nextX < 50)
 		nextX = 50;
@@ -192,8 +191,8 @@ Player.prototype.checkIfInjection = function(){
 		for (var i = 0; i < comets.length; i++)
 		{
 			var currentComet = comets[i];
-			currentComet.xAcceleration = -currentComet.xAcceleration + jitter(currentComet.xAcceleration);
-			currentComet.yAcceleration = -currentComet.yAcceleration + jitter(currentComet.yAcceleration);
+			currentComet.xAcceleration = -currentComet.xAcceleration + this.jitter(currentComet.xAcceleration);
+			currentComet.yAcceleration = -currentComet.yAcceleration + this.jitter(currentComet.yAcceleration);
 			
 			currentComet.xAcceleration *= this.SHOCKWAVE_PULSE;
 			currentComet.yAcceleration *= this.SHOCKWAVE_PULSE;
