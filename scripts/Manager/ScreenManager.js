@@ -67,9 +67,15 @@ ScreenManager.prototype.changeScreen = function(screen, isForced) {
 		this.currentScreen = this.screens[screen];
 		if (typeof this.currentScreen === 'undefined') throw new Error("NullError: Cannot transition to an undefined screen called '" + screen + "'.");
 		this.currentScreen.initialize();
+
+		if (Config.debug)
+			console.log("ScreenManger: Changed screen to '" + screen + "'.");
 	}
 	else
 	{
+		if (Config.debug)
+			console.log("ScreenManger: Beginning to change to screen '" + screen + "'.");
+
 		this.targetScreen = screen;
 		this.switching = true;
 		this.leaving = true;

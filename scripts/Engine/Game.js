@@ -57,6 +57,6 @@ Game.prototype.onClick = function(p){
 	if (Config.debug)
 		console.log("Clicked at " + p);
 
-	if (this.currentScreen)
-		this.currentScreen.onClick(p);
+	if (this.ScreenManager.currentScreen)
+		this.ScreenManager.currentScreen.onClick(p);
 }

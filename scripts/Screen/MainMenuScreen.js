@@ -67,28 +67,29 @@ MainMenuScreen.prototype.update = function() {
 }
 
 MainMenuScreen.prototype.onClick = function (p) {
+
+	var SM = this.game.ScreenManager;
 	if (this.soundButton.contains(p)){
-		this.toggleSounds();
 		this.game.AudioManager.toggle();
 	}
 
 	else if (this.beginPlayingButton.contains(p)){
-		this.game.changeScreen("GameScreen");
+		SM.changeScreen("GameScreen");
 	}
 
 	else if (this.beginPlayingButton.contains(p)){
-		this.game.changeScreen("GameScreen");
+		SM.changeScreen("GameScreen");
 	}
 
 	else if (this.beginShoppingButton.contains(p)){
-		this.game.changeScreen("ShopScreen");
+		SM.changeScreen("ShopScreen");
 	}
 
 	else if (this.howToPlayButton.contains(p)){
-		this.game.changeScreen("TutorialScreen");
+		SM.changeScreen("TutorialScreen");
 	}
 
 	else if (this.aboutButton.contains(p)){
-		this.game.changeScreen("AboutScreen");
+		SM.changeScreen("AboutScreen");
 	}
 }
