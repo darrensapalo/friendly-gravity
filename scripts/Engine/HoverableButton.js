@@ -1,5 +1,4 @@
 function HoverableButton(spriteName, hoverSpriteName, x, y, width, height, opacity, scalex, scaley) {
-	"use strict";
 	Button.call(this, spriteName, x, y, width, height, opacity, scalex, scaley);
 
 	this.hoverSprite = new CenteredSprite(hoverSpriteName, x, y, width, height, opacity, scalex, scaley);
@@ -41,5 +40,5 @@ HoverableButton.prototype.update = function () {
 HoverableButton.prototype.draw = function(context){
 	Button.prototype.draw.call(this, context);
 	this.hoverSprite.draw(context);
-	
+
 }

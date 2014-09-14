@@ -32,6 +32,14 @@ var Config = {
 
 		player:{
 			size: 50,
+			scale: {
+				min: 0.8,
+				max: 1.3
+			},
+			opacity: {
+				min: 0.3,
+				max: 0.7
+			}
 		}
 	},
 

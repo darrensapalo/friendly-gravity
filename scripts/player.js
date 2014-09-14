@@ -5,6 +5,7 @@ function Player (game, world){
 	this.world = world;
 
 	this.anotherSprite;
+	this.scale = 1;
 }
 
 Player.prototype = Object.create(Entity.prototype);
@@ -20,8 +21,42 @@ Player.prototype.initialize = function() {
 	this.sprite = new CenteredSprite("player", this.position.x, this.position.y, size, size);
 	this.anotherSprite = new CenteredSprite("player", this.position.x, this.position.y, size, size);
 
-	this.sprite.opacity = 0.3;
-	this.anotherSprite.opacity = 0.7;
+	this.sprite.opacity = Config.game.player.opacity.min;
+	this.anotherSprite.opacity = Config.game.player.opacity.max;
+
+	this.sprite.scale = Config.game.player.scale.min;
+	this.anotherSprite.scale = Config.game.player.scale.max;
+
+	var tweenOpacity = function(s, t){
+		createjs.Tween.removeTweens(s);
+		var M = new MathHelper();
+		t = (t == Config.game.player.opacity.min) ? Config.game.player.opacity.max : Config.game.player.opacity.min;
+		return createjs.Tween.get(s).to({ opacity: t }, M.random(1200, 2500), createjs.Ease.quadOut).call(tweenOpacity, [s, t]);
+	}
+
+	var tweenSize = function(s, t, p){
+		createjs.Tween.removeTweens(s);
+		var M = new MathHelper();
+		console.log(p);
+		console.log('this: ' + this);
+		t = (t == Config.game.player.scale.min) ? Config.game.player.scale.max * this.scale: Config.game.player.scale.min * this.scale;
+		console.log("this.scale: " + this.scale);
+		console.log("t: " + t);
+		return createjs.Tween.get(s).to({ scalex: t, scaley: t }, M.random(1200, 2500), createjs.Ease.quadOut).call(tweenSize, [s, t, this]);
+	}
+
+	this.tween = {
+		opacity: 
+		{
+			first: tweenOpacity(this.sprite, Config.game.player.opacity.min),
+			second: tweenOpacity(this.anotherSprite, Config.game.player.opacity.max)
+		},
+		scale: 
+		{
+			first: tweenSize(this.sprite, Config.game.player.scale.min),
+			second: tweenSize(this.anotherSprite, Config.game.player.scale.max)
+		}
+	}
 }
 
 
