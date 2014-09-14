@@ -26,8 +26,10 @@ Entity.prototype.update = function() {
 	
 	if (this.velocity.y > 0.005 && this.velocity.y < 0.005)
 		this.velocity.y = 0;
-	
+}
 
+Entity.prototype.bounds = function(rect){
+	
 }
 
 Entity.prototype.draw = function(context) {
