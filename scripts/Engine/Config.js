@@ -1,6 +1,6 @@
 var Config = {
 	
-	debug: true,
+	debug: false,
 	warning: true,
 
 	ui: {
@@ -28,6 +28,10 @@ var Config = {
 			maximum: 25,
 			minimum: 10,
 			scaling: 0.9
+		},
+
+		player:{
+			size: 50,
 		}
 	},
 

@@ -53,9 +53,7 @@ MainMenuScreen.prototype.draw = function(context) {
 	this.about.draw(context);
 	
 	this.logo.draw(context);
-	this.welcomeMessage.draw(context);
-
-	
+	this.welcomeMessage.draw(context);	
 }
 
 MainMenuScreen.prototype.update = function() {

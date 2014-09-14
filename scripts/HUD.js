@@ -3,7 +3,7 @@ function HUD(world)
 	this.world = world;
 	this.player = world.player;
 
-	this.PulseNova = new PulseNova(player);
+	this.PulseNova = new PulseNova(world.player);
 }
 
 HUD.prototype.update = function() {
@@ -40,7 +40,7 @@ HUD.prototype.draw = function(context) {
 	this.PulseNova.draw(context);
 }
 
-HUD.prototype..drawTimer = function(context) {
+HUD.prototype.drawTimer = function(context) {
 		var x, y;
 		y = 10;
 		x = 150;
@@ -48,7 +48,7 @@ HUD.prototype..drawTimer = function(context) {
 		context.drawImage(this.game.ImageLoader.images["barHolder"], x, y, 500, 25);
 	}
 
-HUD.prototype..updateTutorial = function(){
+HUD.prototype.updateTutorial = function(){
 	this.showMessage -= this.elapsedMs;
 	if (this.showMessage < 0){
 		// decrease opacity of text message

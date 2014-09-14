@@ -9,6 +9,8 @@ GameScreen.prototype.constructor = GameScreen;
 GameScreen.prototype.initialize = function () {
 	this.world = new World(game);
 	this.HUD = new HUD(this.world);
+	
+	this.world.initialize();
 }
 
 GameScreen.prototype.draw = function(context) {

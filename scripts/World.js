@@ -2,9 +2,8 @@ function World(game)
 {
 	this.game = game;
 
-	this.player = new Player(game);
-
-	this.emitter = new Emitter(world);
+	this.player = new Player(game, this);
+	this.emitter = new Emitter(this);
 
 	this.comets = new Array();
 	this.planets = new Array();
@@ -19,18 +18,22 @@ function World(game)
 	this.resizeHeight = 480 * 1.3;
 
 	this.score;
+}
 
+World.prototype.initialize = function()
+{
+	this.player.initialize();
 }
 
 World.prototype.draw = function(context) {
 	context.drawImage(this.getBackground(), this.mapx, this.mapy, this.resizeWidth, this.resizeHeight);
 
-	for (var i = 0; i < comets.length; i++) {
-		comets[i].draw(context);
+	for (var i = 0; i < this.comets.length; i++) {
+		this.comets[i].draw(context);
 	};
 
-	for (var i = 0; i < planets.length; i++) {
-		planets[i].draw(context);
+	for (var i = 0; i < this.planets.length; i++) {
+		this.planets[i].draw(context);
 	};
 
 	this.player.draw(context);
@@ -41,12 +44,12 @@ World.prototype.update = function() {
 	this.emitter.update();
 
 	// update comets, planets, player
-	for (var i = 0; i < comets.length; i++) {
-		comets[i].update();
+	for (var i = 0; i < this.comets.length; i++) {
+		this.comets[i].update();
 	};
 
-	for (var i = 0; i < planets.length; i++) {
-		planets[i].update();
+	for (var i = 0; i < this.planets.length; i++) {
+		this.planets[i].update();
 	};
 
 	// update player

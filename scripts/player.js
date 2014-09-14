@@ -1,57 +1,37 @@
-function Player (game){
+function Player (game, world){
+	Entity.call(this);
+
 	this.game = game;
+	this.world = world;
 
-	this.sprite;
 	this.anotherSprite;
+}
 
-	this.xAcceleration = 0;
-	this.yAcceleration = 0;
+Player.prototype = Object.create(Entity.prototype);
+Player.prototype.constructor = Player;
 
-	this.score = 0;
-	this.isGameOver = false;
-	this.countdown = true;
-	this.playerSpeed = 3;
-	
-	this.SHOCKWAVE_PULSE = 0.2; // This can increase the reflect of the stars
-	this.cometMovementSpeed = 0.05; // This can decrease the acceleration of the stars
-	this.MAX_ACCELERATION = 3; // This can be decreased to slow down the stars
-	
-	this.hasPulseNova = false;
-	this.injectionTimeout = 0;
-	
-	this.maxOpacity = 0.98;
-	this.minOpacity = 0.54;
-	
-	this.pulseScaling = 40;
-	this.pulseOutwards = true;
-	this.pulseScalingCounter = this.pulseScaling;
-	
-	this.playerSize = 50;
-	
-	this.currentScale = 1;
-	this.maxScale = 3;
-	this.opacityIncreasing = false;
 
-	this.sprite = new CenteredSprite("player", this.game.canvas.width / 2, this.game.canvas.height / 2, this.playerSize, this.playerSize, 1, 1, 1);
-	this.anotherSprite = new CenteredSprite("player", this.game.canvas.width / 2, this.game.canvas.height / 2, this.playerSize, this.playerSize, 1, 1, 1);
+
+Player.prototype.initialize = function() {
+	var canvas = game.ScreenManager.canvas;
+	var size = Config.game.player.size;
+
+	this.sprite = new CenteredSprite("player", canvas.width / 2, canvas.height / 2, size, size, 1, 1, 1);
+	this.anotherSprite = new CenteredSprite("player", canvas.width / 2, canvas.height / 2, size, size, 1, 1, 1);
 	this.sprite.opacity = 0.74;
 }
 
-Player.prototype.draw = function (context) {
-	if (this.sprite.visible) {
-		this.sprite.draw(context);
-		this.anotherSprite.draw(context);
-	}
+
+Player.prototype.update = function(){
+	Entity.prototype.update.call(this);
 }
 
-Player.prototype.setScale = function (scale)
-{
-	this.sprite.scalex = scale;
-	this.sprite.scaley = scale;
-	this.sprite.setOrigin("centered");
-	this.anotherSprite.scalex = scale * 0.8;
-	this.anotherSprite.scaley = scale * 0.8;
+Player.prototype.draw = function (context) {
+	Entity.prototype.draw.call(this, context);
+	this.anotherSprite.draw(context);
 }
+
+
 
 Player.prototype.getHit = function ()
 {
@@ -60,9 +40,6 @@ Player.prototype.getHit = function ()
 	this.game.AudioManager.play("vortex");
 }
 
-Player.prototype.initialize = function() {
-	
-}
 
 Player.prototype.rotatePlayer = function(){ this.sprite.rotation -= Math.PI / 86; this.anotherSprite.rotation += Math.PI / 86; }
 
@@ -97,13 +74,13 @@ Player.prototype.movePlayer = function() {
 
 	if (nextX < 50)
 		nextX = 50;
-	else if (nextX > this.game.canvas.width - 50)
-		nextX = this.game.canvas.width - 50;
+	else if (nextX > canvas.width - 50)
+		nextX = canvas.width - 50;
 
 	if (nextY < 50)
 		nextY = 50;
-	else if (nextY > this.game.canvas.height - 50)
-		nextY = this.game.canvas.height - 50;
+	else if (nextY > canvas.height - 50)
+		nextY = canvas.height - 50;
 
 	shadow.x = player.x = nextX;
 	shadow.y = player.y = nextY;
@@ -117,14 +94,6 @@ Player.prototype.checkGameOver = function() {
 	}
 }
 
-Player.prototype.update = function(){
-	this.checkIfInjection();
-	this.rotatePlayer();
-	this.movePlayer();
-	this.checkGameOver();
-	this.updateScale();
-	this.updateOpacity();
-}
 
 Player.prototype.updateOpacity = function () {
 	

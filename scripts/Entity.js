@@ -12,6 +12,7 @@ Entity.prototype.update = function() {
 }
 
 Entity.prototype.draw = function(context) {
+	if (typeof this.sprite === 'undefined') throw new Error("NullError: The sprite of this entity is undefined.");
 	this.sprite.x = this.position.x;
 	this.sprite.y = this.position.y;
 	this.sprite.draw(context);

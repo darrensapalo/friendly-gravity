@@ -10,14 +10,12 @@ function ScreenManager(game, canvasName)
 
 	this.screens = new Array();
 
+	this.tween;
 	this.switching = false;
-	this.leaving = false;
-	this.entering = false;
 
-	this.opacity = 1;
+	this.opacity = 0.0;
 
 	this.currentScreen;
-	this.targetScreen;
 }
 
 ScreenManager.prototype.initialize = function(startScreen) {
@@ -57,8 +55,6 @@ ScreenManager.prototype.draw = function() {
 		this.context.fillRect(0, 0, 800, 480);
 		this.context.globalAlpha = 1;
 	}
-
-
 };
 
 ScreenManager.prototype.changeScreen = function(screen, isForced) {
@@ -70,15 +66,19 @@ ScreenManager.prototype.changeScreen = function(screen, isForced) {
 
 		if (Config.debug)
 			console.log("ScreenManger: Changed screen to '" + screen + "'.");
+
+		this.tween = createjs.Tween.get(this).to({ opacity:0 }, 500, createjs.Ease.quadIn).call(function(SM) {
+			SM.switching = false;
+		}, [this], this);
 	}
-	else
+	else if(this.switching == false)
 	{
 		if (Config.debug)
 			console.log("ScreenManger: Beginning to change to screen '" + screen + "'.");
 
-		this.targetScreen = screen;
+		this.opacity = 0;
+		this.tween = createjs.Tween.get(this).to({ opacity:1 }, 500, createjs.Ease.quadOut).call(ScreenManager.prototype.changeScreen, [screen, true], this);
+
 		this.switching = true;
-		this.leaving = true;
-		this.entering = false;
 	}
 };
