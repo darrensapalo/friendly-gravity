@@ -15,23 +15,27 @@ Player.prototype.constructor = Player;
 Player.prototype.initialize = function() {
 	var canvas = game.ScreenManager.canvas;
 	var size = Config.game.player.size;
+	this.position = new Vector2D(canvas.width / 2, canvas.height / 2);
 
-	this.sprite = new CenteredSprite("player", canvas.width / 2, canvas.height / 2, size, size, 1, 1, 1);
-	this.anotherSprite = new CenteredSprite("player", canvas.width / 2, canvas.height / 2, size, size, 1, 1, 1);
-	this.sprite.opacity = 0.74;
+	this.sprite = new CenteredSprite("player", this.position.x, this.position.y, size, size);
+	this.anotherSprite = new CenteredSprite("player", this.position.x, this.position.y, size, size);
+
+	this.sprite.opacity = 0.3;
+	this.anotherSprite.opacity = 0.7;
 }
 
 
 Player.prototype.update = function(){
 	Entity.prototype.update.call(this);
+	this.rotatePlayer();
 }
 
 Player.prototype.draw = function (context) {
 	Entity.prototype.draw.call(this, context);
+
+	this.anotherSprite.setPosition(this.position);
 	this.anotherSprite.draw(context);
 }
-
-
 
 Player.prototype.getHit = function ()
 {
@@ -41,7 +45,11 @@ Player.prototype.getHit = function ()
 }
 
 
-Player.prototype.rotatePlayer = function(){ this.sprite.rotation -= Math.PI / 86; this.anotherSprite.rotation += Math.PI / 86; }
+Player.prototype.rotatePlayer = function()
+{
+	this.sprite.rotation -= Math.PI / 86;
+	this.anotherSprite.rotation += Math.PI / 86; 
+}
 
 Player.prototype.movePlayer = function() {
 	var player = this.sprite;
