@@ -6,6 +6,9 @@
 		font-family: 'Space Age';
 		src: url('font/spaceage.ttf');
 	}
+	body {
+		margin: 0px;
+	}
 	</style>
 
 	<!-- Borrowed libraries -->
@@ -16,11 +19,15 @@
 	<!-- Game engine - asset classes -->
 
 	<script src="scripts/Engine/ImageLoader.js" type="text/javascript"></script>
+	<script src="scripts/Engine/Resources.js" type="text/javascript"></script>
+
 	<script src="scripts/Engine/Sprite.js" type="text/javascript"></script>
 	<script src="scripts/Engine/CenteredSprite.js" type="text/javascript"></script>
 	<script src="scripts/Engine/TextSprite.js" type="text/javascript"></script>
+
+	
 	<script src="scripts/Engine/Background.js" type="text/javascript"></script>
-	<script src="scripts/Engine/Resources.js" type="text/javascript"></script>
+	
 
 	<!-- Game engine - managers -->
 
@@ -56,6 +63,9 @@
 				<script src="scripts/Trail.js" type="text/javascript"></script>
 
 	<!-- Screens -->
+	<script src="scripts/Engine/Button.js" type="text/javascript"></script>
+	<script src="scripts/Engine/HoverableButton.js" type="text/javascript"></script>
+	<script src="scripts/Engine/ToggleButton.js" type="text/javascript"></script>
 
 	<script src="scripts/Screen/Screen.js" type="text/javascript"></script>
 
@@ -73,9 +83,7 @@
 	</script>
 </head>
 <body>
-	<div id="page">
 		<canvas id="blackhole" width="800" height="480" style="border: 1px solid black"></canvas>
-	</div>
 
 	<script> game.start(); </script>
 </body>

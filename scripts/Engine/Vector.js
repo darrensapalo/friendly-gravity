@@ -23,6 +23,6 @@ Vector2D.prototype.distance = function(vector2D) {
 }
 
 Vector2D.prototype.assertIsVector2D = function(vector2D) {
-	if (Object.prototype.toString.call(vector2D) !== 'Vector2D') throw new Error("TypeError: The parameter must be a Vector2D.");
+	if (vector2D.constructor.name !== 'Vector2D') throw new Error("TypeError: The parameter must be a Vector2D.");
 
 }

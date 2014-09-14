@@ -62,14 +62,14 @@ Sprite.prototype.draw = function (context)
 	}
 }
 
-Sprite.prototype.contains = function(aX,aY)
+Sprite.prototype.contains = function(aX, aY)
 {
 	var withinX = false, withinY = false;
-	if (aX >= this.x && aX <= this.x + this.width) {
+	if (aX >= this.x + this.originx && aX <= this.x + this.originx + this.width) {
 		withinX = true;
 	}
 
-	if (aY >= this.y && aY <= this.y + this.height) {
+	if (aY >= this.y + this.originy && aY <= this.y + + this.originy + this.height) {
 		withinY = true;
 	}
 

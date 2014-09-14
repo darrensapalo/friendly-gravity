@@ -54,7 +54,7 @@ function AudioManager()
 		return true;
 	}
 
-	this.manage = function()
+	this.toggle = function()
 	{
 		if (Config.musicEnabled == false) return false;
 		if (this.bgm === undefined) return false;

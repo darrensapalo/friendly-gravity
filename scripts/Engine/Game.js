@@ -50,12 +50,13 @@ Game.prototype.draw = function() {
 }
 
 Game.prototype.update = function() {
-	
+	this.ScreenManager.update();
 }
 
 Game.prototype.onClick = function(p){
-	this.pressX = p.x;
-	this.pressY = p.y;
 	if (Config.debug)
 		console.log("Clicked at " + p);
+
+	if (this.currentScreen)
+		this.currentScreen.onClick(p);
 }

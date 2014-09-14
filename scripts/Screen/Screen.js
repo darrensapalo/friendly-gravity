@@ -10,3 +10,7 @@ Screen.prototype.draw = function(context) {
 
 Screen.prototype.update = function() {
 }
+
+Screen.prototype.onClick = function(p) {
+	
+}

@@ -1,10 +1,12 @@
 function InputHandler()
 {
 	this.inputs = [];
+	this.mouse = new Vector2D();
 	
 	window.onkeydown = this.handleKeyDown;
 	window.onkeyup = this.handleKeyUp;
 	window.onmousemove = this.handleMouseMove;
+
 	for (var key in InputKey) {
 		if (InputKey.hasOwnProperty(key))
 		{
@@ -24,8 +26,8 @@ InputHandler.prototype.get = function(key) {
 
 InputHandler.prototype.handleMouseMove = function(evt)
 {
-	game.mousex = evt.x;
-	game.mousey = evt.y;
+	game.InputHandler.mouse.x = evt.x;
+	game.InputHandler.mouse.y = evt.y;
 }
 
 InputHandler.prototype.isPressed = function(key) {

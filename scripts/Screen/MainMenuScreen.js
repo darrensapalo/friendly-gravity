@@ -27,55 +27,26 @@ MainMenuScreen.prototype.initialize = function () {
 	this.howToPlay = new TextSprite("Tutorial", x, 325, 100, 20);
 	this.about = new TextSprite("About", x, 405, 100, 20);
 
-	this.beginPlayingButton = new Sprite("button", 273, 140, 255, 80, 1);
-	this.beginShoppingButton = new Sprite("button", 273, 220, 255, 80, 1);
-	this.howToPlayButton = new Sprite("button", 273, 300, 255, 80, 1);
-	this.aboutButton = new Sprite("button", 273, 380, 255, 80, 1);
+	this.beginPlayingButton = new HoverableButton("button", "buttonHighlight", 410, 180, 255, 80);
+	this.beginShoppingButton = new HoverableButton("button", "buttonHighlight", 410, 260, 255, 80);
+	this.howToPlayButton = new HoverableButton("button", "buttonHighlight", 410, 340, 255, 80);
+	this.aboutButton = new HoverableButton("button", "buttonHighlight", 410, 420, 255, 80);
 
-	this.beginPlayingButton2 = new Sprite("buttonHighlight", 273, 140, 255, 80, 1);
-	this.beginShoppingButton2 = new Sprite("buttonHighlight", 273, 220, 255, 80, 1);
-	this.howToPlayButton2 = new Sprite("buttonHighlight", 273, 300, 255, 80, 1);
-	this.aboutButton2 = new Sprite("buttonHighlight", 273, 380, 255, 80, 1);
-
-	this.beginPlayingButton2.opacity = 0;
-	this.beginShoppingButton2.opacity = 0;
-	this.howToPlayButton2.opacity = 0;
-	this.aboutButton2.opacity = 0;
-
-
-
-	this.logo = new CenteredSprite("logo", 400, 80, 964 / 3, 439 / 3, 1);
+	this.logo = new CenteredSprite("logo", 400, 80, 964 / 3, 439 / 3);
 	this.beginPlayingButtonHover = this.beginShoppingButtonHover = this.howToPlayButtonHover = this.aboutButtonHover = false;
 
-	this.soundButton = new CenteredSprite("sound", 730, 420, 80, 80);
-	this.soundButton2 = new CenteredSprite("soundHighlight", 730, 420, 80, 80);
-
-
+	this.soundButton = new ToggleButton("sound", "soundHighlight", 730, 420, 80, 80);
 }
 
 MainMenuScreen.prototype.draw = function(context) {
 	this.background.draw(context);
 
-	// Player
-	// this.player.sprite.draw(context);
-	
-	// Stars
-	// for(var i=0;i<comets.length;i++)
-	//	comets[i].sprite.draw(context);
-
-	this.beginPlayingButton2.draw(context);
 	this.beginPlayingButton.draw(context);
-	
-	this.beginShoppingButton2.draw(context);
 	this.beginShoppingButton.draw(context);
-	
-	this.howToPlayButton2.draw(context);
 	this.howToPlayButton.draw(context);
-	
-	this.aboutButton2.draw(context);
 	this.aboutButton.draw(context);
-	
-	
+	this.soundButton.draw(context);
+
 	this.beginPlaying.draw(context);
 	this.beginShopping.draw(context);
 	this.howToPlay.draw(context);
@@ -84,198 +55,40 @@ MainMenuScreen.prototype.draw = function(context) {
 	this.logo.draw(context);
 	this.welcomeMessage.draw(context);
 
-	this.drawSoundButton(context);
-}
-
-MainMenuScreen.prototype.drawSoundButton = function(context){ 
-	if (game.hasSounds)
-		this.soundButton2.draw(context);
-	else
-		this.soundButton.draw(context);
+	
 }
 
 MainMenuScreen.prototype.update = function() {
-	var x = this.game.pressX;
-	var y = this.game.pressY;
-	
-	this.updateTimer();
-	this.checkIfPlayAgain(x, y);
-	this.checkIfShopping (x, y);
-	this.checkIfTutorial(x, y);
-	this.checkIfAbout(x, y);
-
-	this.checkSoundButton(x, y);
-	this.updateHover();
-	
-	this.updateMousePos();
+	this.beginPlayingButton.update();
+	this.beginShoppingButton.update();
+	this.howToPlayButton.update();
+	this.aboutButton.update();
+	this.soundButton.update();
 }
 
-
-MainMenuScreen.prototype.checkSoundButton = function(x, y){
-	if (typeof x == 'undefined' || typeof y == 'undefined') return;
-	var a, b;
-	a = this.mousex;
-	b = this.mousey;
-
-	if (this.soundButton2.contains(x, y)){
+MainMenuScreen.prototype.onClick = function (p) {
+	if (this.soundButton.contains(p)){
 		this.toggleSounds();
-		this.game.pressY = this.game.pressX = 0;
-		this.game.AudioManager.manage();
+		this.game.AudioManager.toggle();
 	}
 
-}
-
-MainMenuScreen.prototype.toggleSounds = function(){
-	game.hasSounds = !game.hasSounds;
-}
-
-MainMenuScreen.prototype.updateHover = function(){
-
-	
-	if (this.beginPlayingButtonHover){
-		this.beginPlayingButton2.opacity += 0.05;
-	}else{
-		this.beginPlayingButton2.opacity -= 0.05;
+	else if (this.beginPlayingButton.contains(p)){
+		this.game.changeScreen("GameScreen");
 	}
 
-	if (this.beginPlayingButton2.opacity >= 1)
-		this.beginPlayingButton2.opacity = 1;
-	else if (this.beginPlayingButton2.opacity <= 0)
-		this.beginPlayingButton2.opacity = 0;
-
-
-
-
-
-	if (this.beginShoppingButtonHover){
-		this.beginShoppingButton2.opacity += 0.05;
-	}else{
-		this.beginShoppingButton2.opacity -= 0.05;
+	else if (this.beginPlayingButton.contains(p)){
+		this.game.changeScreen("GameScreen");
 	}
 
-	if (this.beginShoppingButton2.opacity >= 1)
-		this.beginShoppingButton2.opacity = 1;
-	else if (this.beginShoppingButton2.opacity <= 0)
-		this.beginShoppingButton2.opacity = 0;
-
-
-
-
-
-
-	if (this.howToPlayButtonHover){
-		this.howToPlayButton2.opacity += 0.05;
-	}else{
-		this.howToPlayButton2.opacity -= 0.05;
+	else if (this.beginShoppingButton.contains(p)){
+		this.game.changeScreen("ShopScreen");
 	}
 
-	if (this.howToPlayButton2.opacity >= 1)
-		this.howToPlayButton2.opacity = 1;
-	else if (this.howToPlayButton2.opacity <= 0)
-		this.howToPlayButton2.opacity = 0;
-
-
-
-
-
-
-
-
-
-	if (this.aboutButtonHover){
-		this.aboutButton2.opacity += 0.05;
-	}else{
-		this.aboutButton2.opacity -= 0.05;
+	else if (this.howToPlayButton.contains(p)){
+		this.game.changeScreen("TutorialScreen");
 	}
 
-	if (this.aboutButton2.opacity >= 1)
-		this.aboutButton2.opacity = 1;
-	else if (this.aboutButton2.opacity <= 0)
-		this.aboutButton2.opacity = 0;
-
-
-}
-
-MainMenuScreen.prototype.updateMousePos = function(x, y) {
-	this.mousex = game.mousex;
-	this.mousey = game.mousey;
-}
-
-MainMenuScreen.prototype.checkIfPlayAgain = function(x, y){
-
-	if (this.beginPlayingButton.contains(game.mousex, game.mousey)){
-		this.beginPlayingButtonHover = true;
-	}else{
-		this.beginPlayingButtonHover = false;
+	else if (this.aboutButton.contains(p)){
+		this.game.changeScreen("AboutScreen");
 	}
-
-	if (this.game.InputHandler.isPressed(InputKey.ENTER) == false && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-	if (this.beginPlayingButton.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
-		this.game.changeScreen(1);
-		this.game.gameScreen.initialize();
-		this.game.pressX = this.game.pressY = 0;
-	}
-	
-	
-}
-
-MainMenuScreen.prototype.checkIfShopping = function(x, y){
-	if (this.beginShoppingButton.contains(game.mousex, game.mousey)){
-		this.beginShoppingButtonHover = true;
-	}else{
-		this.beginShoppingButtonHover = false;
-	}
-	if (typeof x == 'undefined' || typeof y == 'undefined') return;
-	if (this.beginShoppingButton.contains(x, y)){
-		this.game.changeScreen(3);
-		this.game.pressX = this.game.pressY = 0;
-	}
-	
-}
-
-MainMenuScreen.prototype.checkIfTutorial = function(x, y){
-	if (this.howToPlayButton.contains(game.mousex, game.mousey)){
-		this.howToPlayButtonHover = true;
-	}else{
-		this.howToPlayButtonHover = false;
-	}
-	if (typeof x == 'undefined' || typeof y == 'undefined') return;
-	if (this.howToPlayButton.contains(x, y)){
-		this.game.changeScreen(4);
-		this.game.tutorialScreen.initialize();
-		this.game.pressX = this.game.pressY = 0;
-		this.howToPlayButtonHover = true;
-	}
-	
-	
-}
-
-MainMenuScreen.prototype.checkIfAbout = function(x, y){
-	if (this.aboutButton.contains(game.mousex, game.mousey)){
-		this.aboutButtonHover = true;
-	}else{
-		this.aboutButtonHover = false;
-	}
-	if (typeof x == 'undefined' || typeof y == 'undefined') return;
-	if (this.aboutButton.contains(x, y)){
-		this.game.changeScreen(5);
-		this.game.pressX = this.game.pressY = 0;
-		this.aboutButtonHover = true;
-	}
-	
-	
-}
-
-MainMenuScreen.prototype.updateTimerFunc = new function(){
-	this.updateTimers = true;
-}
-
-
-MainMenuScreen.prototype.updateTimer = function(){
-	if (this.updateTimers){
-		this.elapsedGameMilliseconds += 33;
-		this.updateTimers = false;
-		this.timerTimeout = setTimeout(this.updateTimerFunc, 33);
-	}
-
 }
