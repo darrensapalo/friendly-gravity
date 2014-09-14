@@ -1,6 +1,7 @@
 var Config = {
 	
 	debug: true,
+	warning: true,
 
 	ui: {
 		font: "Space Age",

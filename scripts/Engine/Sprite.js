@@ -2,9 +2,22 @@ function Sprite(raw_img, x, y, width, height, opacity, scalex, scaley) {
 	if(window.game === undefined) throw new Error("UndefinedGameException: Cannot find the main game.");
 	this.img = window.game.ImageLoader.images[raw_img];
 	this.x = x;
+	if (typeof x === 'undefined' && Config.warning)
+		console.log("Warning: Sprite created without x position.");
+
 	this.y = y;
+	if (typeof y === 'undefined' && Config.warning)
+		console.log("Warning: Sprite created without y position.");
+
 	this.width = width;
+
+	if (typeof width === 'undefined' && Config.warning)
+		console.log("Warning: Sprite created without specified width.");
+
 	this.height = height;
+	if (typeof height === 'undefined' && Config.warning)
+		console.log("Warning: Sprite created without specified height.");
+
 	this.originx = 0;
 	this.originy = 0;
 	this.visible = true;
@@ -12,6 +25,13 @@ function Sprite(raw_img, x, y, width, height, opacity, scalex, scaley) {
 	this.opacity = opacity || 1;
 	this.scalex = scalex || 1;
 	this.scaley = scaley || 1;
+}
+
+Sprite.prototype.setPosition = function(vector2D)
+{
+	if (vector2D.constructor.name !== 'Vector2D') throw new Error("ArgumentError: Sprite.setPosition only takes in a Vector2D object.");
+	this.x = vector2D.x;
+	this.y = vector2D.y;
 }
 
 Sprite.prototype.setOrigin = function(x, y)
