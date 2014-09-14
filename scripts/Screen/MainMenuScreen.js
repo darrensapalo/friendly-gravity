@@ -47,8 +47,8 @@ MainMenuScreen.prototype.initialize = function () {
 	this.logo = new CenteredSprite("logo", 400, 80, 964 / 3, 439 / 3, 1);
 	this.beginPlayingButtonHover = this.beginShoppingButtonHover = this.howToPlayButtonHover = this.aboutButtonHover = false;
 
-	this.soundButton = new CenteredSprite("sound", 50, 420, 80, 80, 1);
-	this.soundButton2 = new CenteredSprite("soundHighlight", 50, 420, 80, 80, 1);
+	this.soundButton = new CenteredSprite("sound", 730, 420, 80, 80);
+	this.soundButton2 = new CenteredSprite("soundHighlight", 730, 420, 80, 80);
 
 
 }
