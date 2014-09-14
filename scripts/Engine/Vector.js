@@ -4,8 +4,8 @@ function Vector2D(x, y)
 	this.y = y || 0;
 }
 
-Vector2D.prototype.multiply = function(scalar) {
-	
+Vector2D.prototype.smultiply = function(scalar) {
+		return new Vector2D(this.x * scalar, this.y * scalar);
 }
 
 Vector2D.prototype.toString = function() {

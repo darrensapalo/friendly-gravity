@@ -21,6 +21,10 @@ Player.prototype.initialize = function() {
 	this.sprite = new CenteredSprite("player", this.position.x, this.position.y, size, size);
 	this.anotherSprite = new CenteredSprite("player", this.position.x, this.position.y, size, size);
 
+	this.variation
+}
+
+Player.prototype.variation = function() {
 	this.sprite.opacity = Config.game.player.opacity.min;
 	this.anotherSprite.opacity = Config.game.player.opacity.max;
 
@@ -28,21 +32,15 @@ Player.prototype.initialize = function() {
 	this.anotherSprite.scale = Config.game.player.scale.max;
 
 	var tweenOpacity = function(s, t){
-		createjs.Tween.removeTweens(s);
 		var M = new MathHelper();
 		t = (t == Config.game.player.opacity.min) ? Config.game.player.opacity.max : Config.game.player.opacity.min;
-		return createjs.Tween.get(s).to({ opacity: t }, M.random(1200, 2500), createjs.Ease.quadOut).call(tweenOpacity, [s, t]);
+		return createjs.Tween.get(s).to({ opacity: t }, M.random(1200, 2500), createjs.Ease.linear).call(tweenOpacity, [s, t]);
 	}
 
-	var tweenSize = function(s, t, p){
-		createjs.Tween.removeTweens(s);
+	var tweenSize = function(s, t){
 		var M = new MathHelper();
-		console.log(p);
-		console.log('this: ' + this);
-		t = (t == Config.game.player.scale.min) ? Config.game.player.scale.max * this.scale: Config.game.player.scale.min * this.scale;
-		console.log("this.scale: " + this.scale);
-		console.log("t: " + t);
-		return createjs.Tween.get(s).to({ scalex: t, scaley: t }, M.random(1200, 2500), createjs.Ease.quadOut).call(tweenSize, [s, t, this]);
+		t = (t == Config.game.player.scale.min * this.scale) ? Config.game.player.scale.max * this.scale: Config.game.player.scale.min * this.scale;
+		return createjs.Tween.get(s).to({ scalex: t, scaley: t }, M.random(1200, 2500), createjs.Ease.linear).call(tweenSize, [s, t, this]);
 	}
 
 	this.tween = {
@@ -53,8 +51,8 @@ Player.prototype.initialize = function() {
 		},
 		scale: 
 		{
-			first: tweenSize(this.sprite, Config.game.player.scale.min),
-			second: tweenSize(this.anotherSprite, Config.game.player.scale.max)
+			first: tweenSize(this.sprite, Config.game.player.scale.max),
+			second: tweenSize(this.anotherSprite, Config.game.player.scale.min)
 		}
 	}
 }
@@ -63,6 +61,7 @@ Player.prototype.initialize = function() {
 Player.prototype.update = function(){
 	Entity.prototype.update.call(this);
 	this.rotatePlayer();
+	this.movePlayer();
 }
 
 Player.prototype.draw = function (context) {
@@ -89,45 +88,33 @@ Player.prototype.rotatePlayer = function()
 Player.prototype.movePlayer = function() {
 	var player = this.sprite;
 	var shadow = this.anotherSprite;
-	var playerSpeed = this.playerSpeed;
-	var nextX = player.x;
-	var nextY = player.y;
+
+	var M = new MathHelper();
+	var speed = Config.game.player.movement.acceleration;
+	var maxSpeed = Config.game.player.movement.maxAcceleration;
 
 	var InputHandler = this.game.InputHandler;
 
 	if (InputHandler.get(InputKey.LEFT).isPressed) {
-		nextX -= playerSpeed;
-		this.game.gameScreen.mapx += 0.575;
+		this.acceleration.x = M.clamp(this.acceleration.x - speed, -maxSpeed, +maxSpeed);
+		this.game.ScreenManager.currentScreen.mapx += 0.575;
 	};
 
 	if (InputHandler.get(InputKey.RIGHT).isPressed) {
-		nextX += playerSpeed;
-		this.game.gameScreen.mapx -= 0.575;
+		this.acceleration.x = M.clamp(this.acceleration.x + speed, -maxSpeed, +maxSpeed);
+		this.game.ScreenManager.currentScreen.mapx -= 0.575;
 	};
 
 	if (InputHandler.get(InputKey.UP).isPressed) {
-		nextY -= playerSpeed;
-		this.game.gameScreen.mapy += 0.575;
+		this.acceleration.y = M.clamp(this.acceleration.y - speed, -maxSpeed, +maxSpeed);
+		this.game.ScreenManager.currentScreen.mapy += 0.575;
 	};
 
 	if (InputHandler.get(InputKey.DOWN).isPressed) {
-		nextY += playerSpeed;
-		this.game.gameScreen.mapy -= 0.575;
+		this.acceleration.y = M.clamp(this.acceleration.y + speed, -maxSpeed, +maxSpeed);
+		this.game.ScreenManager.currentScreen.mapy -= 0.575;
 	};
-
-	if (nextX < 50)
-		nextX = 50;
-	else if (nextX > canvas.width - 50)
-		nextX = canvas.width - 50;
-
-	if (nextY < 50)
-		nextY = 50;
-	else if (nextY > canvas.height - 50)
-		nextY = canvas.height - 50;
-
-	shadow.x = player.x = nextX;
-	shadow.y = player.y = nextY;
-	shadow.opacity = 0.5;
+	
 }
 
 Player.prototype.checkGameOver = function() {

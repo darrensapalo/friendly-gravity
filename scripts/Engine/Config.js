@@ -33,13 +33,20 @@ var Config = {
 		player:{
 			size: 50,
 			scale: {
-				min: 0.8,
-				max: 1.3
+				min: 0.9,
+				max: 1.1
 			},
 			opacity: {
-				min: 0.3,
-				max: 0.7
-			}
+				min: 0.5,
+				max: 0.9
+			},
+			movement: {
+				maxVelocity: 3.2,
+				maxAcceleration: 5,
+				acceleration: 0.3,
+				friction: 0.79
+			},
+
 		}
 	},
 

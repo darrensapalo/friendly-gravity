@@ -29,6 +29,7 @@ function Sprite(raw_img, x, y, width, height, opacity, scalex, scaley) {
 
 Sprite.prototype.setPosition = function(vector2D)
 {
+	if (typeof vector2D === 'undefined') throw new Error("NullError: Cannot set Sprite position to null.");
 	if (vector2D.constructor.name !== 'Vector2D') throw new Error("ArgumentError: Sprite.setPosition only takes in a Vector2D object.");
 	this.x = vector2D.x;
 	this.y = vector2D.y;

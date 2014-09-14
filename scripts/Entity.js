@@ -9,6 +9,25 @@ function Entity()
 Entity.prototype.update = function() {
 	this.velocity = this.acceleration.add(this.velocity);
 	this.position = this.velocity.add(this.position);
+
+	// friction
+	this.acceleration = this.acceleration.smultiply(Config.game.player.movement.friction);
+	this.velocity = this.velocity.smultiply(Config.game.player.movement.friction);
+
+	// friction bounds
+	if (this.acceleration.x > -0.005 && this.acceleration.x < 0.005)
+		this.acceleration.x = 0;
+	
+	if (this.acceleration.y > -0.005 && this.acceleration.y < 0.005)
+		this.acceleration.y = 0;
+
+	if (this.velocity.x > -0.005 && this.velocity.x < 0.005)
+		this.velocity.x = 0;
+	
+	if (this.velocity.y > 0.005 && this.velocity.y < 0.005)
+		this.velocity.y = 0;
+	
+
 }
 
 Entity.prototype.draw = function(context) {

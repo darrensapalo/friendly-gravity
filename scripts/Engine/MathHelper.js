@@ -4,7 +4,16 @@ function MathHelper()
 }
 
 MathHelper.prototype.clamp = function(val,low,high) {
-	
+	if (val >= low && val <= high)
+		return val;
+
+	if (val < low)
+		return low;
+
+	if (val > high)
+		return high;
+
+	throw new Error("Something wrong with clamp parameters: '" + val + "', '" + low +"', and '" + high+"'." );
 }
 
 /*
