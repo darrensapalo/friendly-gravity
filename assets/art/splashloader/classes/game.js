@@ -1,4 +1,4 @@
-function Game(canvasname, resourceList) {
+function Game(canvasName, resourceList) {
 	this.resourceList = resourceList;
 	this.il = new ImageLoader(resourceList);
 	this.context = new Object();
@@ -14,8 +14,8 @@ function Game(canvasname, resourceList) {
 	
 	this.Start = function() {
 		var thisObj = this;
-		this.canvas = document.getElementById(canvasname);
-		this.context = document.getElementById(canvasname).getContext("2d");
+		this.canvas = document.getElementById(canvasName);
+		this.context = document.getElementById(canvasName).getContext("2d");
 		
 		this.canvas.addEventListener("click", function(evt) { thisObj.onClick(evt); } );
 		

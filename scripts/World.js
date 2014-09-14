@@ -18,17 +18,45 @@ function World(game)
 	this.resizeWidth = 800 * 1.3;
 	this.resizeHeight = 480 * 1.3;
 
+	this.score;
+
 }
 
 World.prototype.draw = function(context) {
 	context.drawImage(this.getBackground(), this.mapx, this.mapy, this.resizeWidth, this.resizeHeight);
+
+	for (var i = 0; i < comets.length; i++) {
+		comets[i].draw(context);
+	};
+
+	for (var i = 0; i < planets.length; i++) {
+		planets[i].draw(context);
+	};
+
+	this.player.draw(context);
 }
 
 World.prototype.update = function() {
-	// update comets, planets, player
-
+	// Create new comets and planets
 	this.emitter.update();
+
+	// update comets, planets, player
+	for (var i = 0; i < comets.length; i++) {
+		comets[i].update();
+	};
+
+	for (var i = 0; i < planets.length; i++) {
+		planets[i].update();
+	};
+
+	// update player
+	this.player.update();
+
+	// bound the world
 	this.bound();
+
+	// check if the game is
+	this.checkGameOver();
 }
 
 World.prototype.bound = function()
@@ -45,34 +73,33 @@ World.prototype.bound = function()
 	
 }
 
-World.prototype.entropy = function() {
+World.prototype.entropy = function(target) {
 
-	this.removeComet = function(target) {
-		for (var i = 0; i < this.comets.length; i++){
-			if (this.comets[i] == target) {
-				this.comets.splice(i,1);
-				return;
-			}
+	// Check if it is a comet
+	for (var i = 0; i < this.comets.length; i++){
+		if (this.comets[i].is(target)) {
+			this.comets.splice(i,1);
+			return;
 		}
 	}
 
-	this.removePlanet = function(target) {
-		for (var i = 0; i < this.planets.length; i++){
-			if (this.planets[i] == target) {
-				this.planets.splice(i,1);
-				return;
-			}
+	// Check if it is a planet
+	for (var i = 0; i < this.planets.length; i++){
+		if (this.planets[i].is(target)) {
+			this.planets.splice(i,1);
+			return;
 		}
 	}
 }
 
 World.prototype.getBackground = function() {
-	if (this.game.difficulty == 1)
-		return this.game.ImageLoader.images["unlocked_background"];
-	return this.game.ImageLoader.images["default_background"];
+
+	var texture = (this.game.difficulty == 1) ? "unlocked_background" : "default_background";
+
+	return this.game.ImageLoader.images[texture];
 }
 
-World.prototype.CheckGameOver = function(){
+World.prototype.checkGameOver = function(){
 	
 	if (this.countdownLeft <= 0)
 	{

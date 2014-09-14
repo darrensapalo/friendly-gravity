@@ -1,8 +1,5 @@
 function GameScreen(game){
 	Screen.call(this, game);
-
-	this.world = new World(game);
-	this.HUD = new HUD(this.world);
 }
 
 GameScreen.prototype = Object.create(Screen.prototype);
@@ -10,7 +7,8 @@ GameScreen.prototype.constructor = GameScreen;
 
 
 GameScreen.prototype.initialize = function () {
-
+	this.world = new World(game);
+	this.HUD = new HUD(this.world);
 }
 
 GameScreen.prototype.draw = function(context) {

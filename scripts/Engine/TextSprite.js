@@ -15,8 +15,6 @@ function TextSprite(text, x, y, width, height, bgColor, textColor) {
 TextSprite.prototype = Object.create(Sprite.prototype); 
 TextSprite.prototype.constructor = Sprite;
 
-TextSprite.prototype.changeOrigin = CenteredSprite.prototype.changeOrigin;
-
 TextSprite.prototype.draw = function (context) {
 	if (this.visible) {
 		if (this.drawBackground){

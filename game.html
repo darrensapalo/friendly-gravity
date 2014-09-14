@@ -7,8 +7,14 @@
 		src: url('font/spaceage.ttf');
 	}
 	</style>
+
+	<!-- Borrowed libraries -->
+
 	<script src="scripts/lib/tweenjs.js" type="text/javascript"></script>
+	<script src="scripts/lib/jquery.min.js" type="text/javascript"></script>
 	
+	<!-- Game engine - asset classes -->
+
 	<script src="scripts/Engine/ImageLoader.js" type="text/javascript"></script>
 	<script src="scripts/Engine/Sprite.js" type="text/javascript"></script>
 	<script src="scripts/Engine/CenteredSprite.js" type="text/javascript"></script>
@@ -16,16 +22,42 @@
 	<script src="scripts/Engine/Background.js" type="text/javascript"></script>
 	<script src="scripts/Engine/Resources.js" type="text/javascript"></script>
 
+	<!-- Game engine - managers -->
+
+	<script src="scripts/Manager/ScreenManager.js" type="text/javascript"></script>
+	<script src="scripts/Manager/AudioManager.js" type="text/javascript"></script>
+	<script src="scripts/Manager/Input/InputHandler.js" type="text/javascript"></script>
+	<script src="scripts/Manager/Input/InputState.js" type="text/javascript"></script>
+	<script src="scripts/Manager/Input/InputKey.js" type="text/javascript"></script>
+
+	<!-- Game engine - core -->
+
 	<script src="scripts/Engine/Game.js" type="text/javascript"></script>
 	<script src="scripts/Engine/Session.js" type="text/javascript"></script>
-	<script src="scripts/Engine/Config.js" type="text/javascript"></script>
+	<script src="scripts/Engine/Vector.js" type="text/javascript"></script>
 
+	<!-- Game engine - helper classes -->
+
+	<script src="scripts/Engine/MathHelper.js" type="text/javascript"></script>
+	<script src="scripts/Engine/Config.js" type="text/javascript"></script>
 	<script src="scripts/Engine/Color.js" type="text/javascript"></script>
-	
-	<script src="scripts/Manager/AudioManager.js" type="text/javascript"></script>
-	<script src="scripts/Engine/InputHandler.js" type="text/javascript"></script>
-	<script src="scripts/Engine/InputState.js" type="text/javascript"></script>
-	<script src="scripts/Engine/InputKey.js" type="text/javascript"></script>
+
+
+	<!-- World modeling -->
+
+	<script src="scripts/World.js" type="text/javascript"></script>
+	<script src="scripts/Player.js" type="text/javascript"></script>
+
+	<script src="scripts/Entity.js" type="text/javascript"></script>
+		<script src="scripts/Consumable.js" type="text/javascript"></script>
+			<script src="scripts/Asteroid.js" type="text/javascript"></script>
+			<script src="scripts/Planet.js" type="text/javascript"></script>
+			<script src="scripts/Comet.js" type="text/javascript"></script>
+				<script src="scripts/Trail.js" type="text/javascript"></script>
+
+	<!-- Screens -->
+
+	<script src="scripts/Screen/Screen.js" type="text/javascript"></script>
 
 	<script src="scripts/Screen/GameScreen.js" type="text/javascript"></script>
 	<script src="scripts/Screen/GameOverScreen.js" type="text/javascript"></script>
@@ -35,62 +67,16 @@
 	<script src="scripts/Screen/AboutScreen.js" type="text/javascript"></script>
 	<script src="scripts/Screen/DevelopScreen.js" type="text/javascript"></script>
 
-	
-	<script src="scripts/comet.js" type="text/javascript"></script>
-	<script src="scripts/player.js" type="text/javascript"></script>
-	<script src="scripts/Trail.js" type="text/javascript"></script>
-	<script src="scripts/Planet.js" type="text/javascript"></script>
-	
 	<script>
 	var session = new Session();
-	var game = new Game("blackhole", resourceList);
-	var DECREASE_SCORE = 50;
+	var game = new Game("blackhole");
+	</script>
+</head>
+<body>
+	<div id="page">
+		<canvas id="blackhole" width="800" height="480" style="border: 1px solid black"></canvas>
+	</div>
 
-	var changeScreenOpacity = 0;
-
-	game.initGame = function () {
-		
-		game.gameScreen.initialize();
-		game.mainMenuScreen.initialize();
-		game.shopScreen.initialize();
-		game.tutorialScreen.initialize();
-		game.aboutScreen.initialize();
-		game.developScreen.initialize();
-
-		game.currentScreen = game.mainMenuScreen;
-
-
-		game.mousex = game.mousey = 0;
-
-		game.displayCometTrail = true;
-	}
-
-	game.draw = function (context) {
-			game.clearScreen("#FFFFFF");
-			game.currentScreen.draw(context);
-
-			if (game.transferringScreens){
-				context.globalAlpha = changeScreenOpacity;
-				context.fillStyle = Color.black;
-				context.fillRect(0,0,800,480);
-				context.globalAlpha = 1;
-			}
-			
-			
-			
-		}
-		game.update = function () {
-			game.currentScreen.update();
-			game.updateScreenChangeHandler();
-			game.AudioManager.manage();
-		}
-		</script>
-	</head>
-	<body>
-		<div id="page">
-			<canvas id="blackhole" width="800" height="480" style="border: 1px solid black"></canvas>
-		</div>
-
-		<script> game.start(); </script>
-	</body>
-	</html>
+	<script> game.start(); </script>
+</body>
+</html>
