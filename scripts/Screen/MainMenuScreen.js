@@ -27,15 +27,15 @@ MainMenuScreen.prototype.initialize = function () {
 	this.howToPlay = new TextSprite("Tutorial", x, 325, 100, 20);
 	this.about = new TextSprite("About", x, 405, 100, 20);
 
-	this.beginPlayingButton = new Sprite("Button", 273, 140, 255, 80, 1);
-	this.beginShoppingButton = new Sprite("Button", 273, 220, 255, 80, 1);
-	this.howToPlayButton = new Sprite("Button", 273, 300, 255, 80, 1);
-	this.aboutButton = new Sprite("Button", 273, 380, 255, 80, 1);
+	this.beginPlayingButton = new Sprite("button", 273, 140, 255, 80, 1);
+	this.beginShoppingButton = new Sprite("button", 273, 220, 255, 80, 1);
+	this.howToPlayButton = new Sprite("button", 273, 300, 255, 80, 1);
+	this.aboutButton = new Sprite("button", 273, 380, 255, 80, 1);
 
-	this.beginPlayingButton2 = new Sprite("Button2", 273, 140, 255, 80, 1);
-	this.beginShoppingButton2 = new Sprite("Button2", 273, 220, 255, 80, 1);
-	this.howToPlayButton2 = new Sprite("Button2", 273, 300, 255, 80, 1);
-	this.aboutButton2 = new Sprite("Button2", 273, 380, 255, 80, 1);
+	this.beginPlayingButton2 = new Sprite("buttonHighlight", 273, 140, 255, 80, 1);
+	this.beginShoppingButton2 = new Sprite("buttonHighlight", 273, 220, 255, 80, 1);
+	this.howToPlayButton2 = new Sprite("buttonHighlight", 273, 300, 255, 80, 1);
+	this.aboutButton2 = new Sprite("buttonHighlight", 273, 380, 255, 80, 1);
 
 	this.beginPlayingButton2.opacity = 0;
 	this.beginShoppingButton2.opacity = 0;
@@ -44,11 +44,11 @@ MainMenuScreen.prototype.initialize = function () {
 
 
 
-	this.logo = new CenteredSprite("Logo", 400, 80, 964 / 3, 439 / 3, 1);
+	this.logo = new CenteredSprite("logo", 400, 80, 964 / 3, 439 / 3, 1);
 	this.beginPlayingButtonHover = this.beginShoppingButtonHover = this.howToPlayButtonHover = this.aboutButtonHover = false;
 
-	this.soundButton = new CenteredSprite("soundButton", 50, 420, 106, 106, 1);
-	this.soundButton2 = new CenteredSprite("soundButton2", 50, 420, 106, 106, 1);
+	this.soundButton = new CenteredSprite("sound", 50, 420, 80, 80, 1);
+	this.soundButton2 = new CenteredSprite("soundHighlight", 50, 420, 80, 80, 1);
 
 
 }

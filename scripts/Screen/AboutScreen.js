@@ -16,7 +16,7 @@ AboutScreen.prototype.initialize = function () {
 	x = 273;
 	y = 380;
 	this.returnToMenu = new TextSprite("Main menu", x + 20, y + 20, 255, 40);
-	this.returnToMenu2 = new Sprite("Button", x, y, 255, 80, 1);
+	this.returnToMenu2 = new Sprite("button", x, y, 255, 80, 1);
 
 
 	x = 150;

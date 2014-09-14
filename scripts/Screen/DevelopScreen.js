@@ -14,13 +14,13 @@ DevelopScreen.prototype.initialize = function () {
 	x = 150;
 	y = 380;
 	this.newGame = new TextSprite("Play again", x + 20, y + 20, 255, 40, Color.black, Color.light_gray);
-	this.newGame2 = new Sprite("Button", x, y, 255, 80, 1);
+	this.newGame2 = new Sprite("button", x, y, 255, 80, 1);
 
 
 	x = 400;
 	y = 380;
 	this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
-	this.returnMainMenu2 = new Sprite("Button", x, y, 255, 80, 1);
+	this.returnMainMenu2 = new Sprite("button", x, y, 255, 80, 1);
 
 
 
