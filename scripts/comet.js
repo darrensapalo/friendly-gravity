@@ -6,7 +6,7 @@ Comet.prototype = Object.create(Consumable.prototype);
 Comet.prototype.constructor = Comet;
 
 Comet.prototype.initialize = function(){
-	Consumable.initialize.call(this);
+	Consumable.prototype.initialize.call(this);
 
 	var M = new MathHelper();
 
@@ -21,16 +21,21 @@ Comet.prototype.initialize = function(){
 	// Create sprite
 	this.sprite = new CenteredSprite("comet", this.position.x, this.position.y, size, size);
 
+	console.log("Making a new trail");
 	this.trail = new Trail(this, this.kind);
+	this.trail.initialize();
+}
+
+Comet.prototype.update = function () {
+	Consumable.prototype.update.call(this);
+
+	if (Config.game.trail.isVisible)
+		this.trail.update();
 }
 
 Comet.prototype.draw = function (context) {
-	Consumable.draw.call(this, context);
+	Consumable.prototype.draw.call(this, context);
 
 	if (Config.game.trail.isVisible)
 		this.trail.draw(context);
-}
-
-Comet.prototype.update = function (){
-	Consumable.update.call(this);
 }

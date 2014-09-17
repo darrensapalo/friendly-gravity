@@ -7,7 +7,7 @@ Asteroid.prototype = Object.create(Consumable.prototype);
 Asteroid.prototype.constructor = Asteroid;
 
 Asteroid.prototype.initialize = function () {
-	Consumable.initialize.call(this);
+	Consumable.prototype.initialize.call(this);
 
 	var M = new MathHelper();
 

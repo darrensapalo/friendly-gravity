@@ -11,7 +11,7 @@ Planet.prototype.constructor = Planet;
 Planet.prototype.initialize = function(){
 	var M = new MathHelper();
 
-	Consumable.initialize.call(this);
+	Consumable.prototype.initialize.call(this);
 
 	this.kind = M.random(1, 3);
 
@@ -32,7 +32,7 @@ Planet.prototype.initialize = function(){
 }
 
 Planet.prototype.draw = function (context) {
-	Consumable.draw.call(this, context);
+	Consumable.prototype.draw.call(this, context);
 
 	this.additionals[0].draw(context);
 	this.additionals[1].draw(context);
@@ -40,5 +40,5 @@ Planet.prototype.draw = function (context) {
 
 
 Planet.prototype.update = function (){
-	Consumable.update.call(this);
+	Consumable.prototype.update.call(this);
 }

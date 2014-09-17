@@ -27,7 +27,7 @@ var Config = {
 			isVisible: true,
 			maximum: 25,
 			minimum: 10,
-			scaling: 0.9
+			scaling: 0.8
 		},
 
 		player:{

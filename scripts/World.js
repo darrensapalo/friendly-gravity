@@ -58,6 +58,10 @@ World.prototype.update = function() {
 		this.planets[i].update();
 	};
 
+	for (var i = 0; i < this.asteroids.length; i++) {
+		this.asteroids[i].update();
+	};
+
 	// update player
 	this.player.update();
 

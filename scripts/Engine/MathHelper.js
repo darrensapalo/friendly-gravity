@@ -30,7 +30,7 @@ MathHelper.prototype.outsideClamp = function(val,low,high) {
  */
 MathHelper.prototype.random = function(min, max)
 {
-	if (typeof max === undefined)
+	if (typeof max === 'undefined')
 		return Math.floor( Math.random() * min);
 
 	return min + Math.floor( Math.random() * (max - min + 1) );

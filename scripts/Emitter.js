@@ -2,55 +2,47 @@
 function Emitter(world)
 {
 	this.world = world;
+	this.spawnTime = 3000;
 }
 
 Emitter.prototype.update = function() {
-	
+	var M = new MathHelper();
+
+	if (this.spawnTime <= 0)
+	{
+		this.spawn();
+		this.spawnTime = M.random(5000, 7000);
+	}
+	this.spawnTime -= 33;
 }
 
 
-Emitter.prototype.CheckSpawnPlanet = function()
+Emitter.prototype.spawn = function()
 {
-	this.planetSpawnTimeout -= this.elapsedMs;
+	var M = new MathHelper();
 
-	if (this.planetSpawnTimeout <= 0)
-		var willSpawn = true;
+	var newEntity;
+	var type = 2 ;//  M.random(3);
 
-	if (willSpawn){
+	switch(type)
+	{
+		case 0: // planet
+			console.log("Making a new planet");
+			newEntity = new Planet(this.world);
+			this.world.planets.push(newEntity);
+		break;
+		case 1: // asteroid
+			console.log("Making a new asteroid");
+			newEntity = new Asteroid(this.world);
+			this.world.asteroids.push(newEntity);
+		break;
+		case 2: // comet
+			console.log("Making a new comet");
+			newEntity = new Comet(this.world);
+			this.world.comets.push(newEntity);
+		break;
+	}
 
-	// Create a new comet
-	var p = new Planet();
-	
 	// Initialize 
-	p.initialize();
-	this.planets.push(p);
-	willSpawn = false;
-	this.planetSpawnTimeout = Math.random() * this.starSpawnRandom + this.starSpawnTimer * 5;
-	}
-}
-
-
-Emitter.prototype.CheckSpawn  = function(){
-	this.spawnTimeout -= this.elapsedMs;
-	if (this.spawnTimeout <= 0)
-		var willSpawn = true;
-
-	if (willSpawn) {
-
-		// Create a new comet
-		var v = new Comet();
-		
-		// Initialize 
-		v.initialize(-1);
-		if (v.isAsteroid())
-			this.spawnTimeout = 100;
-		
-		this.comets.push(v);
-		willSpawn = false;
-		if (game.difficulty == 1)
-			this.spawnTimeout = Math.random() * this.starSpawnRandom / 1.5 + this.starSpawnTimer;
-		else 
-			this.spawnTimeout = Math.random() * this.starSpawnRandom + this.starSpawnTimer;
-		
-	}
+	newEntity.initialize();
 }

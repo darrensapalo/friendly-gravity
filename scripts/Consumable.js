@@ -30,8 +30,8 @@ Consumable.prototype.initialize = function()
 	// Select random spawn point
 	do{	
 
-		this.position.x = M.random(25, this.game.canvas.width - 50);
-		this.position.y = M.random(25, this.game.canvas.height - 50);
+		this.position.x = M.random(25, game.ScreenManager.canvas.width - 50);
+		this.position.y = M.random(25, game.ScreenManager.canvas.height - 50);
 
 	}while( this.checkNear( this.world.player ) );
 
@@ -42,22 +42,27 @@ Consumable.prototype.consume = function() {
 }
 
 Consumable.prototype.update = function() {
-	Entity.update.call(this);
+	Entity.prototype.update.call(this);
 	
+	var player = this.world.player;
+	var direction = new Vector2D(player.position.x - this.position.x, player.position.y - this.position.y);
+	this.acceleration = this.acceleration.add(direction.smultiply(0.0005));
+
 	// Add some score
 	if (this.world.isGameOver == false)
-		world.score += Math.random() * this.points; // Various consumables have different points
+		this.world.score += Math.random() * Config.game.points;
 }
 
 Consumable.prototype.draw = function(context) {
-	Entity.draw.call(this, context);
-	this.decreased.draw(context);
+	Entity.prototype.draw.call(this, context);
+	if (typeof this.decreased !== 'undefined')
+		this.decreased.draw(context);
 }
 
 Consumable.prototype.checkNear = function(target)
 {
 	var threshold = 100;
-	return (Math.sqrt(Math.pow(x - target.sprite.x, 2) + Math.pow(y - target.sprite.y, 2)) < threshold);
+	return (Math.sqrt(Math.pow(this.position.x - target.position.x, 2) + Math.pow(this.position.y - target.position.y, 2)) < threshold);
 }
 
 Consumable.prototype.checkConsumed = function(target){

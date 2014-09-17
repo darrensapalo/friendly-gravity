@@ -44,12 +44,12 @@ Player.prototype.variation = function() {
 	this.tween = {
 		opacity: 
 		{
-			first: tweenOpacity(this.sprite, Config.game.player.opacity.min),
+			first:  tweenOpacity(this.sprite, Config.game.player.opacity.min),
 			second: tweenOpacity(this.anotherSprite, Config.game.player.opacity.max)
 		},
 		scale: 
 		{
-			first: tweenSize(this.sprite, Config.game.player.scale.max),
+			first:  tweenSize(this.sprite, Config.game.player.scale.max),
 			second: tweenSize(this.anotherSprite, Config.game.player.scale.min)
 		}
 	}
@@ -66,16 +66,16 @@ Player.prototype.update = function(){
 Player.prototype.bound = function (context) {
 	var M = new MathHelper();
 	
-	if (M.outsideClamp(this.position.x, 50, 750) || M.outsideClamp(this.position.y, 50, 430))
+	if (M.outsideClamp(this.position.x, 70, 730) || M.outsideClamp(this.position.y, 70, 410))
 	{
-		this.velocity.x *= Config.game.player.movement.spaceBound;
+		this.velocity.x     *= Config.game.player.movement.spaceBound;
 		this.acceleration.x *= Config.game.player.movement.spaceBound;
-		this.velocity.y *= Config.game.player.movement.spaceBound;
+		this.velocity.y     *= Config.game.player.movement.spaceBound;
 		this.acceleration.y *= Config.game.player.movement.spaceBound;
 	}
 
-	this.position.x = M.clamp(this.position.x, 20, 780);
-	this.position.y = M.clamp(this.position.y, 50, 460);
+	this.position.x = M.clamp(this.position.x, 40, 760);
+	this.position.y = M.clamp(this.position.y, 70, 440);
 }
 
 Player.prototype.draw = function (context) {

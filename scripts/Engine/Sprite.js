@@ -26,6 +26,8 @@ function Sprite(raw_img, x, y, width, height, opacity, scalex, scaley) {
 	this.opacity = opacity || 1;
 	this.scalex = scalex || 1;
 	this.scaley = scaley || 1;
+
+	
 }
 
 Sprite.prototype.setPosition = function(vector2D)
