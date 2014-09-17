@@ -1,6 +1,7 @@
 function Sprite(raw_img, x, y, width, height, opacity, scalex, scaley) {
 	if(window.game === undefined) throw new Error("UndefinedGameException: Cannot find the main game.");
 	this.img = window.game.ImageLoader.images[raw_img];
+
 	this.x = x;
 	if (typeof x === 'undefined' && Config.warning)
 		console.log("Warning: Sprite created without x position.");

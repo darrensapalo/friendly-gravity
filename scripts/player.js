@@ -20,8 +20,6 @@ Player.prototype.initialize = function() {
 
 	this.sprite = new CenteredSprite("player", this.position.x, this.position.y, size, size);
 	this.anotherSprite = new CenteredSprite("player", this.position.x, this.position.y, size, size);
-
-	this.variation
 }
 
 Player.prototype.variation = function() {
@@ -62,6 +60,22 @@ Player.prototype.update = function(){
 	Entity.prototype.update.call(this);
 	this.rotatePlayer();
 	this.movePlayer();
+	this.bound();
+}
+
+Player.prototype.bound = function (context) {
+	var M = new MathHelper();
+	
+	if (M.outsideClamp(this.position.x, 50, 750) || M.outsideClamp(this.position.y, 50, 430))
+	{
+		this.velocity.x *= Config.game.player.movement.spaceBound;
+		this.acceleration.x *= Config.game.player.movement.spaceBound;
+		this.velocity.y *= Config.game.player.movement.spaceBound;
+		this.acceleration.y *= Config.game.player.movement.spaceBound;
+	}
+
+	this.position.x = M.clamp(this.position.x, 20, 780);
+	this.position.y = M.clamp(this.position.y, 20, 460);
 }
 
 Player.prototype.draw = function (context) {

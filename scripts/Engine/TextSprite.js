@@ -25,7 +25,7 @@ TextSprite.prototype.draw = function (context) {
 		context.strokeStyle = this.bgColor;
 		context.lineWidth = 4;
 		context.fillStyle = this.textColor;
-		context.font = Config.fontSize + " " + Config.font;
+		context.font = Config.ui.fontSize + " " + Config.ui.font;
 
 		context.textBaseline = "top";
 		context.textAlign = "center";

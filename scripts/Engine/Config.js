@@ -5,7 +5,7 @@ var Config = {
 
 	ui: {
 		font: "Space Age",
-		fontSize: "14pt",
+		fontSize: "13pt",
 	},
 	
 	sound: {
@@ -44,7 +44,8 @@ var Config = {
 				maxVelocity: 3.2,
 				maxAcceleration: 5,
 				acceleration: 0.3,
-				friction: 0.79
+				friction: 0.79,
+				spaceBound: 0.9
 			},
 
 		}

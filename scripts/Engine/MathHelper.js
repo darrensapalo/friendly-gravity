@@ -16,6 +16,10 @@ MathHelper.prototype.clamp = function(val,low,high) {
 	throw new Error("Something wrong with clamp parameters: '" + val + "', '" + low +"', and '" + high+"'." );
 }
 
+MathHelper.prototype.outsideClamp = function(val,low,high) {
+	return val < low || val > high;
+}
+
 /*
  * This supports random(n) which gives a random number between 1 to n exclusive.
  * e.g. random(4) = either 0, 1, 2, 3
