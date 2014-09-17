@@ -7,6 +7,7 @@ function World(game)
 
 	this.comets = new Array();
 	this.planets = new Array();
+	this.asteroids = new Array();
 
 	this.isGameOver = false;
 
@@ -19,12 +20,14 @@ function World(game)
 
 	this.countdownLeft;
 	this.score;
+	this.eaten;
 }
 
 World.prototype.initialize = function()
 {
 	this.countdownLeft = 33 * 1000;
 	this.score = 0;
+	this.eaten = new Eaten();
 	this.player.initialize();
 }
 
@@ -87,6 +90,7 @@ World.prototype.entropy = function(target) {
 	for (var i = 0; i < this.comets.length; i++){
 		if (this.comets[i].is(target)) {
 			this.comets.splice(i,1);
+			this.eaten.comets += 1;
 			return;
 		}
 	}
@@ -95,6 +99,16 @@ World.prototype.entropy = function(target) {
 	for (var i = 0; i < this.planets.length; i++){
 		if (this.planets[i].is(target)) {
 			this.planets.splice(i,1);
+			this.eaten.planets += 1;
+			return;
+		}
+	}
+
+	// Check if it is an asteroid
+	for (var i = 0; i < this.asteroids.length; i++){
+		if (this.asteroids[i].is(target)) {
+			this.asteroids.splice(i,1);
+			this.eaten.asteroids += 1;
 			return;
 		}
 	}
@@ -103,7 +117,6 @@ World.prototype.entropy = function(target) {
 World.prototype.getBackground = function() {
 
 	var texture = (this.game.difficulty == 1) ? "unlocked_background" : "default_background";
-
 	return this.game.ImageLoader.images[texture];
 }
 
@@ -111,10 +124,9 @@ World.prototype.checkGameOver = function(){
 	
 	if (this.countdownLeft <= 0)
 	{
-		this.game.changeScreen(2);
-		if (this.gameOver)return;
-		this.gameOver = true;
-		this.game.currentScore = Math.floor(this.player.score);
-		game.gameOverScreen.initialize();
+		var Round = new Round(this.world.score, this.world.eaten);
+		this.isGameOver = true;
+		
+		
 	}
 }
