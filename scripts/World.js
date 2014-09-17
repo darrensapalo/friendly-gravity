@@ -17,11 +17,14 @@ function World(game)
 	this.resizeWidth = 800 * 1.3;
 	this.resizeHeight = 480 * 1.3;
 
+	this.countdownLeft;
 	this.score;
 }
 
 World.prototype.initialize = function()
 {
+	this.countdownLeft = 33 * 1000;
+	this.score = 0;
 	this.player.initialize();
 }
 
@@ -60,6 +63,8 @@ World.prototype.update = function() {
 
 	// check if the game is
 	this.checkGameOver();
+
+	this.countdownLeft -= 33; // 33ms elapsed
 }
 
 World.prototype.bound = function()

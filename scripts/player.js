@@ -75,7 +75,7 @@ Player.prototype.bound = function (context) {
 	}
 
 	this.position.x = M.clamp(this.position.x, 20, 780);
-	this.position.y = M.clamp(this.position.y, 20, 460);
+	this.position.y = M.clamp(this.position.y, 50, 460);
 }
 
 Player.prototype.draw = function (context) {

@@ -7,7 +7,7 @@ function HUD(world)
 }
 
 HUD.prototype.update = function() {
-	// body...
+	
 }
 
 HUD.prototype.draw = function(context) {
@@ -17,22 +17,23 @@ HUD.prototype.draw = function(context) {
 	context.font = Config.fontSize + " " + Config.font + ", regular"
 	context.textBaseline = "top";
 	context.textAlign = "center";
+	
 	var x, y;
 	x = 75;
 	y = 13;
-	// context.strokeText("Time left: " + this.countdownLeft, 100, 20);
-	context.strokeText("Score: " + Math.floor(this.player.score), x, y);
-	// context.fillText("Time left: " + this.countdownLeft, 100, 20);
-	context.fillText("Score: " + Math.floor(this.player.score), x, y);
 
+	context.strokeText("Score: " + Math.floor(this.world.score), x, y);
+	context.fillText("Score: " + Math.floor(this.world.score), x, y);
 
 	x = 725;
 	y = 13;
-	var time = Math.floor(this.countdownLeft / 1000);
+	
+	var time = Math.floor(this.world.countdownLeft / 1000);
+	
 	if (time < 0)
 		time = 0;
+	
 	context.strokeText("Time: " + time, x, y);
-	// context.fillText("Time left: " + this.countdownLeft, 100, 20);
 	context.fillText("Time: " + time, x, y);
 	
 	
