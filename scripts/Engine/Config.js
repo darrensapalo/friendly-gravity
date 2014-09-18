@@ -25,9 +25,10 @@ var Config = {
 
 		trail: {
 			isVisible: true,
-			maximum: 25,
-			minimum: 10,
-			scaling: 0.8
+			maximum: 3,
+			minimum: 1,
+			fadeDuration: 800,
+			size: 50,
 		},
 
 		player:{

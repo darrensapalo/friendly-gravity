@@ -1,5 +1,6 @@
 function Comet (world, type){
 	Consumable.call(this, world, type);
+	this.trails = new Array();
 }
 
 Comet.prototype = Object.create(Consumable.prototype);
@@ -13,29 +14,54 @@ Comet.prototype.initialize = function(){
 	this.kind = M.random(1, 4);
 
 	// Vary in size
-	var size = M.random(50, 75);
+	this.size = M.random(50, 75);
 
 	if (Config.debug)
-		console.log("Creating new comet of size " + size);
+		console.log("Creating new comet of size " + this.size);
 
 	// Create sprite
-	this.sprite = new CenteredSprite("comet", this.position.x, this.position.y, size, size);
-
-	console.log("Making a new trail");
-	this.trail = new Trail(this, this.kind);
-	this.trail.initialize();
+	this.sprite = new CenteredSprite("comet", this.position.x, this.position.y, this.size, this.size);
 }
 
 Comet.prototype.update = function () {
 	Consumable.prototype.update.call(this);
 
+	this.trail();
+
 	if (Config.game.trail.isVisible)
-		this.trail.update();
+	{
+		for (var i = 0; i < this.trails.length; i++) {
+			this.trails[i].update();
+		}
+	}
 }
 
 Comet.prototype.draw = function (context) {
-	Consumable.prototype.draw.call(this, context);
-
+	
 	if (Config.game.trail.isVisible)
-		this.trail.draw(context);
+		for (var i = 0; i < this.trails.length; i++) {
+			this.trails[i].draw(context);
+		}
+	
+	Consumable.prototype.draw.call(this, context);
 }
+
+Comet.prototype.trail = function() {
+	var M = new MathHelper();
+	var emitAmount = M.random(Config.game.trail.minimum, Config.game.trail.maximum);
+	var scale = 0.6;
+	for (var i = 0; i < emitAmount; i++) {
+		this.trails.push(new Trail(this, this.kind, scale));
+		scale *= 0.7;
+	}
+
+	for (var i = 0; this.trails[i].sprite.opacity <= 0; i++)
+	{
+		this.trails.splice( i, 1 );
+	}
+	
+}
+
+Comet.prototype.remove = function() {
+	
+};
