@@ -132,9 +132,7 @@ World.prototype.checkGameOver = function(){
 	
 	if (this.countdownLeft <= 0)
 	{
-		var Round = new Round(this.world.score, this.world.eaten);
+		this.round = new Round(this.score, this.eaten);
 		this.isGameOver = true;
-		
-		
 	}
 }

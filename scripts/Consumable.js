@@ -52,7 +52,7 @@ Consumable.prototype.update = function() {
 	this.updateDeduction();
 
 	// Add some score
-	if (this.world.isGameOver == false)
+	if (this.world.isGameOver == false && this.isConsumed == false)
 		this.world.score += Math.random() * Config.game.points;
 }
 

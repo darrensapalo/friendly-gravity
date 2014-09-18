@@ -16,14 +16,14 @@ Planet.prototype.initialize = function(){
 	this.kind = M.random(1, 3);
 
 	// Vary in size
-	var width = 395;
-	var height = 410;
+	var width = 100;
+	var height = 102;
 
 	if (Config.debug)
 		console.log("Creating new planet of kind " + kind);
 
 	var opacity = 1;
-	var scalex = scaley = M.random(0.20, 0.4);
+	var scalex = scaley = 1;
 
 	// Create sprite
 	this.sprite = new CenteredSprite("planet" + this.kind + "-1", this.position.x, this.position.y, width, height, opacity, scalex, scaley);
