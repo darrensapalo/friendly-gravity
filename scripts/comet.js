@@ -49,12 +49,11 @@ Comet.prototype.draw = function (context) {
 Comet.prototype.trail = function() {
 	
 	var M = new MathHelper();
-	var emitAmount = 2; // M.random(Config.game.trail.minimum, Config.game.trail.maximum);
+	var emitAmount = Config.game.trail.emit;
 
 	var scale = 0.5;
 	for (var i = 0; i < emitAmount; i++) {
 		this.trails.push(new Trail(this, this.kind, scale));
-		scale *= 0.3;
 	}
 
 	this.remove();

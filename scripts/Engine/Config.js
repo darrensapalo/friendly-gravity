@@ -25,8 +25,7 @@ var Config = {
 
 		trail: {
 			isVisible: true,
-			maximum: 3,
-			minimum: 1,
+			emit: 5,
 			fadeDuration: 800,
 			size: 50,
 		},

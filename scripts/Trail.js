@@ -8,6 +8,10 @@ function Trail (comet, kind, scale){
 	this.position = this.comet.position;
 
 	createjs.Tween.get(this.sprite).to({ opacity:0 }, Config.game.trail.fadeDuration).call(function(comet, trail) {comet.remove(trail); }, [this.comet, this]);
+	createjs.Tween.get(this.sprite).to({ scalex:0.2 }, Config.game.trail.fadeDuration);
+	createjs.Tween.get(this.sprite).to({ scaley:0.2 }, Config.game.trail.fadeDuration);
+
+	this.acceleration = this.comet.acceleration.smultiply(-4);
 }
 
 Trail.prototype = Object.create(Entity.prototype);
@@ -15,7 +19,7 @@ Trail.prototype.constructor = Trail;
 
 Trail.prototype.update = function (){
 	Entity.prototype.update.call(this);
-	this.acceleration = this.comet.acceleration.smultiply(-0.5);
+	
 	
 }
 

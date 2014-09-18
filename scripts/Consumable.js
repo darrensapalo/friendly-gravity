@@ -45,7 +45,9 @@ Consumable.prototype.update = function() {
 	Entity.prototype.update.call(this);
 	
 	var player = this.world.player;
-	var direction = new Vector2D(player.position.x - this.position.x, player.position.y - this.position.y);
+	var randx = Math.random() * 0.4;
+	var randy = Math.random() * 0.4;
+	var direction = new Vector2D(player.position.x - this.position.x + randx, player.position.y - this.position.y  + randy);
 	this.acceleration = this.acceleration.add(direction.smultiply(0.0005));
 
 	// Add some score
