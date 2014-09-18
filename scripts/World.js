@@ -96,7 +96,7 @@ World.prototype.entropy = function(target) {
 
 	// Check if it is a comet
 	for (var i = 0; i < this.comets.length; i++){
-		if (this.comets[i].is(target)) {
+		if (this.comets[i].isConsumed) {
 			this.comets.splice(i,1);
 			this.eaten.comets += 1;
 			return;
@@ -105,7 +105,7 @@ World.prototype.entropy = function(target) {
 
 	// Check if it is a planet
 	for (var i = 0; i < this.planets.length; i++){
-		if (this.planets[i].is(target)) {
+		if (this.planets[i].isConsumed) {
 			this.planets.splice(i,1);
 			this.eaten.planets += 1;
 			return;
@@ -114,7 +114,7 @@ World.prototype.entropy = function(target) {
 
 	// Check if it is an asteroid
 	for (var i = 0; i < this.asteroids.length; i++){
-		if (this.asteroids[i].is(target)) {
+		if (this.asteroids[i].isConsumed) {
 			this.asteroids.splice(i,1);
 			this.eaten.asteroids += 1;
 			return;

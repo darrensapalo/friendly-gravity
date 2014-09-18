@@ -37,9 +37,6 @@ Consumable.prototype.initialize = function()
 
 }
 
-Consumable.prototype.consume = function() {
-
-}
 
 Consumable.prototype.update = function() {
 	Entity.prototype.update.call(this);
@@ -49,6 +46,10 @@ Consumable.prototype.update = function() {
 	var randy = Math.random() * 0.4;
 	var direction = new Vector2D(player.position.x - this.position.x + randx, player.position.y - this.position.y  + randy);
 	this.acceleration = this.acceleration.add(direction.smultiply(0.0005));
+
+	this.checkConsumed(player);
+
+	this.updateDeduction();
 
 	// Add some score
 	if (this.world.isGameOver == false)
@@ -72,27 +73,28 @@ Consumable.prototype.checkConsumed = function(target){
 
 		// Create a decrease message
 		this.decreased = new Tooltip(this.position, -this.deduction);
-		target.getHit();
 		
 		this.isConsumed = true;
-		this.startOpacityReduction = true;
 		
-		this.decreased.setOrigin("centered");
-		this.decreased.x = this.sprite.x - 50;
-		this.decreased.y = this.sprite.y - 25;
+		this.decreased.x -= this.decreased.width / 2;
+		this.decreased.y = this.position.y - 50;
 
-		world.score -= this.deduction;
+		var targety = this.decreased.y - 30;
 
-		if (world.score < 0) world.score = 0;
+		createjs.Tween.get(this.sprite).wait(1200).to({ opacity:0 }, Config.game.trail.fadeDuration);
+		createjs.Tween.get(this.decreased).wait(400).to({ opacity:0, y: targety }, Config.game.trail.fadeDuration * 2);
+
+		this.world.score -= this.deduction;
+
+		if (this.world.score < 0) this.world.score = 0;
 	}
 }
 
 Consumable.prototype.updateDeduction = function(){
-	this.decreased.y -= 1;
-	this.decreased.opacity *= 0.9;
-
-	if (this.decreased.opacity <= 0.02)
+	if (this.isConsumed)
 	{
-		this.world.entropy(this); // remove from the list
+		if (this.decreased.opacity <= 0){
+			this.world.entropy(this); // remove from the list
+		}
 	}
 }

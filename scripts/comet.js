@@ -53,7 +53,7 @@ Comet.prototype.trail = function() {
 
 	var scale = 0.5;
 	for (var i = 0; i < emitAmount; i++) {
-		this.trails.push(new Trail(this, this.kind, scale));
+		this.trails.push(new Trail(this, this.kind, scale, this.sprite.opacity));
 	}
 
 	this.remove();
