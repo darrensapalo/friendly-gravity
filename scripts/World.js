@@ -42,6 +42,10 @@ World.prototype.draw = function(context) {
 		this.planets[i].draw(context);
 	};
 
+	for (var i = 0; i < this.asteroids.length; i++) {
+		this.asteroids[i].draw(context);
+	};
+
 	this.player.draw(context);
 }
 

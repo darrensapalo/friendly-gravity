@@ -22,7 +22,7 @@ Emitter.prototype.spawn = function()
 	var M = new MathHelper();
 
 	var newEntity;
-	var type = 2 ;//  M.random(3);
+	var type = M.random(3);
 
 	switch(type)
 	{

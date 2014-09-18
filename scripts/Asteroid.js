@@ -23,3 +23,9 @@ Asteroid.prototype.initialize = function () {
 	// Create sprite
 	this.sprite = new CenteredSprite("asteroid-" + kind, this.position.x, this.position.y, size, size);
 }
+
+Asteroid.prototype.update = function() {
+	Consumable.prototype.update.call(this);
+
+	this.sprite.rotation -= Math.PI / 86;
+};

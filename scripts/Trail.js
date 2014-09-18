@@ -7,7 +7,7 @@ function Trail (comet, kind, scale){
 	this.sprite = new CenteredSprite('tail-' + this.kind, this.comet.position.x, this.comet.position.y, Config.game.trail.size, Config.game.trail.size, 1, scale, scale);
 	this.position = this.comet.position;
 
-	createjs.Tween.get(this.sprite).to({ opacity:0 }, Config.game.trail.fadeDuration).call(function(comet, trail) {comet.remove(trail); }, [this.comet, this]);
+	createjs.Tween.get(this.sprite).to({ opacity:0 }, Config.game.trail.fadeDuration);
 	createjs.Tween.get(this.sprite).to({ scalex:0.2 }, Config.game.trail.fadeDuration);
 	createjs.Tween.get(this.sprite).to({ scaley:0.2 }, Config.game.trail.fadeDuration);
 

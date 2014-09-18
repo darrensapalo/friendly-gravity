@@ -22,13 +22,16 @@ Planet.prototype.initialize = function(){
 	if (Config.debug)
 		console.log("Creating new planet of kind " + kind);
 
+	var opacity = 1;
+	var scalex = scaley = M.random(0.20, 0.4);
+
 	// Create sprite
-	this.sprite = new CenteredSprite("planet" + this.kind + "-1", this.position.x, this.position.y, width, height);
+	this.sprite = new CenteredSprite("planet" + this.kind + "-1", this.position.x, this.position.y, width, height, opacity, scalex, scaley);
 
 	this.trail = new Trail(this, this.kind);
 
-	this.additionals[0] = new CenteredSprite("planet" + this.kind + "-2", this.position.x, this.position.y, width, height);
-	this.additionals[1] = new CenteredSprite("planet" + this.kind + "-3", this.position.x, this.position.y, width, height);
+	this.additionals[0] = new CenteredSprite("planet" + this.kind + "-2", this.position.x, this.position.y, width, height, opacity, scalex, scaley);
+	this.additionals[1] = new CenteredSprite("planet" + this.kind + "-3", this.position.x, this.position.y, width, height, opacity, scalex, scaley);
 }
 
 Planet.prototype.draw = function (context) {
@@ -41,4 +44,9 @@ Planet.prototype.draw = function (context) {
 
 Planet.prototype.update = function (){
 	Consumable.prototype.update.call(this);
+	this.additionals[0].x = this.additionals[1].x = this.position.x;
+	this.additionals[0].y = this.additionals[1].y = this.position.y;
+
+	this.additionals[0].rotation -= Math.PI / 86;
+	this.additionals[1].rotation += Math.PI / 86; 
 }
