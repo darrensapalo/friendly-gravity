@@ -14,7 +14,7 @@ Comet.prototype.initialize = function(){
 	this.kind = M.random(1, 4);
 
 	// Vary in size
-	this.size = M.random(50, 75);
+	this.size = M.random(20, 35);
 
 	if (Config.debug)
 		console.log("Creating new comet of size " + this.size);
@@ -47,21 +47,24 @@ Comet.prototype.draw = function (context) {
 }
 
 Comet.prototype.trail = function() {
+	
 	var M = new MathHelper();
-	var emitAmount = M.random(Config.game.trail.minimum, Config.game.trail.maximum);
-	var scale = 0.6;
+	var emitAmount = 2; // M.random(Config.game.trail.minimum, Config.game.trail.maximum);
+
+	var scale = 0.5;
 	for (var i = 0; i < emitAmount; i++) {
 		this.trails.push(new Trail(this, this.kind, scale));
-		scale *= 0.7;
+		scale *= 0.3;
 	}
 
-	for (var i = 0; this.trails[i].sprite.opacity <= 0; i++)
-	{
-		this.trails.splice( i, 1 );
-	}
+	this.remove();
 	
 }
 
 Comet.prototype.remove = function() {
-	
+	// Remove those with zero opacity
+	for (var i = 0; this.trails[i].sprite.opacity <= 0; i++)
+	{
+		this.trails.splice( i, 1 );
+	}
 };
