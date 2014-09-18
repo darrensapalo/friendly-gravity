@@ -72,6 +72,8 @@ World.prototype.update = function() {
 	// bound the world
 	this.bound();
 
+	this.entropy();
+
 	// check if the game is
 	this.checkGameOver();
 
@@ -92,11 +94,11 @@ World.prototype.bound = function()
 	
 }
 
-World.prototype.entropy = function(target) {
+World.prototype.entropy = function() {
 
 	// Check if it is a comet
 	for (var i = 0; i < this.comets.length; i++){
-		if (this.comets[i].isConsumed) {
+		if (this.comets[i].isDestroyed) {
 			this.comets.splice(i,1);
 			this.eaten.comets += 1;
 			return;
@@ -105,7 +107,7 @@ World.prototype.entropy = function(target) {
 
 	// Check if it is a planet
 	for (var i = 0; i < this.planets.length; i++){
-		if (this.planets[i].isConsumed) {
+		if (this.planets[i].isDestroyed) {
 			this.planets.splice(i,1);
 			this.eaten.planets += 1;
 			return;
@@ -114,7 +116,7 @@ World.prototype.entropy = function(target) {
 
 	// Check if it is an asteroid
 	for (var i = 0; i < this.asteroids.length; i++){
-		if (this.asteroids[i].isConsumed) {
+		if (this.asteroids[i].isDestroyed) {
 			this.asteroids.splice(i,1);
 			this.eaten.asteroids += 1;
 			return;

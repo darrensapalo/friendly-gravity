@@ -47,8 +47,6 @@ Comet.prototype.draw = function (context) {
 }
 
 Comet.prototype.trail = function() {
-	
-	var M = new MathHelper();
 	var emitAmount = Config.game.trail.emit;
 
 	var scale = 0.5;
@@ -62,8 +60,9 @@ Comet.prototype.trail = function() {
 
 Comet.prototype.remove = function() {
 	// Remove those with zero opacity
-	for (var i = 0; this.trails[i].sprite.opacity <= 0; i++)
+	for (var i = 0; i < this.trails.length; i++)
 	{
-		this.trails.splice( i, 1 );
+		if( this.trails[i].sprite.opacity <= 0)
+			this.trails.splice( i, 1 );
 	}
 };
