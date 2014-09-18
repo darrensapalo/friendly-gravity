@@ -1,7 +1,7 @@
 var Config = {
 	
 	debug: false,
-	warning: true,
+	warning: false,
 
 	ui: {
 		font: "Space Age",
@@ -22,12 +22,17 @@ var Config = {
 		deduction: 50,
 		duration: 30,
 		speed: 0.01,
+		friction: 0.85,
 
 		trail: {
 			isVisible: true,
-			emit: 5,
-			fadeDuration: 1500,
+			emit: 1,
+			fadeDuration: 250,
 			size: 50,
+		},
+
+		planet: {
+			growthDuration: 1200
 		},
 
 		player:{
@@ -44,7 +49,6 @@ var Config = {
 				maxVelocity: 3.2,
 				maxAcceleration: 5,
 				acceleration: 0.3,
-				friction: 0.79,
 				spaceBound: 0.9
 			},
 

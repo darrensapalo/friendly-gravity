@@ -11,7 +11,7 @@ Comet.prototype.initialize = function(){
 
 	var M = new MathHelper();
 
-	this.kind = M.random(1, 4);
+	this.kind = M.random(1, 6);
 
 	// Vary in size
 	this.size = M.random(20, 35);

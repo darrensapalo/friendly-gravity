@@ -20,6 +20,8 @@ var resourceList = [
 	{name: "tail-2",              url: "tails/2.png",                         type: "ui"},
 	{name: "tail-3",              url: "tails/3.png",                         type: "ui"},
 	{name: "tail-4",              url: "tails/4.png",                         type: "ui"},
+	{name: "tail-5",              url: "tails/5.png",                         type: "ui"},
+	{name: "tail-6",              url: "tails/6.png",                         type: "ui"},
 	
 	{name: "comet",               url: "comets/comet-revised.png",            type: "ui"},
 

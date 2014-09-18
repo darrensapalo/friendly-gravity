@@ -11,8 +11,8 @@ Entity.prototype.update = function() {
 	this.position = this.velocity.add(this.position);
 
 	// friction
-	this.acceleration = this.acceleration.smultiply(Config.game.player.movement.friction);
-	this.velocity = this.velocity.smultiply(Config.game.player.movement.friction);
+	this.acceleration = this.acceleration.smultiply(Config.game.friction);
+	this.velocity = this.velocity.smultiply(Config.game.friction);
 
 	// friction bounds
 	if (this.acceleration.x > -0.005 && this.acceleration.x < 0.005)

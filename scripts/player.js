@@ -61,6 +61,7 @@ Player.prototype.update = function(){
 	this.rotatePlayer();
 	this.movePlayer();
 	this.bound();
+	this.acceleration = this.acceleration.smultiply(0.8);
 }
 
 Player.prototype.bound = function (context) {
@@ -104,28 +105,28 @@ Player.prototype.movePlayer = function() {
 	var shadow = this.anotherSprite;
 
 	var M = new MathHelper();
-	var speed = Config.game.player.movement.acceleration;
+	var speed = 25; //Config.game.player.movement.acceleration;
 	var maxSpeed = Config.game.player.movement.maxAcceleration;
 
 	var InputHandler = this.game.InputHandler;
 
 	if (InputHandler.get(InputKey.LEFT).isPressed) {
-		this.acceleration.x = M.clamp(this.acceleration.x - speed, -maxSpeed, +maxSpeed);
+		this.velocity.x = M.clamp(this.velocity.x - speed, -maxSpeed, +maxSpeed);
 		this.game.ScreenManager.currentScreen.mapx += 0.575;
 	};
 
 	if (InputHandler.get(InputKey.RIGHT).isPressed) {
-		this.acceleration.x = M.clamp(this.acceleration.x + speed, -maxSpeed, +maxSpeed);
+		this.velocity.x = M.clamp(this.velocity.x + speed, -maxSpeed, +maxSpeed);
 		this.game.ScreenManager.currentScreen.mapx -= 0.575;
 	};
 
 	if (InputHandler.get(InputKey.UP).isPressed) {
-		this.acceleration.y = M.clamp(this.acceleration.y - speed, -maxSpeed, +maxSpeed);
+		this.velocity.y = M.clamp(this.velocity.y - speed, -maxSpeed, +maxSpeed);
 		this.game.ScreenManager.currentScreen.mapy += 0.575;
 	};
 
 	if (InputHandler.get(InputKey.DOWN).isPressed) {
-		this.acceleration.y = M.clamp(this.acceleration.y + speed, -maxSpeed, +maxSpeed);
+		this.velocity.y = M.clamp(this.velocity.y + speed, -maxSpeed, +maxSpeed);
 		this.game.ScreenManager.currentScreen.mapy -= 0.575;
 	};
 	

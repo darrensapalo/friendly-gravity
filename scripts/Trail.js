@@ -12,7 +12,7 @@ function Trail (comet, kind, scale, opacity){
 	createjs.Tween.get(this.sprite).to({ scaley:0.2 }, Config.game.trail.fadeDuration);
 
 	if (this.comet.isConsumed == false)
-		this.acceleration = this.comet.acceleration.smultiply(-4);
+		this.acceleration = this.comet.acceleration.smultiply(-6);
 	else
 		this.acceleration = this.comet.acceleration.smultiply(-1);
 }

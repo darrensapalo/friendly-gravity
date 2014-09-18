@@ -8,11 +8,15 @@ function Consumable(world, type)
 	this.type = type;
 
 	this.isConsumed = false;
+	this.isDestroying = false; 
 	this.isDestroyed = false;
 	this.trail;
+	this.speed = 0.00007;
 
 	this.points = Config.game.points; // default points
 	this.deduction = Config.game.deduction; // default deduction
+
+	this.lifeSpan;
 
 	// art
 	this.decreased;
@@ -28,6 +32,8 @@ Consumable.prototype.initialize = function()
 	// select type or randomize
 	this.type = this.type || ConsumableTypes[ M.random(3) ];
 
+	this.lifeSpan = M.random(1000, 2000);
+
 	// Select random spawn point
 	do{	
 
@@ -38,25 +44,29 @@ Consumable.prototype.initialize = function()
 
 }
 
+Consumable.prototype.gravitate = function(target) {
+	var direction = new Vector2D(target.position.x - this.position.x, target.position.y - this.position.y);
+	var speed = (this.isConsumed) ? 0.001 : this.speed;
+	this.acceleration = this.acceleration.add(direction.smultiply(speed));
+};
 
 Consumable.prototype.update = function() {
 	Entity.prototype.update.call(this);
 	
 	var player = this.world.player;
-	var randx = Math.random() * 0.4;
-	var randy = Math.random() * 0.4;
-	var direction = new Vector2D(player.position.x - this.position.x + randx, player.position.y - this.position.y  + randy);
-
-	if (this.isConsumed == false)
-		this.acceleration = this.acceleration.add(direction.smultiply(0.0005));
-	else
-		this.acceleration = this.acceleration.add(direction.smultiply(0.01));
-
+	
 	this.checkConsumed(player);
+
+	this.gravitate(player);
 
 	// Add some score
 	if (this.world.isGameOver == false && this.isConsumed == false)
 		this.world.score += Math.random() * Config.game.points;
+
+	this.lifeSpan -= 33;
+
+	if (this.isDestroying == false && this.lifeSpan <= 0)
+		this.destroy();
 }
 
 Consumable.prototype.draw = function(context) {
@@ -85,13 +95,16 @@ Consumable.prototype.checkConsumed = function(target){
 			this.decreased.y = this.position.y - 50;
 
 			var targety = this.decreased.y - 30;
-
-			createjs.Tween.get(this.sprite).wait(1200).to({ opacity:0, scalex:0.01, scaley:0.01 }, Config.game.trail.fadeDuration).call(function(cons) {cons.isDestroyed = true;}, [this]);
 			createjs.Tween.get(this.decreased).wait(400).to({ opacity:0, y: targety }, Config.game.trail.fadeDuration * 2);
-
+			this.destroy();
 			this.world.score -= this.deduction;
 
 			if (this.world.score < 0) this.world.score = 0;
 		}
 	}
+}
+
+Consumable.prototype.destroy = function(target){
+	this.isDestroying = true;
+	createjs.Tween.get(this.sprite).wait(1200).to({ opacity:0, scalex:0.01, scaley:0.01 }, Config.game.trail.fadeDuration).call(function(cons) {cons.isDestroyed = true;}, [this]);
 }
