@@ -28,12 +28,14 @@ Emitter.prototype.spawn = function()
 
 	do {
 		type = M.random(1,2);
+
+		if (this.world.planets.length < 1 && M.random(100) < 5)
+		{
+			type = 0;
+		}
 	}while(type == 2 && this.world.comets.length >= 30);
 
-	if (M.random(100) < 5)
-	{
-		type = 0;
-	}
+	
 
 	switch(type)
 	{

@@ -10,16 +10,10 @@ function Consumable(world, type)
 	this.isConsumed = false;
 	this.isDestroying = false; 
 	this.isDestroyed = false;
-	this.trail;
 	this.speed = 0.00007;
 
 	this.points = Config.game.points; // default points
 	this.deduction = Config.game.deduction; // default deduction
-
-	this.lifeSpan;
-
-	// art
-	this.decreased;
 }
 
 Consumable.prototype = Object.create(Entity.prototype);

@@ -3,7 +3,7 @@ function HUD(world)
 	this.world = world;
 	this.player = world.player;
 
-	this.PulseNova = new PulseNova(world.player);
+	this.PulseNova = new PulseNova(this.player);
 }
 
 HUD.prototype.update = function() {

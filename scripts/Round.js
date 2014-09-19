@@ -1,5 +1,5 @@
 function Round(score, eaten)
 {
-	this.score;
-	this.eaten;
+	this.score = score;
+	this.eaten = eaten;
 }

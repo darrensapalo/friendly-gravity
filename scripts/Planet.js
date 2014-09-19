@@ -14,7 +14,7 @@ Planet.prototype.initialize = function(){
 	var M = new MathHelper();
 
 	this.lifeSpan = M.random(7000, 15000);
-	this.speed = 0.00003;
+	this.speed = 0.00002;
 	this.kind = M.random(1, 2);
 
 	// Vary in size
@@ -25,7 +25,8 @@ Planet.prototype.initialize = function(){
 		console.log("Creating new planet of kind " + kind);
 
 	var opacity = 1;
-	var scalex = scaley = 1;
+	var scalex, scaley;
+	scalex = scaley = 1;
 
 	// Create sprite
 	this.sprite = new CenteredSprite("planet" + this.kind + "-1", this.position.x, this.position.y, width, height, opacity, 0.8, 0.8);
@@ -36,7 +37,7 @@ Planet.prototype.initialize = function(){
 	this.additionals[1] = new CenteredSprite("planet" + this.kind + "-3", this.position.x, this.position.y, width, height, opacity, 1.1, 1.1);
 
 	createjs.Tween.get(this.sprite).wait(600).to({ scalex:1, scaley: 1}, this.lifeSpan, createjs.Ease.quadIn);
-	createjs.Tween.get(this.additionals[0]).wait(600).to({ scalex:0.6, scaley: 0.6, opacity: 0.8 }, Config.game.planet.growthDuration*2, createjs.Ease.quadIn).wait(300).to({ scalex:0.8, scaley: 0.8, opacity: 0.4 }, Config.game.planet.growthDuration, createjs.Ease.quadIn);
+	createjs.Tween.get(this.additionals[0]).wait(200).to({ scalex:0.6, scaley: 0.6, opacity: 0.8 }, Config.game.planet.growthDuration*2, createjs.Ease.quadIn).wait(300).to({ scalex:0.8, scaley: 0.8, opacity: 0.4 }, Config.game.planet.growthDuration, createjs.Ease.quadIn);
 	createjs.Tween.get(this.additionals[1]).wait(600).to({ scalex:0.7, scaley: 0.7, opacity: 0.7 }, Config.game.planet.growthDuration, createjs.Ease.quadIn).wait(600).to({ scalex:0.9, scaley: 0.9, opacity: 0.4 }, Config.game.planet.growthDuration, createjs.Ease.quadIn);
 }
 
