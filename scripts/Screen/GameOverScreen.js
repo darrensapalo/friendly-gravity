@@ -74,7 +74,7 @@ GameOverScreen.prototype.initPanel = function () {
 	this.panelText4 = new TextSprite("You are classified as ", x + 150, y, 200, 40, Color.black, Color.light_gray);
 	y += 40;
 	this.panelText5 = new TextSprite("Chat...", x + 150, y, 200, 40, Color.black, Color.light_gray);
-	
+
 	y += 60;
 	this.panelText = new TextSprite("Rank: ", 130, y + 10, 200, 40, Color.black, Color.light_gray);
 }
@@ -130,4 +130,19 @@ GameOverScreen.prototype.drawStars = function (context){
 
 GameOverScreen.prototype.update = function() {
 	
+}
+
+GameOverScreen.prototype.onClick = function (p) {
+	var SM = this.game.ScreenManager;
+	if (this.newGameButton.contains(p)){
+		SM.changeScreen("GameScreen");
+	}
+
+	else if (this.returnMainMenuButton.contains(p)){
+		SM.changeScreen("MainMenuScreen");
+	}
+
+	else if (this.shopButton.contains(p)){
+		SM.changeScreen("ShopScreen");
+	}
 }
