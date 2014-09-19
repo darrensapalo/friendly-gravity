@@ -21,7 +21,7 @@ HoverableButton.prototype.update = function () {
 
 		if (this.isRest)
 		{
-			this.tween = createjs.Tween.get(this.hoverSprite).to({ opacity: 1 }, 200, createjs.Ease.quadOut).call(function(s) {s.tween = false; }, [this]);
+			this.tween = createjs.Tween.get(this.hoverSprite).to({ opacity: 1 }, 120, createjs.Ease.cubicOut).call(function(s) {s.tween = false; }, [this]);
 			this.isRest = false;
 		}
 	}else
@@ -31,7 +31,7 @@ HoverableButton.prototype.update = function () {
 			// If you haven't started tweening down, then begin tweening down
 			if (this.tweenOut == false && this.tween == false)
 			{
-				this.tweenOut = createjs.Tween.get(this.hoverSprite).to({ opacity: 0 }, 500, createjs.Ease.quadIn).call(function(s) {s.tweenOut = false; s.isRest = true; }, [this]);
+				this.tweenOut = createjs.Tween.get(this.hoverSprite).to({ opacity: 0 }, 120, createjs.Ease.cubicIn).call(function(s) {s.tweenOut = false; s.isRest = true; }, [this]);
 			}
 		}
 	}

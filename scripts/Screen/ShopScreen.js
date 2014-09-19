@@ -14,6 +14,7 @@ ShopScreen.prototype.initialize = function () {
 	
 	this.reset = buttonSet.texts[0];
 	this.resetButton = buttonSet.buttons[0];
+	this.resetButton.hoverSprite.img = this.game.ImageLoader.images["buttonReset"];
 	this.reset.text = "Reset";
 	
 	this.returnMainMenu = buttonSet.texts[1];

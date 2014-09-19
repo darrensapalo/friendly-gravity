@@ -52,8 +52,7 @@ var resourceList = [
 	// Butons
 	{name: "button",              url: "buttons/button.png",                  type: "ui"},
 	{name: "buttonHighlight",     url: "buttons/buttonHighlight.png",         type: "ui"},
-	{name: "shopButton",          url: "buttons/button-shop.png",             type: "ui"},
-	{name: "shopButtonHighlight", url: "buttons/button-shop.png",             type: "ui"},
+	{name: "buttonReset",         url: "buttons/buttonReset.png",                  type: "ui"},
 
 	// Tutorial
 	{name: "arrowDown",           url: "ui/arrows/arrow-down.png",            type: "ui"},
