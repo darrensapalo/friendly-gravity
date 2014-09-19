@@ -53,6 +53,11 @@ MainMenuScreen.prototype.update = function() {
 	this.howToPlayButton.update();
 	this.aboutButton.update();
 	this.soundButton.update();
+
+	if (game.InputHandler.isPressed(InputKey.ENTER))
+	{
+		this.game.ScreenManager.changeScreen("GameScreen");
+	}
 }
 
 MainMenuScreen.prototype.onClick = function (p) {

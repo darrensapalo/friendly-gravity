@@ -106,8 +106,17 @@ Player.prototype.movePlayer = function() {
 	};
 
 	if (InputHandler.get(InputKey.DOWN).isPressed) {
+		
+		var rotation = this.rotation;
+		var v = new Vector2D(Math.cos(rotation), Math.sin(rotation)).smultiply(-0.1);
+
+		var isCtrl = InputHandler.get(InputKey.CTRL).isPressed;
+		if (isCtrl) this.velocity = this.velocity.smultiply(0.6);
+		
 		// decelerate
-		this.world.mapy -= 0.875;
+		this.acceleration = this.acceleration.add(v);
+		
+		this.world.velocity = this.world.velocity.add(v.smultiply(-0.2));
 	};
 }
 

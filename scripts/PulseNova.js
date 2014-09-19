@@ -16,7 +16,7 @@ PulseNova.prototype.isReady = function()
 PulseNova.prototype.update = function()
 {	
 	var M = new MathHelper();
-	this.bar.width = M.clamp(game.world.score / session.highScore * 750, 0, 750);
+	this.bar.width = M.clamp(game.world.score / 750 * 750, 0, 750);
 }
 
 PulseNova.prototype.reset = function()
