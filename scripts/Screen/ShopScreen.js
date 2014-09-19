@@ -34,8 +34,8 @@ ShopScreen.prototype.initialize = function () {
 	y += 40;
 	this.panelText3 = new TextSprite("High score: ", x + 150, y, 200, 40);
 
-	this.panelText2.text = "Accumulated points: " + this.game.cash + ".";
-	this.panelText3.text = "High score: " + this.game.highScore + ".";
+	this.panelText2.text = "Accumulated points: " + session.cash + ".";
+	this.panelText3.text = "High score: " + session.highScore + ".";
 
 	
 }

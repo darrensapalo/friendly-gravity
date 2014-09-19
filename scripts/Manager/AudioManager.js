@@ -16,11 +16,10 @@ function AudioManager()
 	this.bgm.addEventListener('loadeddata', function (evt) {
 		this.audioManager.isReady = true;
 		this.volume = Config.sound.bgmVolume;
-
-		if (Config.musicEnabled)
+		if (Config.sound.musicEnabled)
 		{
 			this.play();
-			isPlaying = true;
+			this.audioManager.isPlaying = true;
 		}
 
 		if (Config.bgmRepeat)
@@ -62,14 +61,14 @@ AudioManager.prototype.toggle = function()
 	if (this.bgm === undefined)
 		return false;
 
-	if (isPlaying && isToggled == false){
-		isPlaying = !isPlaying;
-		isToggled = true;
+	if (this.isPlaying && this.isToggled == false){
+		this.isPlaying = !this.isPlaying;
+		this.isToggled = true;
 	}
-	if (isPlaying)
+	if (this.isPlaying)
 		this.bgm.play();
 	else
 		this.bgm.pause();
 
-	return isToggled;
+	return this.isToggled;
 }

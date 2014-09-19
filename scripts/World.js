@@ -19,7 +19,7 @@ World.prototype.initialize = function()
 	this.resizeWidth = 800 * 1.3;
 	this.resizeHeight = 480 * 1.3;
 
-	this.countdownLeft = 4 * 1000;
+	this.countdownLeft = 7 * 1000;
 	this.score = 0;
 	this.eaten = new Eaten();
 	this.player.initialize();

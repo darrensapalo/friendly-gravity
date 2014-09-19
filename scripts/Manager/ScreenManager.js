@@ -79,7 +79,7 @@ ScreenManager.prototype.changeScreen = function(screen, isForced) {
 			console.log("ScreenManger: Beginning to change to screen '" + screen + "'.");
 
 		this.opacity = 0;
-		this.tween = createjs.Tween.get(this).to({ opacity:1 }, 500, createjs.Ease.quadOut).call(ScreenManager.prototype.changeScreen, [screen, true], this);
+		this.tween = createjs.Tween.get(this).to({ opacity:1 }, 350, createjs.Ease.quadOut).call(ScreenManager.prototype.changeScreen, [screen, true], this);
 
 		this.switching = true;
 	}

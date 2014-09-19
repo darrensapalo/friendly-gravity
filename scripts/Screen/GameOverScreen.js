@@ -11,8 +11,8 @@ GameOverScreen.prototype.initialize = function () {
 	var world = this.game.world;
 	this.round = world.round;
 
-	// Add your cash
-	session.cash += this.round.score;
+	// Save the session
+	session.saveRound(this.round);
 
 	this.initStars();
 	this.initInterface();

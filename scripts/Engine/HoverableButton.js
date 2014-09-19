@@ -31,7 +31,7 @@ HoverableButton.prototype.update = function () {
 			// If you haven't started tweening down, then begin tweening down
 			if (this.tweenOut == false && this.tween == false)
 			{
-				this.tweenOut = createjs.Tween.get(this.hoverSprite).to({ opacity: 0 }, 120, createjs.Ease.cubicIn).call(function(s) {s.tweenOut = false; s.isRest = true; }, [this]);
+			this.tweenOut = createjs.Tween.get(this.hoverSprite).to({ opacity: 0 }, 120, createjs.Ease.cubicIn).call(function(s) {s.tweenOut = false; s.isRest = true; }, [this]);
 			}
 		}
 	}
