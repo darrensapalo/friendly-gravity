@@ -6,6 +6,7 @@ function Blackhole (game, world){
 
 	this.anotherSprite = null;
 	this.scale = 1;
+
 }
 
 Blackhole.prototype = Object.create(Entity.prototype);

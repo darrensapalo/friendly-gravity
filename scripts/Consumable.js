@@ -10,7 +10,7 @@ function Consumable(world, type)
 	this.isConsumed = false;
 	this.isDestroying = false; 
 	this.isDestroyed = false;
-	this.speed = 0.00007;
+	this.speed = 0.0007;
 
 	this.points = Config.game.points; // default points
 	this.deduction = Config.game.deduction; // default deduction
@@ -34,14 +34,19 @@ Consumable.prototype.initialize = function()
 		this.position.x = M.random(35, game.ScreenManager.canvas.width - 70);
 		this.position.y = M.random(70, game.ScreenManager.canvas.height - 70);
 
-	}while( this.checkNear( this.world.blackhole ) );
+	}while( this.checkNear( this.world.player ) );
 
 }
 
 Consumable.prototype.gravitate = function(target) {
-	var direction = new Vector2D(target.position.x - this.position.x, target.position.y - this.position.y);
-	var speed = (this.isConsumed) ? 0.001 : this.speed;
-	this.acceleration = this.acceleration.add(direction.smultiply(speed));
+	if (this.checkGravitate(target))
+	{
+		var direction = new Vector2D(target.position.x - this.position.x, target.position.y - this.position.y);
+		var speed = (this.isConsumed) ? 0.001 : this.speed;
+
+		this.acceleration = this.acceleration.add(direction.smultiply(speed));
+	}
+	
 };
 
 Consumable.prototype.update = function() {
@@ -65,13 +70,19 @@ Consumable.prototype.update = function() {
 
 Consumable.prototype.draw = function(context) {
 	Entity.prototype.draw.call(this, context);
-	if (typeof this.decreased !== 'undefined')
+	if (false && typeof this.decreased !== 'undefined')
 		this.decreased.draw(context);
 }
 
 Consumable.prototype.checkNear = function(target)
 {
 	var threshold = 100;
+	return (Math.sqrt(Math.pow(this.position.x - target.position.x, 2) + Math.pow(this.position.y - target.position.y, 2)) < threshold);
+}
+
+Consumable.prototype.checkGravitate = function(target)
+{
+	var threshold = 250;
 	return (Math.sqrt(Math.pow(this.position.x - target.position.x, 2) + Math.pow(this.position.y - target.position.y, 2)) < threshold);
 }
 

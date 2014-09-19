@@ -69,6 +69,7 @@ World.prototype.update = function() {
 	// update blackhole
 	this.player.update();
 
+	this.blackhole.update();
 
 
 	// bound the world

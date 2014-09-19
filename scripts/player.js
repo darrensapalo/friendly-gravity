@@ -81,8 +81,8 @@ Player.prototype.movePlayer = function() {
 
 
 	if (InputHandler.get(InputKey.LEFT).isPressed) {
-		var isCtrl = InputHandler.get(InputKey.CTRL).isPressed;
-		var determinedRotationVelocity = (isCtrl) ? Math.PI / 1700 : Math.PI / 400;
+		var isShift = InputHandler.get(InputKey.SHIFT).isPressed;
+		var determinedRotationVelocity = (isShift) ? Math.PI / 1700 : Math.PI / 400;
 
 		// change rotation
 		this.rotateVelocity -= determinedRotationVelocity;
@@ -90,8 +90,8 @@ Player.prototype.movePlayer = function() {
 	};
 
 	if (InputHandler.get(InputKey.RIGHT).isPressed) {
-		var isCtrl = InputHandler.get(InputKey.CTRL).isPressed;
-		var determinedRotationVelocity = (isCtrl) ? Math.PI / 1700 : Math.PI / 400;
+		var isShift = InputHandler.get(InputKey.SHIFT).isPressed;
+		var determinedRotationVelocity = (isShift) ? Math.PI / 1700 : Math.PI / 400;
 
 		this.rotateVelocity += determinedRotationVelocity;
 		this.world.mapx -= 0.875;
@@ -100,6 +100,9 @@ Player.prototype.movePlayer = function() {
 	if (InputHandler.get(InputKey.UP).isPressed) {
 		var rotation = this.rotation;
 		var v = new Vector2D(Math.cos(rotation), Math.sin(rotation)).smultiply(0.2);
+
+		var isCtrl = InputHandler.get(InputKey.CTRL).isPressed;
+		if (isCtrl) this.velocity = this.velocity.smultiply(0.6);
 		// accelerate
 		this.acceleration = this.acceleration.add(v);
 		
