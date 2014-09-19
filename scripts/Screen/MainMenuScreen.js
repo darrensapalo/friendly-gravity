@@ -66,10 +66,6 @@ MainMenuScreen.prototype.onClick = function (p) {
 		SM.changeScreen("GameScreen");
 	}
 
-	else if (this.beginPlayingButton.contains(p)){
-		SM.changeScreen("GameScreen");
-	}
-
 	else if (this.beginShoppingButton.contains(p)){
 		SM.changeScreen("ShopScreen");
 	}

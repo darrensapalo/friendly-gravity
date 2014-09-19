@@ -1,8 +1,10 @@
 function Screen(game){
 	this.game = game;
+	this.isInitialized = false;
 }
 
-Screen.prototype.Initialize = function () {
+Screen.prototype.initialize = function () {
+	this.isInitialized = true;
 }
 
 Screen.prototype.draw = function(context) {

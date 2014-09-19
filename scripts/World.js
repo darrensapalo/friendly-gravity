@@ -19,7 +19,7 @@ World.prototype.initialize = function()
 	this.resizeWidth = 800 * 1.3;
 	this.resizeHeight = 480 * 1.3;
 
-	this.countdownLeft = 33 * 1000;
+	this.countdownLeft = 4 * 1000;
 	this.score = 0;
 	this.eaten = new Eaten();
 	this.player.initialize();
@@ -129,7 +129,8 @@ World.prototype.getBackground = function() {
 World.prototype.checkGameOver = function(){
 	if (this.countdownLeft <= 0)
 	{
-		this.round = new Round(this.score, this.eaten);
+		this.round = new Round(Math.floor(this.score), this.eaten);
 		this.isGameOver = true;
+		this.game.ScreenManager.changeScreen("GameOverScreen");
 	}
 }

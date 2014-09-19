@@ -84,3 +84,28 @@ ScreenManager.prototype.changeScreen = function(screen, isForced) {
 		this.switching = true;
 	}
 };
+
+ScreenManager.prototype.createButtons = function() {
+	var x, y;
+	var text = new Array();
+	var button = new Array();
+
+	x = 160;
+	y = 420;
+	text[0] = new TextSprite("", x, y, 40, -30);
+	button[0] = new HoverableButton("button", "buttonHighlight", x, y, 255, 80);
+	
+	x += 250;
+	text[1] = new TextSprite("", x, y, 40, -30);
+	button[1] = new HoverableButton("button", "buttonHighlight", x, y, 255, 80);
+	
+	x += 250;
+	text[2] = new TextSprite("", x, y, 40, -30);
+	button[2] = new HoverableButton("button", "buttonHighlight", x, y, 255, 80);
+
+	return {texts: text, buttons: button};
+};
+
+ScreenManager.prototype.createPanel = function() {
+	return new Sprite("panel", 150, 70, 490, 305, 0.8);
+}

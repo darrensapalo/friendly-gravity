@@ -5,6 +5,19 @@ function Game(canvasName) {
 	this.AudioManager  = new AudioManager();
 }
 
+Object.defineProperty(Game.prototype, "world", {
+	get : function() {
+		var gameScreen = this.ScreenManager.screens["GameScreen"];
+		if (typeof gameScreen === 'undefined') throw new Error("NullError: Game screen is not yet defined.");
+
+		if (gameScreen.isInitialized == false)  throw new Error("NullError: Game screen is not yet initialized.");
+
+		if (typeof gameScreen.world === 'undefined')  throw new Error("NullError: World is not yet created yet.");
+
+		return gameScreen.world;
+	}
+});
+
 Game.prototype.start = function() {
 	this.browserType = navigator.sayswho;
 
@@ -87,3 +100,9 @@ navigator.sayswho= (function(){
     return M.join(' ');
 })();
 
+// Add contains
+if ( !String.prototype.contains ) {
+    String.prototype.contains = function() {
+        return String.prototype.indexOf.apply( this, arguments ) !== -1;
+    };
+}
