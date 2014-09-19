@@ -129,7 +129,9 @@ GameOverScreen.prototype.drawStars = function (context){
 }
 
 GameOverScreen.prototype.update = function() {
-	
+	this.newGameButton.update();
+	this.returnMainMenuButton.update();
+	this.shopButton.update();
 }
 
 GameOverScreen.prototype.onClick = function (p) {
