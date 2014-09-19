@@ -18,6 +18,8 @@ World.prototype.initialize = function()
 	this.mapx = this.originalmapx = -120;
 	this.mapy = this.originalmapy = -72;
 
+	this.velocity = new Vector2D();
+
 	this.resizeWidth = 800 * 1.3;
 	this.resizeHeight = 480 * 1.3;
 
@@ -70,6 +72,10 @@ World.prototype.update = function() {
 	this.player.update();
 
 	this.blackhole.update();
+
+	this.velocity = this.velocity.smultiply(Config.game.friction);
+	this.mapx += this.velocity.x;
+	this.mapy += this.velocity.y;
 
 
 	// bound the world

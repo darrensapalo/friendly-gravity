@@ -25,8 +25,6 @@ Player.prototype.initialize = function() {
 	this.sprite = new CenteredSprite(sprite, this.position.x, this.position.y, width, height, opacity, scalex, scaley);
 
 	this.rotateVelocity = 0;;
-	console.log(this.sprite);
-
 }
 
 Player.prototype.update = function(){
@@ -81,20 +79,18 @@ Player.prototype.movePlayer = function() {
 
 
 	if (InputHandler.get(InputKey.LEFT).isPressed) {
-		var isShift = InputHandler.get(InputKey.SHIFT).isPressed;
+		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
 		var determinedRotationVelocity = (isShift) ? Math.PI / 1700 : Math.PI / 400;
 
 		// change rotation
 		this.rotateVelocity -= determinedRotationVelocity;
-		this.world.mapx += 0.875;
 	};
 
 	if (InputHandler.get(InputKey.RIGHT).isPressed) {
-		var isShift = InputHandler.get(InputKey.SHIFT).isPressed;
+		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
 		var determinedRotationVelocity = (isShift) ? Math.PI / 1700 : Math.PI / 400;
 
 		this.rotateVelocity += determinedRotationVelocity;
-		this.world.mapx -= 0.875;
 	};
 
 	if (InputHandler.get(InputKey.UP).isPressed) {
@@ -106,7 +102,7 @@ Player.prototype.movePlayer = function() {
 		// accelerate
 		this.acceleration = this.acceleration.add(v);
 		
-		this.world.mapy += 0.875;
+		this.world.velocity = this.world.velocity.add(v.smultiply(-0.2));
 	};
 
 	if (InputHandler.get(InputKey.DOWN).isPressed) {

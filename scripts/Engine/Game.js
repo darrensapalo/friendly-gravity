@@ -7,7 +7,7 @@ function Game(canvasName) {
 
 Object.defineProperty(Game.prototype, "world", {
 	get : function() {
-		var gameScreen = this.ScreenManager.screens["GameScreen"];
+		var gameScreen = this.ScreenManager.currentScreen;
 		if (typeof gameScreen === 'undefined') throw new Error("NullError: Game screen is not yet defined.");
 
 		if (gameScreen.isInitialized == false)  throw new Error("NullError: Game screen is not yet initialized.");

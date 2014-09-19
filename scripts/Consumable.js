@@ -10,7 +10,7 @@ function Consumable(world, type)
 	this.isConsumed = false;
 	this.isDestroying = false; 
 	this.isDestroyed = false;
-	this.speed = 0.0007;
+	this.speed = 0.00007;
 
 	this.points = Config.game.points; // default points
 	this.deduction = Config.game.deduction; // default deduction
@@ -26,7 +26,7 @@ Consumable.prototype.initialize = function()
 	// select type or randomize
 	this.type = this.type || ConsumableTypes[ M.random(3) ];
 
-	this.lifeSpan = M.random(1000, 2000);
+	this.lifeSpan = M.random(1000, 7000);
 
 	// Select random spawn point
 	do{	
@@ -42,7 +42,7 @@ Consumable.prototype.gravitate = function(target) {
 	if (this.checkGravitate(target))
 	{
 		var direction = new Vector2D(target.position.x - this.position.x, target.position.y - this.position.y);
-		var speed = (this.isConsumed) ? 0.001 : this.speed;
+		var speed = (this.isConsumed) ? 0.000001 : this.speed;
 
 		this.acceleration = this.acceleration.add(direction.smultiply(speed));
 	}
@@ -82,7 +82,7 @@ Consumable.prototype.checkNear = function(target)
 
 Consumable.prototype.checkGravitate = function(target)
 {
-	var threshold = 250;
+	var threshold = 400;
 	return (Math.sqrt(Math.pow(this.position.x - target.position.x, 2) + Math.pow(this.position.y - target.position.y, 2)) < threshold);
 }
 
