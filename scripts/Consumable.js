@@ -31,10 +31,10 @@ Consumable.prototype.initialize = function()
 	// Select random spawn point
 	do{	
 
-		this.position.x = M.random(25, game.ScreenManager.canvas.width - 50);
-		this.position.y = M.random(25, game.ScreenManager.canvas.height - 50);
+		this.position.x = M.random(35, game.ScreenManager.canvas.width - 70);
+		this.position.y = M.random(70, game.ScreenManager.canvas.height - 70);
 
-	}while( this.checkNear( this.world.player ) );
+	}while( this.checkNear( this.world.blackhole ) );
 
 }
 
@@ -47,11 +47,11 @@ Consumable.prototype.gravitate = function(target) {
 Consumable.prototype.update = function() {
 	Entity.prototype.update.call(this);
 	
-	var player = this.world.player;
+	var blackhole = this.world.blackhole;
 	
-	this.checkConsumed(player);
+	this.checkConsumed(blackhole);
 
-	this.gravitate(player);
+	this.gravitate(blackhole);
 
 	// Add some score
 	if (this.world.isGameOver == false && this.isConsumed == false)
@@ -76,6 +76,8 @@ Consumable.prototype.checkNear = function(target)
 }
 
 Consumable.prototype.checkConsumed = function(target){
+	if (this.world.isTutorial) return false;
+	
 	if (this.isConsumed == false)
 	{
 		if (this.sprite.collidesWith(target.sprite)) {

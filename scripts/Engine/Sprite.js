@@ -54,6 +54,7 @@ Sprite.prototype.setOrigin = function(x, y)
 
 Sprite.prototype.draw = function (context)
 {
+	this.rotation = this.rotation % (2 * Math.PI);
 	if (this.visible) {
 		context.save();
 		context.translate(this.x , this.y );

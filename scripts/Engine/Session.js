@@ -22,8 +22,9 @@ function Session()
 	}
 
 	this.eaten = new Eaten();
-	
 	this.hasSounds = true;
+
+	this.load();
 }
 
 Session.prototype.saveRound = function(round) {
@@ -39,10 +40,10 @@ Session.prototype.save = function() {
 	if ("localStorage" in window && window["localStorage"] == null) console.log("Cannot save session - HTMl5 Local Storage not supported.");
 	if (window.game === undefined) throw Error("UnknownGameException: There is no game reference in the global scope.");
 
-	console.log("Saving...");
+	console.log("Saving game...");
 	var game = window.game;
 
-	localStorage["GBH.highscore"] = parseInt(this.highScore);
+	localStorage["GBH.highScore"] = parseInt(this.highScore);
 	localStorage["GBH.cash"] = parseInt(this.cash);
 
 	localStorage["GBH.account.difficulty.level"] = parseInt(   this.account.difficulty.level );

@@ -8,7 +8,7 @@ GameScreen.prototype.constructor = GameScreen;
 
 GameScreen.prototype.initialize = function () {
 	Screen.prototype.initialize.call(this);
-	this.world = new World(game);
+	this.world = new World(game, GameScreen.prototype.checkGameOver);
 	this.HUD = new HUD(this.world);
 	
 	this.world.initialize();
@@ -24,4 +24,13 @@ GameScreen.prototype.update = function() {
 	Screen.prototype.update.call(this);
 	this.world.update();
 	this.HUD.update();
+}
+
+GameScreen.prototype.checkGameOver = function(){
+	if (this.countdownLeft <= 0)
+	{
+		this.round = new Round(Math.floor(this.score), this.eaten);
+		this.isGameOver = true;
+		this.game.ScreenManager.changeScreen("GameOverScreen");
+	}
 }

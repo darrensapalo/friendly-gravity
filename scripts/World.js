@@ -1,11 +1,13 @@
-function World(game)
+function World(game, callback)
 {
 	this.game = game;
+	this.checkGameOver = callback;
 }
 
 World.prototype.initialize = function()
 {
-	this.player = new Player(game, this);
+	this.player =  new Player(game, this);
+	this.blackhole = new Blackhole(game, this);
 	this.emitter = new Emitter(this);
 
 	this.comets = new Array();
@@ -19,9 +21,10 @@ World.prototype.initialize = function()
 	this.resizeWidth = 800 * 1.3;
 	this.resizeHeight = 480 * 1.3;
 
-	this.countdownLeft = 7 * 1000;
+	this.countdownLeft = 700 * 1000;
 	this.score = 0;
 	this.eaten = new Eaten();
+	this.blackhole.initialize();
 	this.player.initialize();
 
 	this.isGameOver = false;
@@ -42,6 +45,7 @@ World.prototype.draw = function(context) {
 		this.asteroids[i].draw(context);
 	};
 
+	this.blackhole.draw(context);
 	this.player.draw(context);
 }
 
@@ -49,7 +53,7 @@ World.prototype.update = function() {
 	// Create new comets and planets
 	this.emitter.update();
 
-	// update comets, planets, player
+	// update comets, planets, blackhole
 	for (var i = 0; i < this.comets.length; i++) {
 		this.comets[i].update();
 	};
@@ -62,8 +66,10 @@ World.prototype.update = function() {
 		this.asteroids[i].update();
 	};
 
-	// update player
+	// update blackhole
 	this.player.update();
+
+
 
 	// bound the world
 	this.bound();
@@ -91,7 +97,6 @@ World.prototype.bound = function()
 }
 
 World.prototype.entropy = function() {
-
 	// Check if it is a comet
 	for (var i = 0; i < this.comets.length; i++){
 		if (this.comets[i].isDestroyed) {
@@ -124,13 +129,4 @@ World.prototype.getBackground = function() {
 
 	var texture = (session.account.difficulty == 1) ? "unlocked_background" : "default_background";
 	return this.game.ImageLoader.images[texture];
-}
-
-World.prototype.checkGameOver = function(){
-	if (this.countdownLeft <= 0)
-	{
-		this.round = new Round(Math.floor(this.score), this.eaten);
-		this.isGameOver = true;
-		this.game.ScreenManager.changeScreen("GameOverScreen");
-	}
 }

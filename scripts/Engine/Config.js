@@ -35,7 +35,7 @@ var Config = {
 			growthDuration: 1200
 		},
 
-		player:{
+		blackhole:{
 			size: 50,
 			scale: {
 				min: 0.9,

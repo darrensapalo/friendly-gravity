@@ -2,7 +2,7 @@
 function Emitter(world)
 {
 	this.world = world;
-	this.spawnTime = 3000;
+	this.spawnTime = 3000000;
 }
 
 Emitter.prototype.update = function() {

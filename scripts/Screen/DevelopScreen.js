@@ -8,7 +8,7 @@ function DevelopScreen(game){
 DevelopScreen.prototype.initialize = function () {
 	this.background = new Background();
 	var game = this.game;
-	this.player = game.gameScreen.player;
+	this.blackhole = game.gameScreen.blackhole;
 
 	var x, y;
 	x = 150;

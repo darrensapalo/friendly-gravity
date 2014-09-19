@@ -7,11 +7,14 @@ TutorialScreen.prototype.constructor = TutorialScreen;
 
 TutorialScreen.prototype.initialize = function()
 {
-	this.background = new Background();
-	this.player = new Player(game);
-	this.player.isTutorial = true;
+	GameScreen.prototype.initialize.call(this);
+	this.world.isTutorial = true;
+	this.world.checkGameOver = TutorialScreen.prototype.checkGameOver;
+	this.world.countdownLeft = 50 * 1000;
+	this.world.emitter.spawnTime = 10 * 1000;
+
 	this.isDone = false;
-	this.type = 0;
+	this.tutorialPart = 0;
 
 	var x, y;
 	x = 273;
@@ -44,8 +47,8 @@ TutorialScreen.prototype.initialize = function()
 	y += 20;
 	this.panelText5half = new TextSprite("a shockwave pulse!", x + 150, y, 200, 40);
 
-	x = 310;
-	y = 300;
+	x = 285;
+	y = 275;
 	this.arrowLeft = new Sprite("arrowLeft", x, y, 50, 50, 1);
 	x += 55;
 	this.arrowRight = new Sprite("arrowRight", x, y, 50, 50, 1);
@@ -67,16 +70,15 @@ TutorialScreen.prototype.initialize = function()
 	x = 290;
 	y = 320;
 	this.howToShockwave = new TextSprite("space bar to shockwave", x, y, 200, 40);
-	x = 400;
-	y = 300;
+	x = 250;
+	y = 250;
 	this.shockwave = new Sprite("spacebar", x, y, 305, 70, 1);
 
 	this.asteroids = new Array();
 }
 
-this.draw = function(context) {
-	this.background.draw(context);
-
+TutorialScreen.prototype.draw = function(context) {
+	GameScreen.prototype.draw.call(this, context);
 
 	if (this.isDone){
 		this.panel.draw(context);
@@ -92,16 +94,15 @@ this.draw = function(context) {
 
 		this.returnToMenu2.draw(context);
 		this.returnToMenu.draw(context);
-	} else {
-		this.drawCurrent(this.type, context);
-		this.player.draw(context);
 	}
-
-
+	else
+	{
+		this.drawCurrent(context);
+	}
 }
 
-this.drawCurrent = function(type, context){
-	switch(type){
+TutorialScreen.prototype.drawCurrent = function(context){
+	switch(this.tutorialPart){
 		case 0:
 		this.arrowLeft.draw(context);
 		this.arrowRight.draw(context);
@@ -110,52 +111,47 @@ this.drawCurrent = function(type, context){
 		this.howToMovement.draw(context);
 		break;
 		case 1:
+		console.log("Drawing current");
 		this.howToShockwave.draw(context);
 		this.shockwave.draw(context);
-		this.drawShockwaveTimer(context);
-		this.drawComets(context);
 		break;
 	}
 }
 
-this.drawShockwaveTimer = function(context) {
-	var width = (this.player.baseShockwaveCD - this.player.injectionTimeout) /  this.player.baseShockwaveCD * 500;
-
-	if (width >= 500)
-		width = 500;
-	if (width <= 0)
-		width = 0;
-
-	var x, y;
-	y = 10;
-	x = 150;
-	context.drawImage("bar", x, y, width, 25);
-	context.drawImage("barHolder", x, y, 500, 25);
-}
-
-this.update = function() {
-	this.updateTimer();
-	if (this.isDone){
-		this.CheckIfReturnMainMenu(this.game.pressX, this.game.pressY);
+TutorialScreen.prototype.update = function() {
+	if (this.isDone == false){
+		GameScreen.prototype.update.call(this);
+		this.updateCurrent();
 	}else{
-		this.player.update();
-		this.updateCurrent(this.type);
-
+		
 	}
 }
 
-this.updateCurrent = function (type) {
-	switch(type){
+TutorialScreen.prototype.updateCurrent = function () {
+	switch(this.tutorialPart){
 		case 0: 
-		if (isLeft || isRight || isUp || isDown){
-			this.changeType = true;
+		this.world.countdownLeft = 30000;
+		this.world.emitter.spawnTime = 3000;
+
+		if (this.game.InputHandler.isPressed(InputKey.LEFT) 	|| 
+			this.game.InputHandler.isPressed(InputKey.RIGHT) 	|| 
+			this.game.InputHandler.isPressed(InputKey.UP) 		|| 
+			this.game.InputHandler.isPressed(InputKey.DOWN)    ){
+
+			var fadeOutList = [this.arrowLeft, this.arrowRight, this.arrowUp, this.arrowDown, this.howToMovement];
+			for (var i = 0; i < fadeOutList.length; i++) {
+				createjs.Tween.get(fadeOutList[i]).to({ opacity:0 }, 500, createjs.Ease.quadIn).call(function(tutorialScreen) {
+					tutorialScreen.tutorialPart = 1;
+				}, [this]);
+			};
+			
 		}
 		break;
-		case 1:		
-		this.updateComets();
-		if (isSpace){
-			isSpace = false;
-			if (this.player.injectionTimeout >= 10000)
+		case 1:	
+		
+
+		if (this.game.InputHandler.isPressed(InputKey.SPACE)){
+			if (this.blackhole.injectionTimeout >= 10000)
 				this.spaceDone += 1;
 			if (this.spaceDone > 2){
 				this.changeType = true;
@@ -175,7 +171,7 @@ this.updateCurrent = function (type) {
 	}
 }
 
-this.teachShockwave = function(type){
+TutorialScreen.prototype.teachShockwave = function(type){
 	if (type == 1)
 	{
 		this.changeOpacity -= 0.025;
@@ -186,7 +182,7 @@ this.teachShockwave = function(type){
 
 		if (this.changeOpacity <= 0)
 		{
-			this.type += 1;
+			this.tutorialPart += 1;
 			this.isDone = true;
 			this.changeOpacity = 1;
 			this.changeType = false;
@@ -194,26 +190,7 @@ this.teachShockwave = function(type){
 	}
 }
 
-this.spawnComets = function(){
-	for (var i = 0; i < 5; i++){
-		var c = new Comet();
-		c.initialize(0);
-		this.asteroids.push(c);
-	}
-}
-this.updateComets = function(){
-	for (var i = 0; i < 5; i++){
-		this.asteroids[i].update(this.player);
-	}
-}
-
-this.drawComets = function(context){
-	for (var i = 0; i < 5; i++){
-		this.asteroids[i].draw(context);
-	}
-}
-
-this.teachMovement = function(type)
+TutorialScreen.prototype.teachMovement = function(type)
 {
 	if (type == 0){
 		this.changeOpacity -= 0.025;
@@ -224,7 +201,7 @@ this.teachMovement = function(type)
 
 		if (this.changeOpacity <= 0)
 		{
-			this.type += 1;
+			tutorialPart += 1;
 			this.changeOpacity = 1;
 			this.changeType = false;
 			this.spawnComets();
@@ -241,16 +218,11 @@ this.CheckIfReturnMainMenu = function(x, y){
 	}
 }
 
-this.updateTimerFunc = new function(){
-	this.updateTimers = true;
-}
-
-
-this.updateTimer = function(){
-	if (this.updateTimers){
-		this.elapsedGameMilliseconds += 33;
-		this.updateTimers = false;
-		this.timerTimeout = setTimeout(this.updateTimerFunc, 33);
+TutorialScreen.prototype.checkGameOver = function () {
+	if (this.countdownLeft <= 0)
+	{
+		this.initialize();
+		// this.game.ScreenManager.changeScreen("GameOverScreen");
 	}
-
+	
 }
