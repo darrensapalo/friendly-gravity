@@ -1,15 +1,16 @@
 function World(game)
 {
 	this.game = game;
+}
 
+World.prototype.initialize = function()
+{
 	this.player = new Player(game, this);
 	this.emitter = new Emitter(this);
 
 	this.comets = new Array();
 	this.planets = new Array();
 	this.asteroids = new Array();
-
-	this.isGameOver = false;
 
 	// Drawing variables
 	this.mapx = this.originalmapx = -120;
@@ -18,17 +19,12 @@ function World(game)
 	this.resizeWidth = 800 * 1.3;
 	this.resizeHeight = 480 * 1.3;
 
-	this.countdownLeft;
-	this.score;
-	this.eaten;
-}
-
-World.prototype.initialize = function()
-{
 	this.countdownLeft = 33 * 1000;
 	this.score = 0;
 	this.eaten = new Eaten();
 	this.player.initialize();
+
+	this.isGameOver = false;
 }
 
 World.prototype.draw = function(context) {
@@ -126,12 +122,11 @@ World.prototype.entropy = function() {
 
 World.prototype.getBackground = function() {
 
-	var texture = (this.game.difficulty == 1) ? "unlocked_background" : "default_background";
+	var texture = (session.account.difficulty == 1) ? "unlocked_background" : "default_background";
 	return this.game.ImageLoader.images[texture];
 }
 
 World.prototype.checkGameOver = function(){
-	
 	if (this.countdownLeft <= 0)
 	{
 		this.round = new Round(this.score, this.eaten);

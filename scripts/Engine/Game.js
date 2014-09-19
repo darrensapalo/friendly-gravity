@@ -6,6 +6,8 @@ function Game(canvasName) {
 }
 
 Game.prototype.start = function() {
+	this.browserType = navigator.sayswho;
+
 	var thisObj = this;
 
 	this.ScreenManager = new ScreenManager(this, this.canvasName);
@@ -60,3 +62,28 @@ Game.prototype.onClick = function(p){
 	if (this.ScreenManager.currentScreen)
 		this.ScreenManager.currentScreen.onClick(p);
 }
+
+Game.prototype.browser = function(type)
+{
+	if (game.browserType.search(type) >= 0)
+		return true;
+
+	return false;
+}
+
+navigator.sayswho= (function(){
+    var ua= navigator.userAgent, tem, 
+    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE '+(tem[1] || '');
+    }
+    if(M[1]=== 'Chrome'){
+        tem= ua.match(/\bOPR\/(\d+)/)
+        if(tem!= null) return 'Opera '+tem[1];
+    }
+    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+    return M.join(' ');
+})();
+

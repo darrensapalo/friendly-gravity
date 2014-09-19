@@ -1,4 +1,4 @@
-ConsumableTypes = ["comet", "asteroid", "planet"];
+var ConsumableTypes = ["comet", "asteroid", "planet"];
 
 function Consumable(world, type)
 {

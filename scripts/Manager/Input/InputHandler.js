@@ -26,9 +26,35 @@ InputHandler.prototype.get = function(key) {
 
 InputHandler.prototype.handleMouseMove = function(evt)
 {
-	game.InputHandler.mouse.x = evt.x;
-	game.InputHandler.mouse.y = evt.y;
+	var e = {};
+
+	if (game.browser("Chrome"))
+	{
+		e.x = evt.x;
+		e.y = evt.y;
+	}else if (game.browser("Firefox"))
+	{
+		e.x = evt.clientX;
+		e.y = evt.clientY;
+	}
+	game.InputHandler.mouse.x = e.x;
+	game.InputHandler.mouse.y = e.y;
 }
+
+InputHandler.prototype.handleMouseClick = function(evt) {
+	var e = new Vector2D();
+
+	if (game.browser("Chrome"))
+	{
+		e.x = evt.x;
+		e.y = evt.y;
+	}else if (game.browser("Firefox"))
+	{
+		e.x = evt.clientX;
+		e.y = evt.clientY;
+	}
+	return e;
+};
 
 InputHandler.prototype.isPressed = function(key) {
 	for(var k = 0; k < this.inputs.length; k++)

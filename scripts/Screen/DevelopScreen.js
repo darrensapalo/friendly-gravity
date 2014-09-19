@@ -259,8 +259,12 @@ DevelopScreen.prototype.initialize = function () {
 
 	
 	DevelopScreen.prototype.CheckIfHasCash = function(amount){
-		if (Config.cheat.no_cost) return true;
-		if (this.game.cash >= amount) return true;
+		if (Config.cheat.no_cost)
+			return true;
+		if (this.game.cash >= amount)
+			return true;
+		
+		return false;
 	}
 
 	DevelopScreen.prototype.DeductFromCash = function(amount){

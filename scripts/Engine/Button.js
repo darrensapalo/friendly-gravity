@@ -21,8 +21,10 @@ Button.prototype.contains = function (p) {
 	return this.sprite.contains(p.x, p.y);
 }
 
-Button.prototype.click = function (p) {
+Button.prototype.click = function (evt) {
 	if (typeof game === 'undefined') throw new Error("NullError: the game is not defined in the global space.");
+	var p = InputHandler.prototype.handleMouseClick(evt);
+	
 	if (this.contains(p))
 	{
 		if (Config.debug)

@@ -1,7 +1,7 @@
 function InputState (key)
 {
 	this.key = key;
-	this.isPressed;
+	this.isPressed = false;
 	this.callbacks = {
 		onKeyDown: [],
 		onKeyUp: [],

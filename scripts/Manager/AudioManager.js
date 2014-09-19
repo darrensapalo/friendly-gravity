@@ -57,8 +57,10 @@ AudioManager.prototype.play = function(sound)
 
 AudioManager.prototype.toggle = function()
 {
-	if (Config.musicEnabled == false) return false;
-	if (this.bgm === undefined) return false;
+	if (Config.musicEnabled == false)
+		return false;
+	if (this.bgm === undefined)
+		return false;
 
 	if (isPlaying && isToggled == false){
 		isPlaying = !isPlaying;
@@ -68,4 +70,6 @@ AudioManager.prototype.toggle = function()
 		this.bgm.play();
 	else
 		this.bgm.pause();
+
+	return isToggled;
 }

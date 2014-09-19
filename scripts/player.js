@@ -4,7 +4,7 @@ function Player (game, world){
 	this.game = game;
 	this.world = world;
 
-	this.anotherSprite;
+	this.anotherSprite = null;
 	this.scale = 1;
 }
 
@@ -112,22 +112,22 @@ Player.prototype.movePlayer = function() {
 
 	if (InputHandler.get(InputKey.LEFT).isPressed) {
 		this.velocity.x = M.clamp(this.velocity.x - speed, -maxSpeed, +maxSpeed);
-		this.game.ScreenManager.currentScreen.mapx += 0.575;
+		this.world.mapx += 0.875;
 	};
 
 	if (InputHandler.get(InputKey.RIGHT).isPressed) {
 		this.velocity.x = M.clamp(this.velocity.x + speed, -maxSpeed, +maxSpeed);
-		this.game.ScreenManager.currentScreen.mapx -= 0.575;
+		this.world.mapx -= 0.875;
 	};
 
 	if (InputHandler.get(InputKey.UP).isPressed) {
 		this.velocity.y = M.clamp(this.velocity.y - speed, -maxSpeed, +maxSpeed);
-		this.game.ScreenManager.currentScreen.mapy += 0.575;
+		this.world.mapy += 0.875;
 	};
 
 	if (InputHandler.get(InputKey.DOWN).isPressed) {
 		this.velocity.y = M.clamp(this.velocity.y + speed, -maxSpeed, +maxSpeed);
-		this.game.ScreenManager.currentScreen.mapy -= 0.575;
+		this.world.mapy -= 0.875;
 	};
 	
 }

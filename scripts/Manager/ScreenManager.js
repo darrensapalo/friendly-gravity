@@ -6,7 +6,7 @@ function ScreenManager(game, canvasName)
 	this.context = this.canvas.getContext("2d");
 	
 	this.canvas.addEventListener("click", function(evt){
-		var p = new Vector2D(evt.x, evt.y);
+		var p = InputHandler.prototype.handleMouseClick(evt);
 		game.onClick(p);
 	});
 

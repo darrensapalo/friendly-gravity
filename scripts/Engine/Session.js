@@ -1,7 +1,7 @@
 function Session()
 {
-	this.highScore;
-	this.cash;
+	this.highScore = 0;
+	this.cash = 0;
 	this.account = {
 		'difficulty': {
 			level: 0,
@@ -21,7 +21,7 @@ function Session()
 		}
 	}
 	
-	this.hasSounds;
+	this.hasSounds = true;
 }
 
 Session.prototype.save = function() {

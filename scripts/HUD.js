@@ -14,7 +14,7 @@ HUD.prototype.draw = function(context) {
 	context.strokeStyle = 'black';
 	context.lineWidth = 3;
 	context.fillStyle = "#fff";
-	context.font = Config.fontSize + " " + Config.font + ", regular"
+	context.font = Config.ui.fontSize + " " + Config.ui.font + ", regular"
 	context.textBaseline = "top";
 	context.textAlign = "center";
 	
