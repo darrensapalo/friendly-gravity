@@ -12,7 +12,7 @@ Game.prototype.start = function() {
 	
 	this.ImageLoader.onComplete = function() { 
 		thisObj.initGame();
-		setTimeout( function() { thisObj.loop(thisObj.context) }, 1000 / 60);
+		setTimeout( function() { thisObj.loop(thisObj.ScreenManager.context) }, 1000 / 60);
 	};
 	this.ImageLoader.load();
 }

@@ -3,7 +3,7 @@ function Planet (world, type){
 
 	this.stage       = 2;
 	this.additionals = new Array();
-	this.speed = 0.000007;
+	
 }
 
 Planet.prototype = Object.create(Consumable.prototype);
@@ -14,8 +14,8 @@ Planet.prototype.initialize = function(){
 	var M = new MathHelper();
 
 	this.lifeSpan = M.random(7000, 15000);
-
-	this.kind = M.random(1, 3);
+	this.speed = 0.00003;
+	this.kind = M.random(1, 2);
 
 	// Vary in size
 	var width = 100;

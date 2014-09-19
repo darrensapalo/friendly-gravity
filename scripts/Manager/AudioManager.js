@@ -5,67 +5,66 @@ function AudioManager()
 	var isToggled;
 	var bgm = {};
 	var sfx = {};
+}
+// buffers automatically when created
+AudioManager.prototype.load = function(filename)
+{
+	return new Audio("assets/audio/" + filename);
+}
 
-	// buffers automatically when created
-	this.load = function(filename)
+bgm = this.load("friendly_gravity.mp3");
+
+bgm.addEventListener('loadeddata', function () {
+	isReady = true;
+	bgm.volume = Config.sound.bgmVolume;
+
+	if (Config.musicEnabled)
 	{
-		return new Audio("assets/audio/" + filename);
+		this.play("bgm");
+		isPlaying = true;
 	}
 
-	bgm = this.load("friendly_gravity.mp3");
-
-	bgm.addEventListener('loadeddata', function () {
-		isReady = true;
-		bgm.volume = Config.sound.bgmVolume;
-
-		if (Config.musicEnabled)
-		{
-			this.play("bgm");
-			isPlaying = true;
-		}
-
-		if (Config.bgmRepeat)
-		{
-			bgm.addEventListener('ended', function(){
-				bgm.currentTime = 0;
-				bgm.play();
-			});
-		}
-	});
-	
-	// Sound effects
-	sfx = {
-		vortex: this.load("sfxvortex.mp3"),
-		shockwave: this.load("shockwave.mp3"),
-		volume: 0.13
-	};
-
-	this.play = function(sound)
+	if (Config.bgmRepeat)
 	{
-		if (Config.sound.musicEnabled == false) return false;
-		if (isReady == false) return false;
-
-		switch(sound)
-		{
-			case "bgm": bgm.play(); break;
-			case "vortex": sfx.vortex.play(); break;
-			case "shockwave": sfx.shockwave.play(); break;
-		}
-		return true;
+		bgm.addEventListener('ended', function(){
+			bgm.currentTime = 0;
+			bgm.play();
+		});
 	}
+});
 
-	this.toggle = function()
+// Sound effects
+sfx = {
+	vortex: this.load("sfxvortex.mp3"),
+	shockwave: this.load("shockwave.mp3"),
+	volume: 0.13
+};
+
+AudioManager.prototype.play = function(sound)
+{
+	if (Config.sound.musicEnabled == false) return false;
+	if (isReady == false) return false;
+
+	switch(sound)
 	{
-		if (Config.musicEnabled == false) return false;
-		if (this.bgm === undefined) return false;
-
-		if (isPlaying && isToggled == false){
-			isPlaying = !isPlaying;
-			isToggled = true;
-		}
-		if (isPlaying)
-			this.bgm.play();
-		else
-			this.bgm.pause();
+		case "bgm": bgm.play(); break;
+		case "vortex": sfx.vortex.play(); break;
+		case "shockwave": sfx.shockwave.play(); break;
 	}
+	return true;
+}
+
+AudioManager.prototype.toggle = function()
+{
+	if (Config.musicEnabled == false) return false;
+	if (this.bgm === undefined) return false;
+
+	if (isPlaying && isToggled == false){
+		isPlaying = !isPlaying;
+		isToggled = true;
+	}
+	if (isPlaying)
+		this.bgm.play();
+	else
+		this.bgm.pause();
 }
