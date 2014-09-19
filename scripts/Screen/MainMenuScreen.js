@@ -1,14 +1,5 @@
 function MainMenuScreen(game){
-	this.game = game;
-	this.countdown = true;
-	this.countdownTimeout = 0;
-	this.timerTimeout;
-	this.updateTimers;
-
-	this.elapsedGameMilliseconds = 0;
-	this.elapsedMs = 33;
-
-	this.mousey = this.mousex = 0;
+	Screen.call(this, game);
 }
 
 MainMenuScreen.prototype = Object.create(Screen.prototype); 

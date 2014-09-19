@@ -1,19 +1,9 @@
 function TutorialScreen(game){
-	this.game = game;
-	this.countdown = true;
-	this.countdownTimeout = 0;
-	this.timerTimeout;
-	this.updateTimers;
-
-	this.elapsedGameMilliseconds = 0;
-	this.elapsedMs = 33;
-	
-	this.player;
-	this.changeOpacity = 1;
-	this.asteroids = new Array();
+	GameScreen.call(this, game);
 }
 
-
+TutorialScreen.prototype = Object.create(GameScreen.prototype);
+TutorialScreen.prototype.constructor = TutorialScreen;
 
 TutorialScreen.prototype.initialize = function()
 {

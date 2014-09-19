@@ -1,7 +1,7 @@
 function Button(spriteName, x, y, width, height, opacity, scalex, scaley)
 {
 	Entity.call(this);
-	this.callback;
+	this.callback = null;
 	this.sprite = new CenteredSprite(spriteName, x, y, width, height, opacity, scalex, scaley);
 }
 

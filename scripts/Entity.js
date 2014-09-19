@@ -3,7 +3,8 @@ function Entity()
 	this.position = new Vector2D();
 	this.velocity = new Vector2D();
 	this.acceleration = new Vector2D();
-	this.sprite;
+
+	this.sprite = null;
 }
 
 Entity.prototype.update = function() {

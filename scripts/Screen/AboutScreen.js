@@ -1,12 +1,5 @@
 function AboutScreen(game){
 	this.game = game;
-	this.countdown = true;
-	this.countdownTimeout = 0;
-	this.timerTimeout;
-	this.updateTimers;
-
-	this.elapsedGameMilliseconds = 0;
-	this.elapsedMs = 33;
 }	
 
 
@@ -40,48 +33,34 @@ AboutScreen.prototype.initialize = function () {
 }
 
 AboutScreen.prototype.draw = function(context) {
-			// Background image
-			this.background.draw(context);
-			
-
-			this.panel.draw(context);
-			this.panelText.draw(context);
-			this.panelText2.draw(context);
-			this.panelText3.draw(context);
-			this.panelText3half.draw(context);
-			this.panelText4.draw(context);
-			this.panelText4half.draw(context);
-
-			this.returnToMenu2.draw(context);
-			this.returnToMenu.draw(context);
+	// Background image
+	this.background.draw(context);
 
 
-		}
+	this.panel.draw(context);
+	this.panelText.draw(context);
+	this.panelText2.draw(context);
+	this.panelText3.draw(context);
+	this.panelText3half.draw(context);
+	this.panelText4.draw(context);
+	this.panelText4half.draw(context);
 
-		AboutScreen.prototype.update = function() {
-			this.updateTimer();
-			this.CheckIfReturnMainMenu(this.game.pressX, this.game.pressY);
-		}
-
-		AboutScreen.prototype.checkIfReturnMainMenu = function(x, y){
-			if (!this.game.InputHandler.isPressed(InputKey.ENTER) && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-			if (this.returnToMenu.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
-				this.game.changeScreen(0);
-				this.game.gameScreen.initialize();
-				this.game.pressX = this.game.pressY = typeof 'undefined';
-			}
-		}
-
-		AboutScreen.prototype.updateTimerFunc = new function(){
-			this.updateTimers = true;
-		}
+	this.returnToMenu2.draw(context);
+	this.returnToMenu.draw(context);
 
 
-		AboutScreen.prototype.updateTimer = function(){
-			if (this.updateTimers){
-				this.elapsedGameMilliseconds += 33;
-				this.updateTimers = false;
-				this.timerTimeout = setTimeout(this.updateTimerFunc, 33);
-			}
+}
 
-		}
+AboutScreen.prototype.update = function() {
+	this.updateTimer();
+	this.CheckIfReturnMainMenu(this.game.pressX, this.game.pressY);
+}
+
+AboutScreen.prototype.checkIfReturnMainMenu = function(x, y){
+	if (!this.game.InputHandler.isPressed(InputKey.ENTER) && (typeof x == 'undefined' || typeof y == 'undefined')) return;
+	if (this.returnToMenu.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
+		this.game.changeScreen(0);
+		this.game.gameScreen.initialize();
+		this.game.pressX = this.game.pressY = typeof 'undefined';
+	}
+}

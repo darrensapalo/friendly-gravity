@@ -1,8 +1,10 @@
 function ScreenManager(game, canvasName)
 {
 	this.game = game;
+
 	this.canvas = document.getElementById(canvasName);
 	this.context = this.canvas.getContext("2d");
+	
 	this.canvas.addEventListener("click", function(evt){
 		var p = new Vector2D(evt.x, evt.y);
 		game.onClick(p);
@@ -10,12 +12,12 @@ function ScreenManager(game, canvasName)
 
 	this.screens = new Array();
 
-	this.tween;
+	this.tween = null;
 	this.switching = false;
 
-	this.opacity = 0.0;
+	this.opacity = 0;
 
-	this.currentScreen;
+	this.currentScreen = null;
 }
 
 ScreenManager.prototype.initialize = function(startScreen) {

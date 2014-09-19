@@ -1,5 +1,5 @@
 function GameOverScreen(game){
-	this.game = game;
+	Screen.call(this, game);
 }	
 
 GameOverScreen.prototype = Object.create(Screen.prototype);
