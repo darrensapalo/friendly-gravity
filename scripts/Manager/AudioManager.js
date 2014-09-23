@@ -44,7 +44,7 @@ AudioManager.prototype.load = function(filename)
 AudioManager.prototype.play = function(sound)
 {
 	if (Config.sound.musicEnabled == false) return false;
-	if (isReady == false) return false;
+	if (this.isReady == false) return false;
 
 	switch(sound)
 	{
@@ -62,14 +62,14 @@ AudioManager.prototype.toggle = function()
 	if (this.bgm === undefined)
 		return false;
 
-	if (isPlaying && isToggled == false){
-		isPlaying = !isPlaying;
-		isToggled = true;
+	if (this.isPlaying && this.isToggled == false){
+		this.isPlaying = !this.isPlaying;
+		this.isToggled = true;
 	}
-	if (isPlaying)
+	if (this.isPlaying)
 		this.bgm.play();
 	else
 		this.bgm.pause();
 
-	return isToggled;
+	return this.isToggled;
 }
