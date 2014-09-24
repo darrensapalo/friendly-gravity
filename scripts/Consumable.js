@@ -26,32 +26,37 @@ Consumable.prototype.initialize = function()
 	// select type or randomize
 	this.type = this.type || ConsumableTypes[ M.random(3) ];
 
-	this.lifeSpan = M.random(1000, 2000);
+	this.lifeSpan = M.random(1000, 7000);
 
 	// Select random spawn point
 	do{	
 
-		this.position.x = M.random(25, game.ScreenManager.canvas.width - 50);
-		this.position.y = M.random(25, game.ScreenManager.canvas.height - 50);
+		this.position.x = M.random(35, game.ScreenManager.canvas.width - 70);
+		this.position.y = M.random(70, game.ScreenManager.canvas.height - 70);
 
 	}while( this.checkNear( this.world.player ) );
 
 }
 
 Consumable.prototype.gravitate = function(target) {
-	var direction = new Vector2D(target.position.x - this.position.x, target.position.y - this.position.y);
-	var speed = (this.isConsumed) ? 0.001 : this.speed;
-	this.acceleration = this.acceleration.add(direction.smultiply(speed));
+	if (this.checkGravitate(target))
+	{
+		var direction = new Vector2D(target.position.x - this.position.x, target.position.y - this.position.y);
+		var speed = (this.isConsumed) ? 0.000001 : this.speed;
+
+		this.acceleration = this.acceleration.add(direction.smultiply(speed));
+	}
+	
 };
 
 Consumable.prototype.update = function() {
 	Entity.prototype.update.call(this);
 	
-	var player = this.world.player;
+	var blackhole = this.world.blackhole;
 	
-	this.checkConsumed(player);
+	this.checkConsumed(blackhole);
 
-	this.gravitate(player);
+	this.gravitate(blackhole);
 
 	// Add some score
 	if (this.world.isGameOver == false && this.isConsumed == false)
@@ -65,7 +70,7 @@ Consumable.prototype.update = function() {
 
 Consumable.prototype.draw = function(context) {
 	Entity.prototype.draw.call(this, context);
-	if (typeof this.decreased !== 'undefined')
+	if (false && typeof this.decreased !== 'undefined')
 		this.decreased.draw(context);
 }
 
@@ -75,7 +80,15 @@ Consumable.prototype.checkNear = function(target)
 	return (Math.sqrt(Math.pow(this.position.x - target.position.x, 2) + Math.pow(this.position.y - target.position.y, 2)) < threshold);
 }
 
+Consumable.prototype.checkGravitate = function(target)
+{
+	var threshold = 400;
+	return (Math.sqrt(Math.pow(this.position.x - target.position.x, 2) + Math.pow(this.position.y - target.position.y, 2)) < threshold);
+}
+
 Consumable.prototype.checkConsumed = function(target){
+	if (this.world.isTutorial) return false;
+	
 	if (this.isConsumed == false)
 	{
 		if (this.sprite.collidesWith(target.sprite)) {

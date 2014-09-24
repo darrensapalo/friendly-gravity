@@ -1,6 +1,11 @@
 function PulseNova()
 {
-	this.counter = 0;
+	this.bar = new CenteredSprite("bar", 400, 20, 750, 38);
+	this.bar.scalex = this.bar.scaley = 0.6;
+
+	this.holder = new CenteredSprite("barHolder", 400, 20, 750, 38);
+	this.holder.scalex = this.holder.scaley = 0.6;
+
 }
 
 PulseNova.prototype.isReady = function() 
@@ -9,11 +14,9 @@ PulseNova.prototype.isReady = function()
 }
 
 PulseNova.prototype.update = function()
-{
-	if (this.counter > 0)
-		this.counter -= 1;
-
-	// logic for drawing
+{	
+	var M = new MathHelper();
+	this.bar.width = M.clamp(game.world.score / 750 * 750, 0, 750);
 }
 
 PulseNova.prototype.reset = function()
@@ -23,33 +26,6 @@ PulseNova.prototype.reset = function()
 
 PulseNova.prototype.draw = function(context)
 {
-	// drawing
-}
-
-PulseNova.prototype.ComputeTimerWidth = function() {
-	var val;
-	x = (Config.game.baseShockwaveCD - this.player.injectionTimeout) /  Config.game.baseShockwaveCD * 500;
-
-
-	if (x >= 500)
-		x = 500;
-	if (x <= 0)
-		x = 0;
-
-	return x;
-}
-
-
-PulseNova.prototype.updateTimerFunc = function(){
-	this.updateTimers = true;
-}
-
-
-PulseNova.prototype.updateTimer = function(){
-	if (this.updateTimers){
-		this.elapsedGameMilliseconds += 33;
-		this.updateTimers = false;
-		timerTimeout = setTimeout(this.updateTimerFunc, 33);
-	}
-
+	this.bar.draw(context);
+	this.holder.draw(context);
 }

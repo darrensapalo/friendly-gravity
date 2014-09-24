@@ -6,5 +6,7 @@ var InputKey =
 	DOWN: 		40, 
 	SPACE: 		32,
 	ENTER: 		13,
-	M: 			77 // For music
+	M: 			77, // For music
+	SHIFT: 		16,
+	CTRL: 		17,
 };

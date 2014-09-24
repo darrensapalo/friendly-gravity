@@ -5,59 +5,71 @@ function Session()
 	this.account = {
 		'difficulty': {
 			level: 0,
-			value: this.difficulty
+			value: 0
 			},
 		'points': {
 			level: 0,
-			value: this.points
+			value: 0
 			},
 		'duration': {
 			level: 0,
-			value: this.duration
+			value: 0
 			},
 		'speed': {
 			level: 0,
-			value: this.speed
+			value: 0
 		}
 	}
-	
+
+	this.eaten = new Eaten();
 	this.hasSounds = true;
+
+	this.load();
+}
+
+Session.prototype.saveRound = function(round) {
+	if (round.score > this.highScore)
+		this.highScore = round.score;
+
+	this.cash += round.score;
+	this.eaten.comets += round.eaten.comets;
+	this.eaten.asteroids += round.eaten.asteroids;
+	this.eaten.planets += round.eaten.planets;
+	this.save();
 }
 
 Session.prototype.save = function() {
 	if ("localStorage" in window && window["localStorage"] == null) console.log("Cannot save session - HTMl5 Local Storage not supported.");
 	if (window.game === undefined) throw Error("UnknownGameException: There is no game reference in the global scope.");
 
+	console.log("Saving game...");
 	var game = window.game;
 
-	localStorage["GBH.highscore"] = parseInt(this.highScore);
-	localStorage["GBH.cash"] = parseInt(this.cash);
-
-	localStorage["GBH.difficulty"] = parseInt(this.account.difficulty.value);
-	localStorage["GBH.points"] = parseFloat(this.account.points.value);
-	localStorage["GBH.duration"] = parseInt(this.account.duration.value);
-	localStorage["GBH.speed"] = parseFloat(this.account.speed.value);
-
-	localStorage["GBH.hasSounds"] = this.hasSounds;
+	localStorage["GBH.game"] = JSON.stringify(this);
+	
 };
 
 Session.prototype.access = function(key){
-	if (typeof(localStorage["GBH." + key]) != "NaN" && localStorage["GBH." + key] != "NaN")
+	if (typeof(localStorage["GBH." + key]) !== "NaN" && localStorage["GBH." + key] !== "NaN")
 		return parseInt(localStorage["GBH." + key]);
 	return false;
 }
 
 Session.prototype.load = function() {
-	if ("localStorage" in window && window["localStorage"] == null) console.log("Cannot save session - HTMl5 Local Storage not supported.");
+	if ("localStorage" in window && window["localStorage"] == null) console.log("Cannot load session - HTMl5 Local Storage not supported.");
 	if (window.game === undefined) throw Error("UnknownGameException: There is no game reference in the global scope.");
 
-	this.highScore 	= this.access("highScore") 	|| 0;
-	this.cash 		= this.access("cash") 		|| Config.game.initialCash;
-	this.difficulty = this.access("difficulty") || 0;
-	this.points		= this.access("points")		|| Config.game.points;
-	this.duration 	= this.access("duration")	|| Config.game.duration;
-	this.speed		= this.access("speed")		|| Config.game.speed;
-	this.hasSounds	= this.access("hasSounds")	|| Config.sound.musicEnabled;
+	var ses = localStorage["GBH.game"];
+	if (typeof ses !== 'undefined'){
+		var temp = JSON.parse( ses );
+		this.highScore = temp.highScore;
+		this.cash = temp.cash;
+		this.account = temp.account;
+		this.eaten = temp.eaten;
+		this.hasSounds = temp.hasSounds;
+	}
+		
+
 };
 
 Session.prototype.reset = function() {

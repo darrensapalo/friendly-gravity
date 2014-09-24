@@ -2,21 +2,21 @@ function AboutScreen(game){
 	this.game = game;
 }	
 
-
 AboutScreen.prototype.initialize = function () {
+	var SM = this.game.ScreenManager;
 	this.background = new Background();
+	this.panel = SM.createPanel();
+
+	var buttonSet = this.game.ScreenManager.createButtons();
+	
+	this.returnToMainMenu = buttonSet.texts[2];
+	this.returnToMainMenuButton = buttonSet.buttons[2];
+	this.returnToMainMenu.text = "Main Menu";
+
 	var x, y;
-	x = 273;
-	y = 380;
-	this.returnToMenu = new TextSprite("Main menu", x + 20, y + 20, 255, 40);
-	this.returnToMenu2 = new Sprite("button", x, y, 255, 80, 1);
-
-
 	x = 150;
-	y = 70;
-	this.panel = new Sprite("panel", x, y, 489, 306, 0.8);
-
-	y += 20;
+	y = 90;
+	
 	this.panelText = new TextSprite("De La Salle University", x + 150, y, 200, 40);
 	y += 20;
 	this.panelText2 = new TextSprite("Game Development Lab", x + 150, y, 200, 40);
@@ -33,11 +33,11 @@ AboutScreen.prototype.initialize = function () {
 }
 
 AboutScreen.prototype.draw = function(context) {
-	// Background image
+	/* panel */
 	this.background.draw(context);
-
-
 	this.panel.draw(context);
+
+	/* content */
 	this.panelText.draw(context);
 	this.panelText2.draw(context);
 	this.panelText3.draw(context);
@@ -45,22 +45,20 @@ AboutScreen.prototype.draw = function(context) {
 	this.panelText4.draw(context);
 	this.panelText4half.draw(context);
 
-	this.returnToMenu2.draw(context);
-	this.returnToMenu.draw(context);
+	/* interface */
+	this.returnToMainMenuButton.draw(context);
+	this.returnToMainMenu.draw(context);
 
 
 }
 
 AboutScreen.prototype.update = function() {
-	this.updateTimer();
-	this.CheckIfReturnMainMenu(this.game.pressX, this.game.pressY);
+	this.returnToMainMenuButton.update();
 }
 
-AboutScreen.prototype.checkIfReturnMainMenu = function(x, y){
-	if (!this.game.InputHandler.isPressed(InputKey.ENTER) && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-	if (this.returnToMenu.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
-		this.game.changeScreen(0);
-		this.game.gameScreen.initialize();
-		this.game.pressX = this.game.pressY = typeof 'undefined';
+AboutScreen.prototype.onClick = function(p){
+	var SM = this.game.ScreenManager;
+	if (this.returnToMainMenuButton.contains(p)){
+		SM.changeScreen("MainMenuScreen");
 	}
 }

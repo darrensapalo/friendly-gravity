@@ -6,97 +6,79 @@ ShopScreen.prototype = Object.create(Screen.prototype);
 ShopScreen.prototype.constructor = ShopScreen;
 
 ShopScreen.prototype.initialize = function () {
+	var SM = this.game.ScreenManager;
 	this.background = new Background();
-	
-	var x, y;
-	x = 250;
-	y = 0;
-	
-	x = 50;
-	y = 380;
-	this.newGame = new TextSprite("Reset", x + 20, y + 20, 255, 40, Color.black, Color.light_gray);
-	this.newGame2 = new Sprite("button", x, y, 255, 80, 1);
-	
+	this.panel = SM.createPanel();
 
-	x += 250;
-	y = 380;
-	this.returnMainMenu = new TextSprite("Main menu", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
-	this.returnMainMenu2 = new Sprite("button", x, y, 255, 80, 1);
+	var buttonSet = this.game.ScreenManager.createButtons();
 	
-	x += 250;
-	this.shopButtonCaption = new TextSprite("Shopping", x + 47, y + 20, 200, 40, Color.black, Color.light_gray);
-	this.shop = new Sprite("shopButton", x, y, 255, 80, 1);
+	this.reset = buttonSet.texts[0];
+	this.resetButton = buttonSet.buttons[0];
+	this.resetButton.hoverSprite.img = this.game.ImageLoader.images["buttonReset"];
+	this.reset.text = "Reset";
 	
+	this.returnMainMenu = buttonSet.texts[1];
+	this.returnMainMenuButton = buttonSet.buttons[1];
+	this.returnMainMenu.text = "Main menu";
 	
+	this.shop = buttonSet.texts[2];
+	this.shopButton = buttonSet.buttons[2];
+	this.shop.text = "Shop";
+	var x, y;
 	x = 150;
-	y = 70;
-	this.panel = new Sprite("panel", x, y, 489, 306, 0.8);
-	
-	y += 20;
+	y = 90;
+
 	this.panelText = new TextSprite("Current progress:", x + 150, y, 200, 40);
 	y += 40;
 	this.panelText2 = new TextSprite("Accumulated points: ", x + 150, y, 200, 40);
 	y += 40;
 	this.panelText3 = new TextSprite("High score: ", x + 150, y, 200, 40);
+
+	this.panelText2.text = "Accumulated points: " + session.cash + ".";
+	this.panelText3.text = "High score: " + session.highScore + ".";
+
 	
 }
 
 ShopScreen.prototype.draw = function(context) {
+	/* The panel */
 	this.background.draw(context);
-	
-	
 	this.panel.draw(context);
+
+	/* The content */
 	this.panelText.draw(context);
 	this.panelText2.draw(context);
 	this.panelText3.draw(context);
+		
+	/* The interface */
+	this.resetButton.draw(context);
+	this.reset.draw(context);
 	
-	this.newGame2.draw(context);
-	this.newGame.draw(context);
-	
-	this.returnMainMenu2.draw(context);
+	this.returnMainMenuButton.draw(context);
 	this.returnMainMenu.draw(context);
 
+	this.shopButton.draw(context);
 	this.shop.draw(context);
-	this.shopButtonCaption.draw(context);
-	
-	
 }
 
 ShopScreen.prototype.update = function() {
-	this.updateTimer();
-	var x = this.game.pressX;
-	var y = this.game.pressY;
-	this.CheckIfReturnMainMenu(x, y);
-	this.Reset(x, y);
-	this.CheckIfShop(x, y);
-	this.panelText2.text = "Accumulated points: " + this.game.cash + ".";
-	this.panelText3.text = "High score: " + this.game.highScore + ".";
-	
+	this.resetButton.update();
+	this.shopButton.update();
+	this.returnMainMenuButton.update();
 }
 
-ShopScreen.prototype.CheckIfReturnMainMenu = function(x, y){
-	if (this.game.InputHandler.isPressed(InputKey.ENTER) && (typeof x == 'undefined' || typeof y == 'undefined')) return;
-	if (this.returnMainMenu2.contains(x, y) || this.game.InputHandler.isPressed(InputKey.ENTER)){
-		this.game.changeScreen(0);
-		this.game.gameScreen.initialize();
-		this.game.pressX = this.game.pressY = typeof 'undefined';
-	}
-}
-
-ShopScreen.prototype.Reset = function(x, y){
-	if (typeof x == 'undefined' || typeof y == 'undefined') return;
-	if (this.newGame.contains(x, y)){
-		this.game.changeScreen(0);
+ShopScreen.prototype.onClick = function(p) {
+	var SM = this.game.ScreenManager;
+	if (this.resetButton.contains(p)){
 		session.reset();
-		this.game.pressX = this.game.pressY = typeof 'undefined';
+		SM.changeScreen("MainMenuScreen");
 	}
-}
 
-ShopScreen.prototype.CheckIfShop = function(x, y){
-	if (typeof x == 'undefined' || typeof y == 'undefined') return;
-	if (this.shop.contains(x, y)){
-		this.game.changeScreen(6);
-		this.game.pressX = this.game.pressY = 0;
-		this.game.developScreen.initialize();
+	else if (this.returnMainMenuButton.contains(p)){
+		SM.changeScreen("MainMenuScreen");
+	}
+
+	else if (this.shopButton.contains(p)){
+		SM.changeScreen("ShopScreen");
 	}
 }

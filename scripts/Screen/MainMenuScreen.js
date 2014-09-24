@@ -53,6 +53,11 @@ MainMenuScreen.prototype.update = function() {
 	this.howToPlayButton.update();
 	this.aboutButton.update();
 	this.soundButton.update();
+
+	if (game.InputHandler.isPressed(InputKey.ENTER))
+	{
+		this.game.ScreenManager.changeScreen("GameScreen");
+	}
 }
 
 MainMenuScreen.prototype.onClick = function (p) {
@@ -60,10 +65,6 @@ MainMenuScreen.prototype.onClick = function (p) {
 	var SM = this.game.ScreenManager;
 	if (this.soundButton.contains(p)){
 		this.game.AudioManager.toggle();
-	}
-
-	else if (this.beginPlayingButton.contains(p)){
-		SM.changeScreen("GameScreen");
 	}
 
 	else if (this.beginPlayingButton.contains(p)){

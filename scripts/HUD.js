@@ -1,13 +1,13 @@
 function HUD(world)
 {
 	this.world = world;
-	this.player = world.player;
+	this.blackhole = world.blackhole;
 
-	this.PulseNova = new PulseNova(this.player);
+	this.PulseNova = new PulseNova(this.blackhole);
 }
 
 HUD.prototype.update = function() {
-	
+	this.PulseNova.update();
 }
 
 HUD.prototype.draw = function(context) {

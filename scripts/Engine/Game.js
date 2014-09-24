@@ -5,6 +5,12 @@ function Game(canvasName) {
 	this.AudioManager  = new AudioManager();
 }
 
+Object.defineProperty(Game.prototype, "world", {
+	get : function() {
+		return this.worldReference;
+	}
+});
+
 Game.prototype.start = function() {
 	this.browserType = navigator.sayswho;
 
@@ -87,3 +93,9 @@ navigator.sayswho= (function(){
     return M.join(' ');
 })();
 
+// Add contains
+if ( !String.prototype.contains ) {
+    String.prototype.contains = function() {
+        return String.prototype.indexOf.apply( this, arguments ) !== -1;
+    };
+}

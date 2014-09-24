@@ -16,11 +16,10 @@ function AudioManager()
 	this.bgm.addEventListener('loadeddata', function (evt) {
 		this.audioManager.isReady = true;
 		this.volume = Config.sound.bgmVolume;
-
-		if (Config.musicEnabled)
+		if (Config.sound.musicEnabled)
 		{
 			this.play();
-			isPlaying = true;
+			this.audioManager.isPlaying = true;
 		}
 
 		if (Config.bgmRepeat)
