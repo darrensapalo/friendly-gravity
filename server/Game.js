@@ -4,6 +4,8 @@ var tween = require('tween.js');
 
   // Engine
 var Config = require('./Engine/Config.js');
+var Database = require('./Engine/Database.js');
+var MySQL = require('./Engine/MySQL.js');
 
 var MathHelper = require('./Engine/MathHelper.js');
 var Rectangle = require('./Engine/Rectangle.js');
