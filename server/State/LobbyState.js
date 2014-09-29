@@ -5,11 +5,8 @@ function LobbyState(game){
 LobbyState.prototype = Object.create(State.prototype);
 LobbyState.prototype.constructor = LobbyState;
 
-
 LobbyState.prototype.initialize = function () {
-}
 
-LobbyState.prototype.draw = function(context) {
 }
 
 LobbyState.prototype.update = function() {

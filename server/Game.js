@@ -4,42 +4,48 @@ var tween = require('tween.js');
 var mft = require('./modules');
 
 function Game() {
-	this.InputHandler  = mft.InputHandler();
-	this.connections = new Array();
-	this.game = null;
+  this.InputHandler = mft.InputHandler();
+  this.connections = new Array();
+  this.game = null;
 }
 
 Game.prototype.initialize = function() {
-	this.server = net.createServer(function (c) {
-		var ip = c.localAddress;
-		console.log("[" + ip + " start]");
+  this.server = net.createServer(onConnect);
+  this.server.listen(8080, onServerStart);
+}
 
-		c.on('data', function (data) {
-			var a = JSON.parse(data);
-			console.log(ip +": " + a);
-		});
+function onConnect(socket) {
+  var ip = socket.localAddress;
+  console.log("[" + ip + " start]");
 
-		c.on('end', function() {
-			console.log("[" + ip + " end]");
-		});
-	});
+  socket.on('end', onEnd);
+  socket.on('data', onReceiveData);
+  
+  function onEnd() {
+    console.log("[" + ip + " end]");
+  }
 
-	this.server.listen(8080, function(){
-		console.log('Server bound to port 8080.');
-	});
+  function onReceiveData(data) {
+    var a = JSON.parse(data);
+    console.log(ip +": " + a);
+  }
+}
+
+function onServerStart(){
+  console.log('Server bound to port 8080.');
 }
 
 Game.prototype.initStates = function () {
-	
+
 }
 
 
 Game.prototype.update = function() {
-	
+
 }
 
 Game.prototype.destroy = function() {
-	
+
 }
 
 var game = new Game();
