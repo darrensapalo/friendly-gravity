@@ -4,6 +4,4 @@ function Round(score, eaten)
 	this.eaten = eaten;
 }
 
-Round.prototype.initialize = function() {
-	
-};
+module.exports = Round;

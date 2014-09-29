@@ -60,7 +60,4 @@ var Config = {
 	}
 }
 
-Config.prototype = {};
-Config.prototype.initialize = function() {
-	
-};
+module.exports = Config;

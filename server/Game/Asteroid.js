@@ -1,3 +1,4 @@
+var Consumable = require('./Consumable.js');
 function Asteroid(world, type)
 {
 	Consumable.call(this, world, type);
@@ -45,3 +46,5 @@ Asteroid.prototype.update = function() {
 	Consumable.prototype.update.call(this);
 	this.sprite.rotation -= Math.PI / 164;
 };
+
+module.exports = Asteroid;

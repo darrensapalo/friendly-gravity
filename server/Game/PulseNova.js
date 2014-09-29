@@ -29,3 +29,5 @@ PulseNova.prototype.draw = function(context)
 	this.bar.draw(context);
 	this.holder.draw(context);
 }
+
+module.exports = PulseNova;

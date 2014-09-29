@@ -1,3 +1,4 @@
+var Entity = require('./Entity.js');
 function Trail (comet, kind, scale, opacity){
 	Entity.call(this);
 	this.comet = comet;
@@ -19,3 +20,5 @@ function Trail (comet, kind, scale, opacity){
 
 Trail.prototype = Object.create(Entity.prototype);
 Trail.prototype.constructor = Trail;
+
+module.exports = Trail;

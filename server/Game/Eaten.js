@@ -5,6 +5,4 @@ function Eaten()
 	this.planets = 0;
 }
 
-Eaten.prototype.initialize = function() {
-	
-};
+module.exports = Eaten;

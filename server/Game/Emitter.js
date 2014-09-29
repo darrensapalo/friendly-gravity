@@ -56,3 +56,5 @@ Emitter.prototype.spawn = function()
 	// Initialize 
 	newEntity.initialize();
 }
+
+module.exports = Emitter;

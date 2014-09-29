@@ -1,3 +1,5 @@
+var Consumable = require('./Consumable.js');
+
 function Planet (world, type){
 	Consumable.call(this, world, type);
 
@@ -41,14 +43,6 @@ Planet.prototype.initialize = function(){
 	createjs.Tween.get(this.additionals[1]).wait(600).to({ scalex:0.7, scaley: 0.7, opacity: 0.7 }, Config.game.planet.growthDuration, createjs.Ease.quadIn).wait(600).to({ scalex:0.9, scaley: 0.9, opacity: 0.4 }, Config.game.planet.growthDuration, createjs.Ease.quadIn);
 }
 
-Planet.prototype.draw = function (context) {
-	Consumable.prototype.draw.call(this, context);
-
-	this.additionals[0].draw(context);
-	this.additionals[1].draw(context);
-}
-
-
 Planet.prototype.update = function (){
 	Consumable.prototype.update.call(this);
 	this.additionals[0].x = this.additionals[1].x = this.position.x;
@@ -57,3 +51,5 @@ Planet.prototype.update = function (){
 	this.additionals[0].rotation += Math.PI / 86;
 	this.additionals[1].rotation -= Math.PI / 86; 
 }
+
+module.exports = Planet;

@@ -1,4 +1,5 @@
 var ConsumableTypes = ["comet", "asteroid", "planet"];
+var Entity = require('./Entity.js');
 
 function Consumable(world, type)
 {
@@ -115,3 +116,5 @@ Consumable.prototype.destroy = function(target){
 	this.isDestroying = true;
 	createjs.Tween.get(this.sprite).wait(1200).to({ opacity:0, scalex:0.01, scaley:0.01 }, Config.game.trail.fadeDuration).call(function(cons) {cons.isDestroyed = true;}, [this]);
 }
+
+module.exports = Consumable;

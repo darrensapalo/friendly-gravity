@@ -1,3 +1,4 @@
+var Consumable = require('./Consumable.js');
 function Comet (world, type){
 	Consumable.call(this, world, type);
 	this.trails = new Array();
@@ -66,3 +67,5 @@ Comet.prototype.remove = function() {
 			this.trails.splice( i, 1 );
 	}
 };
+
+module.exports = Comet;

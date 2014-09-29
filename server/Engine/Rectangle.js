@@ -5,6 +5,4 @@ function Rectangle(x, y, width, height){
 	this.height = height || 0;
 }
 
-Rectangle.prototype.initialize = function() {
-	
-};
+module.exports = Rectangle;

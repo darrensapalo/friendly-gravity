@@ -1,3 +1,4 @@
+var Entity = require('./Entity.js');
 function ChildEntity(target, offset)
 {
 	Entity.call(this);
@@ -16,3 +17,5 @@ ChildEntity.prototype.update = function() {
 	this.position.x = this.target.position.x + this.offset.x;
 	this.position.y = this.target.position.y + this.offset.y;
 }
+
+module.exports = ChildEntity;

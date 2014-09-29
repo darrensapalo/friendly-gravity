@@ -26,3 +26,5 @@ Vector2D.prototype.assertIsVector2D = function(vector2D) {
 	if (vector2D.constructor.name !== 'Vector2D') throw new Error("TypeError: The parameter must be a Vector2D.");
 
 }
+
+module.exports = Vector2D;

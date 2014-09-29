@@ -1,3 +1,5 @@
+var Entity = require('./Entity.js');
+
 function Blackhole (game, world){
 	Entity.call(this);
 
@@ -139,3 +141,5 @@ Blackhole.prototype.checkIfInjection = function(){
 		}
 	}
 }
+
+module.exports = Blackhole;

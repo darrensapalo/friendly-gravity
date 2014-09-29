@@ -85,3 +85,5 @@ Session.prototype.reset = function() {
 
 	this.save();
 };
+
+module.exports = Session;

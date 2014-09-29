@@ -1,3 +1,5 @@
+var Entity = require('./Entity.js');
+
 function Player (game, world){
 	Entity.call(this);
 	this.game = game;
@@ -130,3 +132,5 @@ Object.defineProperty(Player.prototype, "rotation", {
 		return this.sprite.rotation + Math.PI / 2;
 	}
 });
+
+module.exports = Player;

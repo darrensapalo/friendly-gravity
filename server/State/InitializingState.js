@@ -1,3 +1,4 @@
+var State = require('./State.js');
 function InitializingState(game){
 	State.call(this, game);
 }
@@ -17,3 +18,5 @@ InitializingState.prototype.draw = function(context) {
 InitializingState.prototype.update = function() {
 	
 }
+
+module.exports = InitializingState;

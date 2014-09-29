@@ -16,7 +16,4 @@ var Ships = {list: [
 	}
 ]};
 
-Ships.prototype = {};
-Ships.prototype.initialize = function() {
-	
-};
+module.exports = Ships;

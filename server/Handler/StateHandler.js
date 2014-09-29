@@ -1,4 +1,4 @@
-function ScreenManager(game, canvasName)
+function StateHandler(game, canvasName)
 {
 	this.game = game;
 
@@ -20,12 +20,12 @@ function ScreenManager(game, canvasName)
 	this.currentScreen = null;
 }
 
-ScreenManager.prototype.initialize = function(startScreen) {
+StateHandler.prototype.initialize = function(startScreen) {
 	if (typeof startScreen === 'undefined') throw new Error("NullError: You did not specify the first screen of the game. The parameter was: '" + startScreen + "'.");
 	this.changeScreen(startScreen, true);
 };
 
-ScreenManager.prototype.addScreen = function(name, screen) {
+StateHandler.prototype.addScreen = function(name, screen) {
 	if (typeof screen === 'undefined') throw new Error("NullError: Cannot null screen to the manager.");
 
 	// check if it already exists
@@ -38,12 +38,12 @@ ScreenManager.prototype.addScreen = function(name, screen) {
 };
 
 
-ScreenManager.prototype.update = function() {
+StateHandler.prototype.update = function() {
 	if (typeof this.currentScreen !== 'undefined')
 		this.currentScreen.update();
 };
 
-ScreenManager.prototype.draw = function() {
+StateHandler.prototype.draw = function() {
 	// reset screen
 	this.context.fillStyle = Color.black;
 	this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -59,7 +59,7 @@ ScreenManager.prototype.draw = function() {
 	}
 };
 
-ScreenManager.prototype.changeScreen = function(screen, isForced) {
+StateHandler.prototype.changeScreen = function(screen, isForced) {
 	if (typeof isForced == 'boolean' && isForced == true)
 	{
 		this.currentScreen = this.screens[screen];
@@ -79,13 +79,13 @@ ScreenManager.prototype.changeScreen = function(screen, isForced) {
 			console.log("ScreenManger: Beginning to change to screen '" + screen + "'.");
 
 		this.opacity = 0;
-		this.tween = createjs.Tween.get(this).to({ opacity:1 }, 350, createjs.Ease.quadOut).call(ScreenManager.prototype.changeScreen, [screen, true], this);
+		this.tween = createjs.Tween.get(this).to({ opacity:1 }, 350, createjs.Ease.quadOut).call(StateHandler.prototype.changeScreen, [screen, true], this);
 
 		this.switching = true;
 	}
 };
 
-ScreenManager.prototype.createButtons = function() {
+StateHandler.prototype.createButtons = function() {
 	var x, y;
 	var text = new Array();
 	var button = new Array();
@@ -106,6 +106,8 @@ ScreenManager.prototype.createButtons = function() {
 	return {texts: text, buttons: button};
 };
 
-ScreenManager.prototype.createPanel = function() {
+StateHandler.prototype.createPanel = function() {
 	return new Sprite("panel", 150, 70, 490, 305, 0.8);
 }
+
+module.exports = StateHandler;

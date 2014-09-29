@@ -137,3 +137,5 @@ World.prototype.getBackground = function() {
 	var texture = (session.account.difficulty == 1) ? "unlocked_background" : "default_background";
 	return this.game.ImageLoader.images[texture];
 }
+
+module.exports = World;
