@@ -30,6 +30,8 @@ var resourceList = [
 	
 	{name: "comet",               url: "comets/comet-revised.png",                 type: "ui"},
 
+	{name: "blaster",             url: "blaster/blaster.png",                      type: "ui"},
+
 
 	// ================================================================================
 	// Planets

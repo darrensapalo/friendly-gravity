@@ -58,11 +58,7 @@ Consumable.prototype.update = function() {
 
 	this.gravitate(blackhole);
 
-	// Add some score
-	if (this.world.isGameOver == false && this.isConsumed == false)
-		this.world.score += Math.random() * Config.game.points;
-
-	this.lifeSpan -= 33;
+	// this.lifeSpan -= 33;
 
 	if (this.isDestroying == false && this.lifeSpan <= 0)
 		this.destroy();

@@ -24,7 +24,9 @@ Player.prototype.initialize = function() {
 	this.position = new Vector2D(canvas.width / 2, canvas.height / 2);
 	this.sprite = new CenteredSprite(sprite, this.position.x, this.position.y, width, height, opacity, scalex, scaley);
 
-	this.rotateVelocity = 0;;
+	this.rotateVelocity = 0;
+	this.shootDelay = 300;
+	this.blasters = [];
 }
 
 Player.prototype.update = function(){
@@ -33,7 +35,24 @@ Player.prototype.update = function(){
 	this.movePlayer();
 	this.bound();
 	this.acceleration = this.acceleration.smultiply(0.8);
+	this.updateBlasters();
+
 }
+
+
+Player.prototype.updateBlasters = function() {
+	this.shootDelay -= 33;
+	for (var i = this.blasters.length - 1; i >= 0; i--) {
+		this.blasters[i].update();
+	};
+
+	for (var i = 0; i < this.blasters.length; i++)
+	{
+		if( this.blasters[i].sprite.opacity <= 0)
+			this.blasters.splice( i, 1 );
+	}
+};
+	
 
 Player.prototype.bound = function (context) {
 	var M = new MathHelper();
@@ -52,6 +71,9 @@ Player.prototype.bound = function (context) {
 
 Player.prototype.draw = function (context) {
 	Entity.prototype.draw.call(this, context);
+	for (var i = this.blasters.length - 1; i >= 0; i--) {
+		this.blasters[i].draw(context);
+	};
 }
 
 Player.prototype.getHit = function ()
@@ -68,6 +90,14 @@ Player.prototype.rotatePlayer = function()
 	this.rotateVelocity *= 0.96;
 }
 
+Player.prototype.shoot = function() {
+	
+	var b = new Blaster(this.game, this.world, this.position, this.rotation);
+	this.blasters.push(b);
+	console.log("pew pew");
+	this.shootDelay = 300;
+};
+
 Player.prototype.movePlayer = function() {
 	var blackhole = this.sprite;
 
@@ -77,6 +107,11 @@ Player.prototype.movePlayer = function() {
 
 	var InputHandler = this.game.InputHandler;
 
+
+	if (InputHandler.get(InputKey.SPACE).isPressed) {
+		if (this.shootDelay <= 0)
+			this.shoot();
+	};
 
 	if (InputHandler.get(InputKey.LEFT).isPressed) {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
