@@ -39,6 +39,8 @@ Planet.prototype.initialize = function(){
 	createjs.Tween.get(this.sprite).wait(600).to({ scalex:1, scaley: 1}, this.lifeSpan, createjs.Ease.quadIn);
 	createjs.Tween.get(this.additionals[0]).wait(200).to({ scalex:0.6, scaley: 0.6, opacity: 0.8 }, Config.game.planet.growthDuration*2, createjs.Ease.quadIn).wait(300).to({ scalex:0.8, scaley: 0.8, opacity: 0.4 }, Config.game.planet.growthDuration, createjs.Ease.quadIn);
 	createjs.Tween.get(this.additionals[1]).wait(600).to({ scalex:0.7, scaley: 0.7, opacity: 0.7 }, Config.game.planet.growthDuration, createjs.Ease.quadIn).wait(600).to({ scalex:0.9, scaley: 0.9, opacity: 0.4 }, Config.game.planet.growthDuration, createjs.Ease.quadIn);
+
+	this.velocity.x = -Math.random();
 }
 
 Planet.prototype.draw = function (context) {

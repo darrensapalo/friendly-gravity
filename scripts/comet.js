@@ -21,6 +21,8 @@ Comet.prototype.initialize = function(){
 
 	// Create sprite
 	this.sprite = new CenteredSprite("comet", this.position.x, this.position.y, this.size, this.size);
+
+	this.velocity.x = - 2 - 4 * Math.random();
 }
 
 Comet.prototype.update = function () {

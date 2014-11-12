@@ -52,7 +52,7 @@ Player.prototype.updateBlasters = function() {
 
 	for (var i = 0; i < this.blasters.length; i++)
 	{
-		if( this.blasters[i].sprite.opacity <= 0)
+		if( this.blasters[i].position.x > game.ScreenManager.canvas.width)
 			this.blasters.splice( i, 1 );
 	}
 };

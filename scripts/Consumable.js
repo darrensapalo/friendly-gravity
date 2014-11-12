@@ -30,7 +30,7 @@ Consumable.prototype.initialize = function()
 
 	// Select random spawn point
 	do{	
-		this.position.x = M.random(game.ScreenManager.canvas.width, game.ScreenManager.canvas.width + 50);
+		this.position.x = M.random(game.ScreenManager.canvas.width + 100, game.ScreenManager.canvas.width + 250);
 		this.position.y = M.random(70, game.ScreenManager.canvas.height - 70);
 
 	}while( this.checkNear( this.world.player ) );
@@ -57,6 +57,10 @@ Consumable.prototype.update = function() {
 	if (blackhole !== undefined){
 		this.checkConsumed(blackhole);
 		this.gravitate(blackhole);
+	}
+
+	if (this.position.x < -this.sprite.width){
+		this.destroy();
 	}
 }
 
