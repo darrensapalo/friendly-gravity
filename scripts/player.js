@@ -96,7 +96,7 @@ Player.prototype.rotatePlayer = function()
 
 Player.prototype.shoot = function() {
 	
-	var b = new Blaster(this.game, this.world, this.position, this.rotation);
+	var b = new Blaster(this.game, this.world, this.position.add(new Vector2D(30, 0)), this.rotation);
 	this.blasters.push(b);
 	this.shootDelay = 300;
 };
@@ -118,11 +118,15 @@ Player.prototype.movePlayer = function() {
 
 	if (InputHandler.get(InputKey.LEFT).isPressed) {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
+		v = new Vector2D(-speed, 0);
+		this.position = this.position.add(v);
 		
 	};
 
 	if (InputHandler.get(InputKey.RIGHT).isPressed) {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
+		v = new Vector2D(speed, 0);
+		this.position = this.position.add(v);
 		
 	};
 

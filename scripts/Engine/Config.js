@@ -37,7 +37,7 @@ var Config = {
 		},
 		player:{
 			movement: {
-				velocity: 2,
+				velocity: 4,
 			}
 		},
 
