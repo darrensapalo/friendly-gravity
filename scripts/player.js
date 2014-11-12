@@ -21,12 +21,16 @@ Player.prototype.initialize = function() {
 	width = Ships[style].width;
 	height = Ships[style].height;
 
-	this.position = new Vector2D(canvas.width / 2, canvas.height / 2);
+	this.position = new Vector2D(50, canvas.height / 2);
 	this.sprite = new CenteredSprite(sprite, this.position.x, this.position.y, width, height, opacity, scalex, scaley);
+
+	this.sprite.rotation = Math.PI * 3 / 2;
 
 	this.rotateVelocity = 0;
 	this.shootDelay = 300;
 	this.blasters = [];
+
+	this.hp = Config.game.maxHP;
 }
 
 Player.prototype.update = function(){
@@ -34,7 +38,7 @@ Player.prototype.update = function(){
 	this.rotatePlayer();
 	this.movePlayer();
 	this.bound();
-	this.acceleration = this.acceleration.smultiply(0.8);
+	this.acceleration = this.acceleration.smultiply(0.4);
 	this.updateBlasters();
 
 }
@@ -87,14 +91,13 @@ Player.prototype.getHit = function ()
 Player.prototype.rotatePlayer = function()
 {
 	this.sprite.rotation += this.rotateVelocity;
-	this.rotateVelocity *= 0.96;
+	this.rotateVelocity *= 0.9;
 }
 
 Player.prototype.shoot = function() {
 	
 	var b = new Blaster(this.game, this.world, this.position, this.rotation);
 	this.blasters.push(b);
-	console.log("pew pew");
 	this.shootDelay = 300;
 };
 
@@ -102,11 +105,11 @@ Player.prototype.movePlayer = function() {
 	var blackhole = this.sprite;
 
 	var M = new MathHelper();
-	var speed = 25; //Config.game.blackhole.movement.acceleration;
+	var speed = Config.game.player.movement.velocity;
 	var maxSpeed = Config.game.blackhole.movement.maxAcceleration;
 
 	var InputHandler = this.game.InputHandler;
-
+	var v;
 
 	if (InputHandler.get(InputKey.SPACE).isPressed) {
 		if (this.shootDelay <= 0)
@@ -115,43 +118,25 @@ Player.prototype.movePlayer = function() {
 
 	if (InputHandler.get(InputKey.LEFT).isPressed) {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
-		var determinedRotationVelocity = (isShift) ? Math.PI / 1700 : Math.PI / 400;
-
-		// change rotation
-		this.rotateVelocity -= determinedRotationVelocity;
+		
 	};
 
 	if (InputHandler.get(InputKey.RIGHT).isPressed) {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
-		var determinedRotationVelocity = (isShift) ? Math.PI / 1700 : Math.PI / 400;
-
-		this.rotateVelocity += determinedRotationVelocity;
+		
 	};
 
 	if (InputHandler.get(InputKey.UP).isPressed) {
-		var rotation = this.rotation;
-		var v = new Vector2D(Math.cos(rotation), Math.sin(rotation)).smultiply(0.2);
-
-		var isCtrl = InputHandler.get(InputKey.CTRL).isPressed;
-		if (isCtrl) this.velocity = this.velocity.smultiply(0.6);
-		// accelerate
-		this.acceleration = this.acceleration.add(v);
-		
-		this.world.velocity = this.world.velocity.add(v.smultiply(-0.2));
+		v = new Vector2D(0, -speed);
+		this.position = this.position.add(v);
+		this.world.velocity = this.world.velocity.add(v.smultiply(-0.05));
 	};
 
 	if (InputHandler.get(InputKey.DOWN).isPressed) {
 		
-		var rotation = this.rotation;
-		var v = new Vector2D(Math.cos(rotation), Math.sin(rotation)).smultiply(-0.1);
-
-		var isCtrl = InputHandler.get(InputKey.CTRL).isPressed;
-		if (isCtrl) this.velocity = this.velocity.smultiply(0.6);
-		
-		// decelerate
-		this.acceleration = this.acceleration.add(v);
-		
-		this.world.velocity = this.world.velocity.add(v.smultiply(-0.2));
+		v = new Vector2D(0, speed);
+		this.position = this.position.add(v);
+		this.world.velocity = this.world.velocity.add(v.smultiply(-0.05));
 	};
 }
 

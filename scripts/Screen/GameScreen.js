@@ -10,9 +10,10 @@ GameScreen.prototype.initialize = function () {
 	Screen.prototype.initialize.call(this);
 	this.world = new World(game, GameScreen.prototype.checkGameOver);
 	game.worldReference = this.world;
+	this.world.initialize();
 	this.HUD = new HUD(this.world);
 	
-	this.world.initialize();
+	
 }
 
 GameScreen.prototype.draw = function(context) {

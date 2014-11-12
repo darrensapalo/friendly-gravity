@@ -31,6 +31,7 @@ var resourceList = [
 	{name: "comet",               url: "comets/comet-revised.png",                 type: "ui"},
 
 	{name: "blaster",             url: "blaster/blaster.png",                      type: "ui"},
+	{name: "explosion",           url: "explosion/explosion.png",                  type: "ui"},
 
 
 	// ================================================================================

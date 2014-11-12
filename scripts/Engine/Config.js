@@ -22,7 +22,8 @@ var Config = {
 		deduction: 50,
 		duration: 30,
 		speed: 0.01,
-		friction: 0.85,
+		friction: 1,
+		maxHP: 100,
 
 		trail: {
 			isVisible: true,
@@ -33,6 +34,11 @@ var Config = {
 
 		planet: {
 			growthDuration: 1200
+		},
+		player:{
+			movement: {
+				velocity: 2,
+			}
 		},
 
 		blackhole:{
@@ -46,9 +52,9 @@ var Config = {
 				max: 0.9
 			},
 			movement: {
-				maxVelocity: 3.2,
-				maxAcceleration: 5,
-				acceleration: 0.3,
+				maxVelocity: 0.7,
+				maxAcceleration: 2,
+				acceleration: 0.05,
 				spaceBound: 0.9
 			},
 

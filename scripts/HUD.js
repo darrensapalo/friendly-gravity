@@ -1,9 +1,7 @@
 function HUD(world)
 {
 	this.world = world;
-	this.blackhole = world.blackhole;
-
-	this.PulseNova = new PulseNova(this.blackhole);
+	this.PulseNova = new PulseNova(this.world.player);
 }
 
 HUD.prototype.update = function() {

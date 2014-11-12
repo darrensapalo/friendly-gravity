@@ -1,5 +1,7 @@
-function PulseNova()
+function PulseNova(player)
 {
+	this.player = player;
+
 	this.bar = new CenteredSprite("bar", 400, 20, 750, 38);
 	this.bar.scalex = this.bar.scaley = 0.6;
 
@@ -8,15 +10,10 @@ function PulseNova()
 
 }
 
-PulseNova.prototype.isReady = function() 
-{
-	return this.counter <= 0;	
-}
-
 PulseNova.prototype.update = function()
 {	
 	var M = new MathHelper();
-	this.bar.width = M.clamp(game.world.score / 750 * 750, 0, 750);
+	this.bar.width = M.clamp(this.player.hp / Config.game.maxHP * 750, 0, 750);
 }
 
 PulseNova.prototype.reset = function()

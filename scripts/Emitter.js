@@ -24,8 +24,6 @@ Emitter.prototype.spawn = function()
 	var newEntity;
 	var type;
 
-
-
 	do {
 		type = M.random(1,2);
 

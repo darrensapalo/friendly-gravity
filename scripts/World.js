@@ -7,7 +7,7 @@ function World(game, callback)
 World.prototype.initialize = function()
 {
 	this.player =  new Player(game, this);
-	this.blackhole = new Blackhole(game, this);
+	// this.blackhole = new Blackhole(game, this);
 	this.emitter = new Emitter(this);
 
 	this.comets = new Array();
@@ -23,10 +23,10 @@ World.prototype.initialize = function()
 	this.resizeWidth = 800 * 1.3;
 	this.resizeHeight = 480 * 1.3;
 
-	this.countdownLeft = 33 * 1000;
+	this.countdownLeft = 33 * 10000;
 	this.score = 0;
 	this.eaten = new Eaten();
-	this.blackhole.initialize();
+	// this.blackhole.initialize();
 	this.player.initialize();
 
 	this.isGameOver = false;
@@ -47,7 +47,7 @@ World.prototype.draw = function(context) {
 		this.asteroids[i].draw(context);
 	};
 
-	this.blackhole.draw(context);
+	// this.blackhole.draw(context);
 	this.player.draw(context);
 }
 
@@ -68,12 +68,10 @@ World.prototype.update = function() {
 		this.asteroids[i].update();
 	};
 
-	// update blackhole
 	this.player.update();
+	// this.blackhole.update();
 
-	this.blackhole.update();
-
-	this.velocity = this.velocity.smultiply(Config.game.friction);
+	this.velocity = this.velocity.smultiply(0.9);
 	this.mapx += this.velocity.x;
 	this.mapy += this.velocity.y;
 

@@ -26,7 +26,6 @@ Blaster.prototype.initialize = function() {
 
 Blaster.prototype.update = function(){
 	Entity.prototype.update.call(this);
-	console.log("updating!");
 }
 
 

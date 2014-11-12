@@ -30,12 +30,12 @@ Consumable.prototype.initialize = function()
 
 	// Select random spawn point
 	do{	
-
-		this.position.x = M.random(35, game.ScreenManager.canvas.width - 70);
+		this.position.x = M.random(game.ScreenManager.canvas.width, game.ScreenManager.canvas.width + 50);
 		this.position.y = M.random(70, game.ScreenManager.canvas.height - 70);
 
 	}while( this.checkNear( this.world.player ) );
 
+	this.velocity.x = -2;
 }
 
 Consumable.prototype.gravitate = function(target) {
@@ -54,14 +54,10 @@ Consumable.prototype.update = function() {
 	
 	var blackhole = this.world.blackhole;
 	
-	this.checkConsumed(blackhole);
-
-	this.gravitate(blackhole);
-
-	// this.lifeSpan -= 33;
-
-	if (this.isDestroying == false && this.lifeSpan <= 0)
-		this.destroy();
+	if (blackhole !== undefined){
+		this.checkConsumed(blackhole);
+		this.gravitate(blackhole);
+	}
 }
 
 Consumable.prototype.draw = function(context) {
@@ -84,7 +80,7 @@ Consumable.prototype.checkGravitate = function(target)
 
 Consumable.prototype.checkConsumed = function(target){
 	if (this.world.isTutorial) return false;
-	
+
 	if (this.isConsumed == false)
 	{
 		if (this.sprite.collidesWith(target.sprite)) {
@@ -108,6 +104,5 @@ Consumable.prototype.checkConsumed = function(target){
 }
 
 Consumable.prototype.destroy = function(target){
-	this.isDestroying = true;
 	createjs.Tween.get(this.sprite).wait(1200).to({ opacity:0, scalex:0.01, scaley:0.01 }, Config.game.trail.fadeDuration).call(function(cons) {cons.isDestroyed = true;}, [this]);
 }
