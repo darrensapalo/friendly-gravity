@@ -108,5 +108,5 @@ Consumable.prototype.checkConsumed = function(target){
 }
 
 Consumable.prototype.destroy = function(target){
-	createjs.Tween.get(this.sprite).wait(1200).to({ opacity:0, scalex:0.01, scaley:0.01 }, Config.game.trail.fadeDuration).call(function(cons) {cons.isDestroyed = true;}, [this]);
+	createjs.Tween.get(this.sprite).wait(100).to({ opacity:0, scalex:0.01, scaley:0.01 }, Config.game.trail.fadeDuration).call(function(cons) {cons.isDestroyed = true;}, [this]);
 }

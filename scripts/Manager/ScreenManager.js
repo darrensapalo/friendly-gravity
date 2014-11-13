@@ -20,6 +20,12 @@ function ScreenManager(game, canvasName)
 	this.currentScreen = null;
 }
 
+ScreenManager.prototype.insideScreen = function(vector2d) {
+	var max_x = this.canvas.width;
+	var max_y = this.canvas.height;
+	return vector2d.x < 0 || vector2d.x > max_x || vector2d.y < 0 || vector2d.y > max_y;
+};
+
 ScreenManager.prototype.initialize = function(startScreen) {
 	if (typeof startScreen === 'undefined') throw new Error("NullError: You did not specify the first screen of the game. The parameter was: '" + startScreen + "'.");
 	this.changeScreen(startScreen, true);

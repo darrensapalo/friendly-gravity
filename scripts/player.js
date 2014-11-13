@@ -31,6 +31,7 @@ Player.prototype.initialize = function() {
 	this.blasters = [];
 
 	this.hp = Config.game.maxHP;
+	this.fuel = 0;
 }
 
 Player.prototype.update = function(){

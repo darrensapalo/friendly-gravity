@@ -84,7 +84,7 @@ World.prototype.update = function() {
 	// check if the game is
 	this.checkGameOver();
 
-	this.countdownLeft -= 33; // 33ms elapsed
+	this.countdownLeft -= 20; // 33ms elapsed
 }
 
 World.prototype.bound = function()

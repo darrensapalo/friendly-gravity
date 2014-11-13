@@ -23,6 +23,7 @@ var Config = {
 		duration: 30,
 		speed: 0.01,
 		friction: 1,
+		goalFuel: 100,
 		maxHP: 100,
 
 		trail: {

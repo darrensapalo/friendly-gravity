@@ -13,7 +13,7 @@ function PulseNova(player)
 PulseNova.prototype.update = function()
 {	
 	var M = new MathHelper();
-	this.bar.width = M.clamp(this.player.hp / Config.game.maxHP * 750, 0, 750);
+	this.bar.width = M.clamp(this.player.fuel / Config.game.goalFuel * 750, 0, 750);
 }
 
 PulseNova.prototype.reset = function()
