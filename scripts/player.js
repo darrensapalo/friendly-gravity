@@ -31,7 +31,7 @@ Player.prototype.initialize = function() {
 	this.blasters = [];
 
 	this.hp = Config.game.maxHP;
-	this.fuel = 0;
+	this.fuel = Config.game.goalFuel;
 }
 
 Player.prototype.update = function(){
@@ -121,6 +121,7 @@ Player.prototype.movePlayer = function() {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
 		v = new Vector2D(-speed, 0);
 		this.position = this.position.add(v);
+		this.fuel -= 0.02;
 		
 	};
 
@@ -128,13 +129,14 @@ Player.prototype.movePlayer = function() {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
 		v = new Vector2D(speed, 0);
 		this.position = this.position.add(v);
-		
+		this.fuel -= 0.02;
 	};
 
 	if (InputHandler.get(InputKey.UP).isPressed) {
 		v = new Vector2D(0, -speed);
 		this.position = this.position.add(v);
 		this.world.velocity = this.world.velocity.add(v.smultiply(-0.05));
+		this.fuel -= 0.02;
 	};
 
 	if (InputHandler.get(InputKey.DOWN).isPressed) {
@@ -142,6 +144,7 @@ Player.prototype.movePlayer = function() {
 		v = new Vector2D(0, speed);
 		this.position = this.position.add(v);
 		this.world.velocity = this.world.velocity.add(v.smultiply(-0.05));
+		this.fuel -= 0.02;
 	};
 }
 

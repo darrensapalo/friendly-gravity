@@ -44,4 +44,9 @@ Asteroid.prototype.initialize = function () {
 Asteroid.prototype.update = function() {
 	Consumable.prototype.update.call(this);
 	this.sprite.rotation -= Math.PI / 164;
+	var p = this.world.player.position;
+	if (this.isDestroying == false && this.sprite.contains(p.x, p.y)) {
+		this.destroy();
+		this.world.player.fuel -= 15;
+	}
 };

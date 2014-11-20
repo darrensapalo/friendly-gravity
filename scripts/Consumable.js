@@ -36,6 +36,8 @@ Consumable.prototype.initialize = function()
 	}while( this.checkNear( this.world.player ) );
 
 	this.velocity.x = -2;
+
+	this.velocity.y += M.random(-4, 4) * 0.2;
 }
 
 Consumable.prototype.gravitate = function(target) {
@@ -108,5 +110,8 @@ Consumable.prototype.checkConsumed = function(target){
 }
 
 Consumable.prototype.destroy = function(target){
-	createjs.Tween.get(this.sprite).wait(100).to({ opacity:0, scalex:0.01, scaley:0.01 }, Config.game.trail.fadeDuration).call(function(cons) {cons.isDestroyed = true;}, [this]);
+	if (this.isDestroying == false){
+		this.isDestroying = true;
+	createjs.Tween.get(this.sprite).wait(100).to({ opacity:0, scalex:2.0, scaley:2.00 }, Config.game.trail.fadeDuration).call(function(cons) {cons.isDestroyed = true;}, [this]);
+}
 }

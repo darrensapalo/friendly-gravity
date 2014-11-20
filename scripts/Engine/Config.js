@@ -29,7 +29,7 @@ var Config = {
 		trail: {
 			isVisible: true,
 			emit: 1,
-			fadeDuration: 150,
+			fadeDuration: 300,
 			size: 50,
 		},
 
