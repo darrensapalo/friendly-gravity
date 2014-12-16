@@ -84,20 +84,20 @@ World.prototype.update = function() {
 	// check if the game is
 	this.checkGameOver();
 
-	this.countdownLeft -= 20; // 33ms elapsed
+	this.countdownLeft -= 33; // 33ms elapsed
 }
 
 World.prototype.bound = function()
 {
 	if (this.mapx < this.originalmapx)
-		this.mapx += Math.abs(this.mapx - this.originalmapx) * 0.025;
+		this.mapx += Math.abs(this.mapx - this.originalmapx) * 0.35;
 	else if (this.mapx > this.originalmapx)
-		this.mapx -= Math.abs(this.mapx - this.originalmapx) * 0.025;
+		this.mapx -= Math.abs(this.mapx - this.originalmapx) * 0.35;
 	
 	if (this.mapy < this.originalmapy)
-		this.mapy += Math.abs(this.mapy - this.originalmapy) * 0.025;
+		this.mapy += Math.abs(this.mapy - this.originalmapy) * 0.35;
 	else if (this.mapy > this.originalmapy)
-		this.mapy -= Math.abs(this.mapy - this.originalmapy) * 0.025;
+		this.mapy -= Math.abs(this.mapy - this.originalmapy) * 0.35;
 	
 }
 
