@@ -104,9 +104,9 @@ World.prototype.bound = function()
 		this.mapx -= Math.abs(this.mapx - this.originalmapx) * 0.35;
 	*/
 	if (this.mapy < this.originalmapy)
-		this.mapy += Math.abs(this.mapy - this.originalmapy) * 0.55;
+		this.mapy += Math.abs(this.mapy - this.originalmapy) * 0.75;
 	else if (this.mapy > this.originalmapy)
-		this.mapy -= Math.abs(this.mapy - this.originalmapy) * 0.55;
+		this.mapy -= Math.abs(this.mapy - this.originalmapy) * 0.75;
 	
 }
 
