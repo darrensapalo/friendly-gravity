@@ -4,8 +4,8 @@ var Config = {
 	warning: false,
 
 	ui: {
-		font: "Space Age",
-		fontSize: "13pt",
+		font: "Minecraftia",
+		fontSize: "9pt",
 	},
 	
 	sound: {
