@@ -14,14 +14,17 @@ World.prototype.initialize = function()
 	this.planets = new Array();
 	this.asteroids = new Array();
 
+	var mapReduce = 0.5;
+
+	this.width = 1782 / 1.05;
+	this.height = 600 / 1.05;
+
 	// Drawing variables
-	this.mapx = this.originalmapx = -120;
-	this.mapy = this.originalmapy = -72;
+	this.mapx = this.originalmapx = -(this.width / 2) * mapReduce;
+	this.mapy = this.originalmapy = (this.height / 200) * mapReduce;
 
 	this.velocity = new Vector2D();
 
-	this.resizeWidth = 800 * 1.3;
-	this.resizeHeight = 480 * 1.3;
 
 	this.countdownLeft = 33 * 10000;
 	this.score = 0;
@@ -33,7 +36,11 @@ World.prototype.initialize = function()
 }
 
 World.prototype.draw = function(context) {
-	context.drawImage(this.getBackground(), this.mapx, this.mapy, this.resizeWidth, this.resizeHeight);
+	context.drawImage(this.getBackground(), this.mapx, this.mapy, this.width, this.height);
+	context.drawImage(this.getBackground(), this.mapx + this.width, this.mapy, this.width, this.height);
+	context.drawImage(this.game.ImageLoader.images['starfield'], this.mapx + this.width, this.mapy, this.width, this.height);
+
+
 
 	for (var i = 0; i < this.comets.length; i++) {
 		this.comets[i].draw(context);
@@ -71,8 +78,7 @@ World.prototype.update = function() {
 	this.player.update();
 	// this.blackhole.update();
 
-	this.velocity = this.velocity.smultiply(0.9);
-	this.mapx += this.velocity.x;
+	this.mapx -= 0.3;
 	this.mapy += this.velocity.y;
 
 
@@ -89,15 +95,18 @@ World.prototype.update = function() {
 
 World.prototype.bound = function()
 {
+	if (this.mapx <= this.originalmapx - this.width)
+		this.mapx = this.originalmapx;
+	/*
 	if (this.mapx < this.originalmapx)
 		this.mapx += Math.abs(this.mapx - this.originalmapx) * 0.35;
 	else if (this.mapx > this.originalmapx)
 		this.mapx -= Math.abs(this.mapx - this.originalmapx) * 0.35;
-	
+	*/
 	if (this.mapy < this.originalmapy)
-		this.mapy += Math.abs(this.mapy - this.originalmapy) * 0.35;
+		this.mapy += Math.abs(this.mapy - this.originalmapy) * 0.55;
 	else if (this.mapy > this.originalmapy)
-		this.mapy -= Math.abs(this.mapy - this.originalmapy) * 0.35;
+		this.mapy -= Math.abs(this.mapy - this.originalmapy) * 0.55;
 	
 }
 
@@ -131,7 +140,7 @@ World.prototype.entropy = function() {
 }
 
 World.prototype.getBackground = function() {
-
-	var texture = (session.account.difficulty == 1) ? "unlocked_background" : "default_background";
-	return this.game.ImageLoader.images[texture];
+	return this.game.ImageLoader.images['farback'];
+	// var texture = (session.account.difficulty == 1) ? "unlocked_background" : "default_background";
+	// return this.game.ImageLoader.images[texture];
 }
