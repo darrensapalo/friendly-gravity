@@ -37,3 +37,11 @@ Button.prototype.click = function (evt) {
 Button.prototype.draw = function(context) {
 	this.sprite.draw(context);
 }
+
+Button.prototype.create = function(type, p){
+	switch(type){
+		case "Hoverable":
+			return new HoverableButton("button", "buttonHighlight", p.x, p.y, 255, 80);
+		break;
+	}
+}
