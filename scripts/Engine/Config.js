@@ -39,6 +39,7 @@ var Config = {
 		player:{
 			movement: {
 				velocity: 4,
+				maxVelocity: 4
 			}
 		},
 
