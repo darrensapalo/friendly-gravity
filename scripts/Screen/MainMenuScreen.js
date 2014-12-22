@@ -18,7 +18,7 @@ MainMenuScreen.prototype.initialize = function () {
 	this.howToPlay = new TextSprite("Tutorial", x, 325, 100, 20);
 	this.about = new TextSprite("About", x, 405, 100, 20);
 
-	this.beginPlayingButton = new HoverableButton("button", "buttonHighlight", 410, 180, 255, 80);
+	this.beginPlayingButton = Button.prototype.create("Hoverable", new Vector2D(410, 180)); //new HoverableButton("button", "buttonHighlight", 410, 180, 255, 80);
 	this.beginShoppingButton = new HoverableButton("button", "buttonHighlight", 410, 260, 255, 80);
 	this.howToPlayButton = new HoverableButton("button", "buttonHighlight", 410, 340, 255, 80);
 	this.aboutButton = new HoverableButton("button", "buttonHighlight", 410, 420, 255, 80);

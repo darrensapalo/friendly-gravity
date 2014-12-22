@@ -9,7 +9,7 @@ var Config = {
 	},
 	
 	sound: {
-		musicEnabled: true,
+		musicEnabled: false,
 
 		bgmVolume: 1,
 		bgmRepeat: true,	

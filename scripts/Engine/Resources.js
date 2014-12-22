@@ -60,9 +60,9 @@ var resourceList = [
 	{name: "panel",               url: "ui/panel.png",                             type: "ui"},
 
 	// Butons
-	{name: "button",              url: "buttons/button.png",                       type: "ui"},
-	{name: "buttonHighlight",     url: "buttons/buttonHighlight.png",              type: "ui"},
-	{name: "buttonReset",         url: "buttons/buttonReset.png",                  type: "ui"},
+	{name: "button",              url: "ui/kenney/png/blue_button01.png",                       type: "ui"},
+	{name: "buttonHighlight",     url: "ui/kenney/png/blue_button00.png",              type: "ui"},
+	{name: "buttonReset",         url: "ui/kenney/png/red_button01.png",                  type: "ui"},
 
 	// Tutorial
 	{name: "arrowDown",           url: "ui/arrows/arrow-down.png",                 type: "ui"},
