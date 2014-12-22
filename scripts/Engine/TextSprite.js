@@ -30,12 +30,22 @@ TextSprite.prototype.draw = function (context) {
 		context.textBaseline = "top";
 		context.textAlign = "center";
 
-		context.strokeText(this.text, this.x + this.width / 2,this.y + this.height / 4);
-		context.fillText(this.text, this.x + this.width / 2,this.y + this.height / 4);
-		context.globalAlpha = 1;
+		var capText = this.text; //this.capitalise(this.text);
+		context.fillStyle = this.bgColor;
+		context.fillText(capText, (this.x + this.width / 2) + 1, (this.y + this.height / 4) + 1);
+		context.fillStyle = this.textColor;
+		context.fillText(capText, this.x + this.width / 2,this.y + this.height / 4);
 
 	}
 }
+
+TextSprite.prototype.capitalise = function(text) {
+	var result = "";
+	for (var i = 0; i < text.length; i++){
+		result += text.charAt(i).toUpperCase();
+	}
+	return result;
+};
 
 
 TextSprite.prototype.IsKeyHit = function (aX,aY) {
