@@ -32,9 +32,12 @@ World.prototype.initialize = function()
 	this.isGameOver = false;
 }
 
-World.prototype.draw = function(context) {
+World.prototype.drawBackground = function(context)
+{
 	context.drawImage(this.getBackground(), this.mapx, this.mapy, this.resizeWidth, this.resizeHeight);
+}
 
+World.prototype.draw = function(context) {
 	for (var i = 0; i < this.comets.length; i++) {
 		this.comets[i].draw(context);
 	};
@@ -71,9 +74,11 @@ World.prototype.update = function() {
 	this.player.update();
 	// this.blackhole.update();
 
-	this.velocity = this.velocity.smultiply(0.9);
+	
+	this.velocity = this.velocity.smultiply(0.59);
 	this.mapx += this.velocity.x;
 	this.mapy += this.velocity.y;
+	
 
 
 	// bound the world

@@ -12,18 +12,24 @@ GameScreen.prototype.initialize = function () {
 	game.worldReference = this.world;
 	this.world.initialize();
 	this.HUD = new HUD(this.world);
+	this.camera = new Camera(-500, -300);
 	
 	
 }
 
 GameScreen.prototype.draw = function(context) {
-	Screen.prototype.draw.call(this);
-	this.world.draw(context);
+	this.world.drawBackground(context);
+	this.camera.start(context, -400, -240);
+		this.world.draw(context);
+	this.camera.end(context);
+	
 	this.HUD.draw(context);
 }
 
 GameScreen.prototype.update = function() {
 	Screen.prototype.update.call(this);
+	this.camera.x = this.world.player.position.x;
+	this.camera.y = this.world.player.position.y;
 	this.world.update();
 	this.HUD.update();
 }
