@@ -19,10 +19,8 @@ Blaster.prototype.initialize = function() {
 	scalex = scaley = 1;
 	this.sprite = new CenteredSprite("blaster", this.position.x, this.position.y, width, height, opacity, scalex, scaley);
 
-	var v = new Vector2D(Math.cos(this.angle), Math.sin(this.angle)).smultiply(0.7);
+	var v = new Vector2D(Math.cos(this.angle), Math.sin(this.angle)).smultiply(0.9);
 	this.acceleration = this.acceleration.add(v);
-	var M = new MathHelper();
-	//createjs.Tween.get(this.sprite).to({ opacity: 0 }, M.random(1200, 1500), createjs.Ease.linear);
 }
 
 Blaster.prototype.update = function(){

@@ -31,7 +31,7 @@ Player.prototype.initialize = function() {
 	this.blasters = [];
 
 	this.hp = Config.game.maxHP;
-	this.fuel = 0;
+	this.fuel = Config.game.goalFuel;
 }
 
 Player.prototype.update = function(){
@@ -110,6 +110,8 @@ Player.prototype.movePlayer = function() {
 	var maxSpeed = Config.game.blackhole.movement.maxAcceleration;
 
 	var InputHandler = this.game.InputHandler;
+	var fuelConsumption = 0.2;
+	var isMoving = false;
 	var v;
 
 	if (InputHandler.get(InputKey.SPACE).isPressed) {
@@ -121,6 +123,7 @@ Player.prototype.movePlayer = function() {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
 		v = new Vector2D(-speed, 0);
 		this.position = this.position.add(v);
+		isMoving = true;
 		
 	};
 
@@ -128,13 +131,14 @@ Player.prototype.movePlayer = function() {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
 		v = new Vector2D(speed, 0);
 		this.position = this.position.add(v);
-		
+		isMoving = true;
 	};
 
 	if (InputHandler.get(InputKey.UP).isPressed) {
 		v = new Vector2D(0, -speed);
 		this.position = this.position.add(v);
 		this.world.velocity = this.world.velocity.add(v.smultiply(-0.05));
+		isMoving = true;
 	};
 
 	if (InputHandler.get(InputKey.DOWN).isPressed) {
@@ -142,7 +146,11 @@ Player.prototype.movePlayer = function() {
 		v = new Vector2D(0, speed);
 		this.position = this.position.add(v);
 		this.world.velocity = this.world.velocity.add(v.smultiply(-0.05));
+		isMoving = true;
 	};
+
+	if (isMoving)
+		this.fuel -= fuelConsumption;
 }
 
 Player.prototype.jitter = function(s){

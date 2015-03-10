@@ -9,7 +9,7 @@ var Config = {
 	},
 	
 	sound: {
-		musicEnabled: true,
+		musicEnabled: false,
 
 		bgmVolume: 1,
 		bgmRepeat: true,	
@@ -29,7 +29,7 @@ var Config = {
 		trail: {
 			isVisible: true,
 			emit: 1,
-			fadeDuration: 150,
+			fadeDuration: 300,
 			size: 50,
 		},
 
@@ -39,6 +39,7 @@ var Config = {
 		player:{
 			movement: {
 				velocity: 4,
+				maxVelocity: 4
 			}
 		},
 
