@@ -56,14 +56,16 @@ Sprite.prototype.draw = function (context)
 {
 	this.rotation = this.rotation % (2 * Math.PI);
 	if (this.visible) {
+		if (context.camera == undefined || context.camera.isVisible(this)){
 		context.save();
-		context.translate(this.x , this.y );
-		context.scale(this.scalex, this.scaley);
-		context.rotate(this.rotation);
-		context.globalAlpha = this.opacity;
-		if (this.img == undefined) throw new Error("DrawException: Undefined image to be drawn.");
-		context.drawImage(this.img, this.originx, this.originy, this.width, this.height);
-		context.restore();
+			context.translate(this.x, this.y);
+			context.scale(this.scalex, this.scaley);
+			context.rotate(this.rotation);
+			context.globalAlpha = this.opacity;
+			if (this.img == undefined) throw new Error("DrawException: Undefined image to be drawn.");
+			context.drawImage(this.img, this.originx, this.originy, this.width, this.height);
+			context.restore();
+		}
 	}
 }
 

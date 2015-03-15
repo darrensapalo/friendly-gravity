@@ -13,10 +13,10 @@ MainMenuScreen.prototype.initialize = function () {
 	this.background = new Background();
 
 	var x = 375;
-	this.beginPlaying = new TextSprite("Play", x, 165, 100, 20);
-	this.beginShopping = new TextSprite("Progress", x, 245, 100, 20);
-	this.howToPlay = new TextSprite("Tutorial", x, 325, 100, 20);
-	this.about = new TextSprite("About", x, 405, 100, 20);
+	this.beginPlaying = new TextSprite("Play", x, 155, 100, 20);
+	this.beginShopping = new TextSprite("Progress", x, 235, 100, 20);
+	this.howToPlay = new TextSprite("Tutorial", x, 315, 100, 20);
+	this.about = new TextSprite("About", x, 395, 100, 20);
 
 	var y = 170;
 	this.beginPlayingButton = Button.prototype.create("Hoverable", new Vector2D(420, y));		y += 80;

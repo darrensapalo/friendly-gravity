@@ -69,9 +69,6 @@ Player.prototype.bound = function (context) {
 		this.velocity.y     *= Config.game.blackhole.movement.spaceBound;
 		this.acceleration.y *= Config.game.blackhole.movement.spaceBound;
 	}
-
-	this.position.x = M.clamp(this.position.x, 40, 760);
-	this.position.y = M.clamp(this.position.y, 70, 440);
 }
 
 Player.prototype.draw = function (context) {
@@ -121,30 +118,41 @@ Player.prototype.movePlayer = function() {
 
 	if (InputHandler.get(InputKey.LEFT).isPressed) {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
-		v = new Vector2D(-speed, 0);
-		this.position = this.position.add(v);
-		isMoving = true;
+		var determinedRotationVelocity = (isShift) ? Math.PI / 1700 : Math.PI / 400;
+
+		// change rotation
+		this.rotateVelocity -= determinedRotationVelocity;
 		
 	};
 
 	if (InputHandler.get(InputKey.RIGHT).isPressed) {
 		var isShift = InputHandler.get(InputKey.CTRL).isPressed;
-		v = new Vector2D(speed, 0);
-		this.position = this.position.add(v);
-		isMoving = true;
+		var determinedRotationVelocity = (isShift) ? Math.PI / 1700 : Math.PI / 400;
+		this.rotateVelocity += determinedRotationVelocity;
 	};
 
 	if (InputHandler.get(InputKey.UP).isPressed) {
-		v = new Vector2D(0, -speed);
-		this.position = this.position.add(v);
-		this.world.velocity = this.world.velocity.add(v.smultiply(-0.05));
+		var rotation = this.rotation;
+		var v = new Vector2D(Math.cos(rotation), Math.sin(rotation)).smultiply(speed);
+
+		var isCtrl = InputHandler.get(InputKey.CTRL).isPressed;
+		if (isCtrl) this.velocity = this.velocity.smultiply(0.6);
+
+		// accelerate
+		this.velocity = v;
+		this.world.velocity = this.world.velocity.add(v.smultiply(-0.2));
 		isMoving = true;
 	};
 
 	if (InputHandler.get(InputKey.DOWN).isPressed) {
+		var v = new Vector2D(Math.cos(rotation), Math.sin(rotation)).smultiply(-speed);
+		var isCtrl = InputHandler.get(InputKey.CTRL).isPressed;
+		if (isCtrl)
+			this.velocity = this.velocity.smultiply(0.6);
 		
-		v = new Vector2D(0, speed);
-		this.position = this.position.add(v);
+		// decelerate
+		this.velocity = this.velocity.add(v);
+
 		this.world.velocity = this.world.velocity.add(v.smultiply(-0.05));
 		isMoving = true;
 	};
