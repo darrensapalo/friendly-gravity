@@ -12,7 +12,6 @@ Blaster.prototype = Object.create(Entity.prototype);
 Blaster.prototype.constructor = Blaster;
 
 Blaster.prototype.initialize = function() {
-	var canvas = game.ScreenManager.canvas;
 	width = 15;
 	height = 15;
 	opacity = 1;
@@ -34,6 +33,8 @@ Blaster.prototype.update = function(){
 			this.destroyed = true;
 		}
 	};
+	if (this.position.distance(this.world.player.position) > 10000)
+		this.destroyed = true;
 }
 
 

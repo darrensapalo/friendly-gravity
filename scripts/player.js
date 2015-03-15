@@ -53,7 +53,7 @@ Player.prototype.updateBlasters = function() {
 
 	for (var i = 0; i < this.blasters.length; i++)
 	{
-		if( this.blasters[i].position.x > game.ScreenManager.canvas.width)
+		if( this.blasters[i].destroyed)
 			this.blasters.splice( i, 1 );
 	}
 };

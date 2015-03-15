@@ -38,8 +38,8 @@ World.prototype.initialize = function()
 World.prototype.drawBackground = function(context)
 {
 	context.drawImage(this.getBackground(), this.mapx, this.mapy, this.width, this.height);
-	context.drawImage(this.getBackground(), this.mapx + this.width, this.mapy, this.width, this.height);
-	context.drawImage(this.game.ImageLoader.images['starfield'], this.mapx + this.width, this.mapy, this.width, this.height);
+	// context.drawImage(this.getBackground(), this.mapx + this.width, this.mapy, this.width, this.height);
+	// context.drawImage(this.game.ImageLoader.images['starfield'], this.mapx + this.width, this.mapy, this.width, this.height);
 }
 
 World.prototype.draw = function(context) {
@@ -105,12 +105,12 @@ World.prototype.bound = function()
 		this.mapx += Math.abs(this.mapx - this.originalmapx) * 0.35;
 	else if (this.mapx > this.originalmapx)
 		this.mapx -= Math.abs(this.mapx - this.originalmapx) * 0.35;
-	*/
+	
 	if (this.mapy < this.originalmapy)
 		this.mapy += Math.abs(this.mapy - this.originalmapy) * 0.75;
 	else if (this.mapy > this.originalmapy)
 		this.mapy -= Math.abs(this.mapy - this.originalmapy) * 0.75;
-	
+	*/
 }
 
 World.prototype.entropy = function() {
@@ -143,7 +143,7 @@ World.prototype.entropy = function() {
 }
 
 World.prototype.getBackground = function() {
-	return this.game.ImageLoader.images['farback'];
-	// var texture = (session.account.difficulty == 1) ? "unlocked_background" : "default_background";
-	// return this.game.ImageLoader.images[texture];
+	//return this.game.ImageLoader.images['farback'];
+	var texture = (session.account.difficulty == 1) ? "unlocked_background" : "default_background";
+	return this.game.ImageLoader.images[texture];
 }

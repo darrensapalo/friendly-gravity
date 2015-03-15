@@ -20,5 +20,5 @@ Camera.prototype.end = function(context){
 
 Camera.prototype.isVisible = function(s)
 {
-	return s.x >= this.x + this.offx;
+	return true;
 }

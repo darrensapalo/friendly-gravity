@@ -35,7 +35,7 @@ Consumable.prototype.initialize = function()
 
 	}while( this.checkNear( this.world.player ) );
 
-	this.velocity.x = -2;
+	this.velocity.x = -0.05;
 
 	this.velocity.y += M.random(-4, 4) * 0.2;
 }

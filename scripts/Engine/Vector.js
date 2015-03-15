@@ -19,7 +19,9 @@ Vector2D.prototype.add = function(vector2D) {
 
 Vector2D.prototype.distance = function(vector2D) {
 	this.assertIsVector2D(vector2D);
-	return new Vector2D(vector2D.x * this.x, vector2D.y * this.y);
+	var xdiff = (vector2D.x - this.x);
+	var ydiff = (vector2D.y - this.y);
+	return Math.sqrt(xdiff * xdiff + ydiff * ydiff);
 }
 
 Vector2D.prototype.assertIsVector2D = function(vector2D) {
