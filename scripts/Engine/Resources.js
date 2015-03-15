@@ -57,7 +57,7 @@ var resourceList = [
 
 	// The logo and frames
 	{name: "logo",                url: "logo/logo.png",                            type: "ui"},
-	{name: "panel",               url: "ui/panel.png",                             type: "ui"},
+	{name: "panel",               url: "ui/panel_dark.png",                             type: "ui"},
 
 	// Butons
 	{name: "button",              url: "ui/kenney/png/blue_button02.png",                       type: "ui"},

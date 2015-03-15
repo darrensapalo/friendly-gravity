@@ -96,22 +96,22 @@ ScreenManager.prototype.createButtons = function() {
 	var text = new Array();
 	var button = new Array();
 
-	x = 160;
+	x = 140;
 	y = 420;
-	text[0] = new TextSprite("", x, y, 40, -30);
-	button[0] = new HoverableButton("button", "buttonHighlight", x, y, 255, 80);
+	text[0] = new TextSprite("", x - 20, y, 40, -30);
+	button[0] = new HoverableButton("button", "buttonHighlight", x, y, 190, 49);
 	
 	x += 250;
-	text[1] = new TextSprite("", x, y, 40, -30);
-	button[1] = new HoverableButton("button", "buttonHighlight", x, y, 255, 80);
+	text[1] = new TextSprite("", x - 20, y, 40, -30);
+	button[1] = new HoverableButton("button", "buttonHighlight", x, y, 190, 49);
 	
 	x += 250;
-	text[2] = new TextSprite("", x, y, 40, -30);
-	button[2] = new HoverableButton("button", "buttonHighlight", x, y, 255, 80);
+	text[2] = new TextSprite("", x - 20, y, 40, -30);
+	button[2] = new HoverableButton("button", "buttonHighlight", x, y, 190, 49);
 
 	return {texts: text, buttons: button};
 };
 
 ScreenManager.prototype.createPanel = function() {
-	return new Sprite("panel", 150, 70, 490, 305, 0.8);
+	return new Sprite("panel", 150, 70, 490, 305, 0.9);
 }
