@@ -36,12 +36,6 @@ Comet.prototype.update = function () {
 			this.trails[i].update();
 		}
 	}
-	var player = this.world.player;
-	if (this.isConsumed == false && player.sprite.contains(this.position.x, this.position.y)){
-		this.destroy();
-		this.isConsumed = true;
-		player.fuel += 1;
-	}
 }
 
 Comet.prototype.draw = function (context) {

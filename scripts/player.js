@@ -9,8 +9,7 @@ Player.prototype.constructor = Player;
 
 Player.prototype.initialize = function() {
 	var canvas = game.ScreenManager.canvas;
-	var scalex = 0.4;
-	var scaley = 0.4;
+	var scale = 1;
 	var opacity = 1;
 
 	var M = new MathHelper();
@@ -22,7 +21,7 @@ Player.prototype.initialize = function() {
 	height = Ships[style].height;
 
 	this.position = new Vector2D(50, canvas.height / 2);
-	this.sprite = new CenteredSprite(sprite, this.position.x, this.position.y, width, height, opacity, scalex, scaley);
+	this.sprite = new CenteredSprite(sprite, this.position.x, this.position.y, width, height, opacity, scale, scale);
 
 	this.sprite.rotation = Math.PI * 3 / 2;
 

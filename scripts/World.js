@@ -77,7 +77,7 @@ World.prototype.update = function() {
 	};
 
 	this.player.update();
-	// this.blackhole.update();
+	this.blackhole.update();
 
 	this.velocity = this.velocity.smultiply(0.59);
 	this.mapx += this.velocity.x;
