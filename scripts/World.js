@@ -14,7 +14,7 @@ World.prototype.initialize = function()
 	this.planets = new Array();
 	this.asteroids = new Array();
 
-	var mapReduce = 0.5;
+	var mapReduce = 0.9;
 
 	this.width = 1782 / 1.05;
 	this.height = 600 / 1.05;
@@ -24,7 +24,6 @@ World.prototype.initialize = function()
 	this.mapy = this.originalmapy = (this.height / 200) * mapReduce;
 
 	this.velocity = new Vector2D();
-
 
 	this.countdownLeft = 33 * 10000;
 	this.score = 0;

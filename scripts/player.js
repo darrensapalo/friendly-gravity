@@ -155,8 +155,10 @@ Player.prototype.movePlayer = function() {
 		isMoving = true;
 	}
 
-	if (isMoving)
+	if (isMoving){
 		this.fuel -= fuelConsumption;
+		this.world.velocity = v.sub(this.world.velocity);
+	}
 }
 
 
