@@ -11,7 +11,7 @@ Emitter.prototype.update = function() {
 	if (this.spawnTime <= 0)
 	{
 		this.spawn();
-		this.spawnTime = 15000 + M.random(300);
+		this.spawnTime = 1000 + M.random(300);
 	}
 	this.spawnTime -= 33;
 }
@@ -26,6 +26,7 @@ Emitter.prototype.spawn = function()
 
 	do {
 		type = M.random(1,2);
+		type = 2;
 
 		if (this.world.planets.length < 1 && M.random(100) < 5)
 		{
