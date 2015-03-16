@@ -14,7 +14,7 @@ Comet.prototype.initialize = function(){
 	this.kind = M.random(1, 6);
 
 	// Vary in size
-	this.size = M.random(20, 35);
+	this.size = M.random(15, Config.game.trail.size - 10);
 
 	if (Config.debug)
 		console.log("Creating new comet of size " + this.size);

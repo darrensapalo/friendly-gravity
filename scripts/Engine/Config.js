@@ -29,8 +29,8 @@ var Config = {
 		trail: {
 			isVisible: true,
 			emit: 1,
-			fadeDuration: 1200,
-			size: 50,
+			fadeDuration: 700,
+			size: 35,
 		},
 
 		planet: {
