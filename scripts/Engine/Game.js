@@ -20,7 +20,7 @@ Game.prototype.start = function() {
 	
 	this.ImageLoader.onComplete = function() { 
 		thisObj.initGame();
-		setTimeout( function() { thisObj.loop(thisObj.ScreenManager.context) }, 1000 / 60);
+		setTimeout( function() { thisObj.loop(thisObj.ScreenManager.context) }, 1000 / 30);
 	};
 	this.ImageLoader.load();
 }
@@ -50,7 +50,7 @@ Game.prototype.loop = function() {
 	this.draw();
 	this.update();
 	var thisObj = this;
-	setTimeout( function() { thisObj.loop() }, 1000 / 60);
+	setTimeout( function() { thisObj.loop() }, 1000 / 30);
 }
 
 Game.prototype.draw = function() {

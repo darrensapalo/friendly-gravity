@@ -38,8 +38,9 @@ var Config = {
 		},
 		player:{
 			movement: {
-				velocity: 4,
-				maxVelocity: 4
+				velocity: 1,
+				maxVelocity: 6,
+				fuelConsumption: 0.1
 			}
 		},
 

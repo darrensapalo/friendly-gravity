@@ -11,7 +11,7 @@ Emitter.prototype.update = function() {
 	if (this.spawnTime <= 0)
 	{
 		this.spawn();
-		this.spawnTime = M.random(300);
+		this.spawnTime = 15000 + M.random(300);
 	}
 	this.spawnTime -= 33;
 }

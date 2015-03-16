@@ -7,7 +7,7 @@ function World(game, callback)
 World.prototype.initialize = function()
 {
 	this.player =  new Player(game, this);
-	// this.blackhole = new Blackhole(game, this);
+	this.blackhole = new Blackhole(game, this);
 	this.emitter = new Emitter(this);
 
 	this.comets = new Array();
@@ -29,7 +29,7 @@ World.prototype.initialize = function()
 	this.countdownLeft = 33 * 10000;
 	this.score = 0;
 	this.eaten = new Eaten();
-	// this.blackhole.initialize();
+	this.blackhole.initialize();
 	this.player.initialize();
 
 	this.isGameOver = false;
@@ -55,7 +55,7 @@ World.prototype.draw = function(context) {
 		this.asteroids[i].draw(context);
 	};
 
-	// this.blackhole.draw(context);
+	this.blackhole.draw(context);
 	this.player.draw(context);
 }
 
