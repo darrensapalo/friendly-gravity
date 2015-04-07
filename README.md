@@ -11,9 +11,7 @@ To move, Use the **left, right, up, and down** arrow keys. You can also use the 
 Along the development of the game, a js game engine is being developed as well.
 
 ## To do list
-- [x] Create Rectangle class
-- [ ] Implement Rectangle class
-- [ ] Integrate with Sprite class
-- [ ] Bound an entity within a rectangle
+- [ ] Implement particles when colliding with blasters
+- [ ] Trade commodities in different planets
 
 Developed by Darren Sapalo and Loren Rosales in De La Salle University's Game Development Lab (DGDL).
